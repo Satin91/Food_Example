@@ -11,6 +11,7 @@
 		8E287837296EE1FB00AD8D25 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287836296EE1FB00AD8D25 /* ContentView.swift */; };
 		8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E287838296EE1FD00AD8D25 /* Assets.xcassets */; };
 		8E28783C296EE1FD00AD8D25 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E28783B296EE1FD00AD8D25 /* Preview Assets.xcassets */; };
+		8E287843296EEB2B00AD8D25 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287842296EEB2B00AD8D25 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		8E287836296EE1FB00AD8D25 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8E287838296EE1FD00AD8D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E28783B296EE1FD00AD8D25 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8E287842296EEB2B00AD8D25 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */,
+				8E287842296EEB2B00AD8D25 /* NetworkManager.swift */,
 				8E287836296EE1FB00AD8D25 /* ContentView.swift */,
 				8E287838296EE1FD00AD8D25 /* Assets.xcassets */,
 				8E28783A296EE1FD00AD8D25 /* Preview Content */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E287843296EEB2B00AD8D25 /* NetworkManager.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* ContentView.swift in Sources */,
 				8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */,
 			);
