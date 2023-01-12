@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct Food_ExampleApp: App {
+struct FoodExampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppCoordinator()
         }
     }
 }
