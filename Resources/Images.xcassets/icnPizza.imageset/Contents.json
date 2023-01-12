@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icnPizza.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

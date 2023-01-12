@@ -19,7 +19,7 @@ enum Fonts {
         case regular = "Poppins-Regular"
         case semiBold = "Poppins-SemiBold"
         case thin = "Poppins-Thin"
-        case dmSants = "DMSans-Bold"
+        case dmSans = "DMSans-Bold"
     }
     
     

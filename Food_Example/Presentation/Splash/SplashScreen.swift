@@ -8,18 +8,26 @@
 import SwiftUI
 
 struct SplashScreen: View {
+    let onOnboardingScreen: () -> Void
+    
     var body: some View {
-        Text("The new NTF")
+        Text("Food Recipes")
             .font(
-                Fonts.custom(.dmSants,
+                Fonts.custom(.bold,
                 size: Constants.FontSizes.upperLarge)
             )
             .foregroundColor(.red)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    self.onOnboardingScreen()
+                })
+            }
     }
 }
 
 struct SplashScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SplashScreen()
+        SplashScreen(onOnboardingScreen: {
+        })
     }
 }

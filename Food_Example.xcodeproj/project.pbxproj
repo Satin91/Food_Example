@@ -23,6 +23,11 @@
 		8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE9297072C600990D9D /* Fonts.swift */; };
 		8E1E3EEC297075F100990D9D /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */; };
 		8E1E3EEE297077B400990D9D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EED297077B400990D9D /* Theme.swift */; };
+		8E1E3EF02970797200990D9D /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */; };
+		8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */; };
+		8E1E3EF529707DC500990D9D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF429707DC500990D9D /* Images.xcassets */; };
+		8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */; };
+		8E1E3EF92970878700990D9D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF82970878700990D9D /* Colors.xcassets */; };
 		8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */; };
 		8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287836296EE1FB00AD8D25 /* MainScreen.swift */; };
 		8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E287838296EE1FD00AD8D25 /* Assets.xcassets */; };
@@ -50,6 +55,11 @@
 		8E1E3EE9297072C600990D9D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		8E1E3EED297077B400990D9D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
+		8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
+		8E1E3EF429707DC500990D9D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
+		8E1E3EF82970878700990D9D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8E287831296EE1FB00AD8D25 /* Food_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food_ExampleApp.swift; sourceTree = "<group>"; };
 		8E287836296EE1FB00AD8D25 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
@@ -106,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				8E1E3EE229706C9B00990D9D /* Splash */,
+				8E1E3EF129707C1500990D9D /* Onboarding */,
 				8E1E3EC32970632200990D9D /* MainScreen */,
 				8E1E3EC82970658A00990D9D /* Theme */,
 			);
@@ -151,6 +162,8 @@
 			children = (
 				8E1E3ECB297065E300990D9D /* Fonts */,
 				8E287838296EE1FD00AD8D25 /* Assets.xcassets */,
+				8E1E3EF429707DC500990D9D /* Images.xcassets */,
+				8E1E3EF82970878700990D9D /* Colors.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -177,8 +190,18 @@
 			children = (
 				8E1E3EE329706CB200990D9D /* SpashScreen.storyboard */,
 				8E1E3EC62970635F00990D9D /* SplashScreen.swift */,
+				8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */,
 			);
 			path = Splash;
+			sourceTree = "<group>";
+		};
+		8E1E3EF129707C1500990D9D /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */,
+				8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		8E287828296EE1FB00AD8D25 = {
@@ -294,12 +317,14 @@
 				8E1E3ED5297065FE00990D9D /* Poppins-Bold.ttf in Resources */,
 				8E1E3ED9297065FE00990D9D /* Poppins-Black.ttf in Resources */,
 				8E1E3EEC297075F100990D9D /* DMSans-Bold.ttf in Resources */,
+				8E1E3EF529707DC500990D9D /* Images.xcassets in Resources */,
 				8E1E3ED8297065FE00990D9D /* Poppins-Thin.ttf in Resources */,
 				8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */,
 				8E1E3EDD297065FE00990D9D /* Poppins-ExtraBold.ttf in Resources */,
 				8E1E3EE429706CB200990D9D /* SpashScreen.storyboard in Resources */,
 				8E1E3EDB297065FE00990D9D /* Poppins-SemiBold.ttf in Resources */,
 				8E1E3ED7297065FE00990D9D /* Poppins-Medium.ttf in Resources */,
+				8E1E3EF92970878700990D9D /* Colors.xcassets in Resources */,
 				8E1E3EDA297065FE00990D9D /* Poppins-Regular.ttf in Resources */,
 				8E1E3EE12970697000990D9D /* Food-Example-Info.plist in Resources */,
 			);
@@ -358,15 +383,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */,
 				8E1E3EEE297077B400990D9D /* Theme.swift in Sources */,
 				8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */,
 				8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */,
 				8E287843296EEB2B00AD8D25 /* NetworkManager.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */,
+				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,
 				8EB4EC97296F3C9E00BDB2CF /* RecipeModel.swift in Sources */,
 				8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */,
 				8EB4EC95296F039800BDB2CF /* MainViewModel.swift in Sources */,
 				8E1E3EE629706E0700990D9D /* AppCoordinator.swift in Sources */,
+				8E1E3EF02970797200990D9D /* SplashScreenViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

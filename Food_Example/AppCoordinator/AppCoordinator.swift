@@ -9,8 +9,9 @@ import SwiftUI
 import FlowStacks
 
 enum Screen {
-    case mainScreen
     case splashScreen
+    case onboardingScreen
+    case mainScreen
     case loginScreen
 }
 
@@ -23,10 +24,16 @@ struct AppCoordinator: View {
             case .mainScreen:
                 MainScreen()
             case .splashScreen:
-                SplashScreen()
+                SplashScreen(onOnboardingScreen: pushOnboardingScreen)
             case .loginScreen:
                 EmptyView()
+            case .onboardingScreen:
+                OnboardingScreen()
             }
         }
+    }
+    
+    func pushOnboardingScreen() {
+        routes = [.root(.onboardingScreen, embedInNavigationView: true)]
     }
 }
