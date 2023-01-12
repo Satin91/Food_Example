@@ -1,0 +1,20 @@
+PODS:
+  - FlowStacks (0.2.5)
+  - SwiftLint (0.49.1)
+
+DEPENDENCIES:
+  - FlowStacks
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - FlowStacks
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  FlowStacks: a8f2c03581f41c4206c8444843a659c8a1897604
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
+
+PODFILE CHECKSUM: 307ecf1b046a286216d12f8dfb89a930ca31b04f
+
+COCOAPODS: 1.11.3
