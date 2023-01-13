@@ -19,7 +19,7 @@ struct CapsuleButton: View {
             .foregroundColor(Color.red)
             .frame(height: capsuleHeight)
             .overlay(
-                text  
+                text
             )
             .onTapGesture {
                 action()

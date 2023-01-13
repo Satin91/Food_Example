@@ -50,7 +50,6 @@ struct OnboardingScreen: View {
                 subTitle: ""
             )
             .tag(4)
-            
         }
         .tabViewStyle(.page)
         .animation(.easeInOut, value: currentStep)
@@ -69,7 +68,7 @@ struct OnboardingScreen: View {
                 )
                 .frame(width: Constants.ButtonWidth.medium)
             } else {
-                 NavigationButton(currentStep: $currentStep)
+                NavigationButton(currentStep: $currentStep)
             }
         }
         .padding(.bottom, Constants.Spacing.m)

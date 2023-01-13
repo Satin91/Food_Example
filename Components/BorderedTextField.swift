@@ -78,7 +78,6 @@ struct BorderedTextField: View {
         .overlay {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .stroke(Colors.border, lineWidth: borderWidth)
-            
         }
     }
     

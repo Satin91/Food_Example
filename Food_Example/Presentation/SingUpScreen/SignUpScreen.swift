@@ -72,7 +72,6 @@ struct SignUpScreen: View {
             print("Sign UP!")
         }
     }
-    
 }
 
 struct SignUpScreen_Previews: PreviewProvider {

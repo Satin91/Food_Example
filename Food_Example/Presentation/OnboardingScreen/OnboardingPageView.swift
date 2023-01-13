@@ -27,6 +27,7 @@ struct OnboardingPageView: View {
         }
         .padding(.horizontal, Constants.Spacing.m)
     }
+    
     private func foodImage(_ image: String) -> some View {
         Image(image)
             .resizable()
@@ -34,9 +35,3 @@ struct OnboardingPageView: View {
             .modifier(LargeShadowModifier())
     }
 }
-
-//struct OnboardingPageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        OnboardingPageView()
-//    }
-//}

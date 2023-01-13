@@ -5,8 +5,8 @@
 //  Created by Артур Кулик on 12.01.2023.
 //
 
-import SwiftUI
 import FlowStacks
+import SwiftUI
 
 enum Screen {
     case splashScreen

@@ -18,7 +18,6 @@
 		8E1E3EDC297065FE00990D9D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ED3297065FE00990D9D /* Poppins-Light.ttf */; };
 		8E1E3EDD297065FE00990D9D /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ED4297065FE00990D9D /* Poppins-ExtraBold.ttf */; };
 		8E1E3EE12970697000990D9D /* Food-Example-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE02970697000990D9D /* Food-Example-Info.plist */; };
-		8E1E3EE429706CB200990D9D /* SpashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE329706CB200990D9D /* SpashScreen.storyboard */; };
 		8E1E3EE629706E0700990D9D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE529706E0700990D9D /* AppCoordinator.swift */; };
 		8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE9297072C600990D9D /* Fonts.swift */; };
 		8E1E3EEC297075F100990D9D /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */; };
@@ -59,7 +58,6 @@
 		8E1E3ED3297065FE00990D9D /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		8E1E3ED4297065FE00990D9D /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		8E1E3EE02970697000990D9D /* Food-Example-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Food-Example-Info.plist"; sourceTree = "<group>"; };
-		8E1E3EE329706CB200990D9D /* SpashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SpashScreen.storyboard; sourceTree = "<group>"; };
 		8E1E3EE529706E0700990D9D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		8E1E3EE9297072C600990D9D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -207,7 +205,6 @@
 		8E1E3EE229706C9B00990D9D /* SplashScreen */ = {
 			isa = PBXGroup;
 			children = (
-				8E1E3EE329706CB200990D9D /* SpashScreen.storyboard */,
 				8E1E3EC62970635F00990D9D /* SplashScreen.swift */,
 				8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */,
 			);
@@ -380,7 +377,6 @@
 				8E1E3ED8297065FE00990D9D /* Poppins-Thin.ttf in Resources */,
 				8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */,
 				8E1E3EDD297065FE00990D9D /* Poppins-ExtraBold.ttf in Resources */,
-				8E1E3EE429706CB200990D9D /* SpashScreen.storyboard in Resources */,
 				8E1E3EDB297065FE00990D9D /* Poppins-SemiBold.ttf in Resources */,
 				8E1E3ED7297065FE00990D9D /* Poppins-Medium.ttf in Resources */,
 				8E1E3EF92970878700990D9D /* Colors.xcassets in Resources */,
@@ -431,8 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\" lint --strict\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

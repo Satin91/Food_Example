@@ -13,7 +13,7 @@ enum Fonts {
         case black = "Poppins-Black"
         case bold = "Poppins-Bold"
         case extraBold = "Poppins-ExtraBold"
-        case ExtraLight = "Poppins-ExtraLight"
+        case extraLight = "Poppins-ExtraLight"
         case light = "Poppins-Light"
         case medium = "Poppins-Medium"
         case regular = "Poppins-Regular"
@@ -21,8 +21,6 @@ enum Fonts {
         case thin = "Poppins-Thin"
         case dmSans = "DMSans-Bold"
     }
-    
-    
     
     static func custom(_ fontName: Poppins, size: CGFloat) -> Font {
         Font.custom(fontName.rawValue, size: size)

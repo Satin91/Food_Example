@@ -29,13 +29,10 @@ struct MainScreen: View {
                         case .success(let image):
                             image
                                 .resizable()
-                                //.frame(width: 60, height: 60)
-                                //.scaledToFill()
-                                .cornerRadius(8)
                                 .padding()
                         case .empty:
                             EmptyView()
-                        case .failure(_):
+                        case .failure:
                             EmptyView()
                         @unknown default:
                             EmptyView()
@@ -44,16 +41,11 @@ struct MainScreen: View {
                     Text(viewModel.recipes[index].title)
                         .foregroundColor(.black)
                 }
-                .frame(maxWidth: .infinity,alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.gray)
             }
-            
-//            .frame(maxWidth: .infinity)
-//            .cornerRadius(8)
-//            .background(Color.gray.opacity(0.7))
         }
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

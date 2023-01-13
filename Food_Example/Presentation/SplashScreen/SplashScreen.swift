@@ -12,10 +12,7 @@ struct SplashScreen: View {
     
     var body: some View {
         Text("Food Recipes")
-            .font(
-                Fonts.custom(.bold,
-                size: Constants.FontSizes.upperLarge)
-            )
+            .font(Fonts.custom(.bold, size: Constants.FontSizes.upperLarge))
             .foregroundColor(.red)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {

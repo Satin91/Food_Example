@@ -89,5 +89,4 @@ enum Colors {
     static let yellow = Color("yellow")
     static let placeholder = Color("placeholder")
     static let border = Color("border")
-    
 }

@@ -19,6 +19,5 @@ struct LargeShadowModifier: ViewModifier {
                 radius: shadowRaduis,
                 y: yOffset
             )
-
     }
 }
