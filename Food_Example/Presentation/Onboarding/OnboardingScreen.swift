@@ -8,35 +8,69 @@
 import SwiftUI
 
 struct OnboardingScreen: View {
-    let imageSize: CGFloat = 240
+    @State var currentStep: Int = 0
+    
     var body: some View {
-        tabView
+        ZStack {
+            tabView
+            bottomView
+        }
     }
     
     private var tabView: some View {
-        TabView {
-            OnboardingPageView(title: "Burgets and other fastfood", subTitle: "Discover our best burger, kebab, hot dog recipes.") {
-                foodImage(Images.icnBurger)
-            }
-            OnboardingPageView(title: "Coffee and shake drink", subTitle: "Brew delicious coffee or tea, recipes for every taste!") {
-                foodImage(Images.icnCoffee)
-            }
-            OnboardingPageView(title: "Are you a sweet tooth?", subTitle: "Lots of recipes for you, just don't overeat!") {
-                foodImage(Images.icnMuffin)
-            }
-            OnboardingPageView(title: "Well, how about without pizza!", subTitle: "Huge selection of pizza, salad and long cooking recipes.") {
-                foodImage(Images.icnPizza)
-            }
+        TabView(selection: $currentStep) {
+            OnboardingPageView(
+                image: Images.icnBurger,
+                title: "Burgets and other fastfood",
+                subTitle: "Discover our best burger, kebab, hot dog recipes."
+            )
+            .tag(0)
+            OnboardingPageView(
+                image: Images.icnCoffee,
+                title: "Coffee and shake drink",
+                subTitle: "Brew delicious coffee or tea, recipes for every taste!"
+            )
+            .tag(1)
+            OnboardingPageView(
+                image: Images.icnMuffin,
+                title: "Are you a sweet tooth?",
+                subTitle: "Lots of recipes for you, just don't overeat!"
+            )
+            .tag(2)
+            OnboardingPageView(
+                image: Images.icnPizza,
+                title: "Well, how about without pizza!",
+                subTitle: "Huge selection of pizza, salad and long cooking recipes."
+            )
+            .tag(3)
+            OnboardingPageView(
+                image: Images.icnFrenchFriesRed,
+                title: "Let's cooking!",
+                subTitle: ""
+            )
+            .tag(4)
+            
         }
         .tabViewStyle(.page)
-        .padding(.horizontal, Constants.Spacing.m)
+        .animation(.easeInOut, value: currentStep)
+        .transition(.slide)
     }
     
-    private func foodImage(_ image: String) -> some View {
-        Image(image)
-            .resizable()
-            .frame(width: imageSize, height: imageSize)
-            .shadow(color: .black.opacity(0.5), radius: Constants.Spacing.s, y: Constants.Spacing.xl)
+    var bottomView: some View {
+        VStack(spacing: Constants.Spacing.zero) {
+            Spacer()
+            if currentStep == 4 {
+                CapsuleButton(
+                    title: "Get started now",
+                    action: {
+                        print("Button tapped")
+                    }
+                )
+                .frame(width: Constants.ButtonWidth.medium)
+            } else {
+                 NavigationButton(currentStep: $currentStep)
+            }
+        }
     }
 }
 

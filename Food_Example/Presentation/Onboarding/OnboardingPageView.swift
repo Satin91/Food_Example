@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-struct OnboardingPageView<Content: View>: View {
+struct OnboardingPageView: View {
+    let image: String
     let title: String
     let subTitle: String
-    let content: () -> Content
+    let imageSize: CGFloat = 240
     
     var body: some View {
         VStack(spacing: Constants.Spacing.xs) {
-            content()
+            foodImage(image)
             Text(title)
                 .multilineTextAlignment(.center)
                 .font(Fonts.custom(.dmSans, size: Constants.FontSizes.upperLarge))
@@ -24,6 +25,13 @@ struct OnboardingPageView<Content: View>: View {
                 .foregroundColor(Color(Colors.weakDark))
                 .multilineTextAlignment(.center)
         }
+        .padding(.horizontal, Constants.Spacing.m)
+    }
+    private func foodImage(_ image: String) -> some View {
+        Image(image)
+            .resizable()
+            .frame(width: imageSize, height: imageSize)
+            .modifier(LargeShadowModifier())
     }
 }
 

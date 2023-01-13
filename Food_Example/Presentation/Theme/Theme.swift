@@ -30,6 +30,12 @@ enum Constants {
         static let xxl: CGFloat = 64
         static let xxxl: CGFloat = 88
     }
+    
+    enum ButtonWidth {
+        static let small: CGFloat = 84
+        static let medium: CGFloat = 190
+        static let large: CGFloat = 327
+    }
 }
 
 enum Images {
@@ -46,6 +52,10 @@ enum Images {
     static let icnPizza = "icnPizza"
     static let icnSandwich = "icnSandwich"
     static let icnTacos = "icnTacos"
+    static let foodBackground = "foodBackground"
+    
+    static let icnArrowLeft = "icnArrowLeft"
+    static let icnArrowRight = "icnArrowRight"
 }
 
 enum Colors {
@@ -58,4 +68,5 @@ enum Colors {
     static let weakDark = "weakDark"
     static let weakGray = "weakGray"
     static let yellow = "yellow"
+    static let placeholder = "placeholder"
 }
