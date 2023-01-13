@@ -19,10 +19,10 @@ struct OnboardingPageView: View {
             Text(title)
                 .multilineTextAlignment(.center)
                 .font(Fonts.custom(.dmSans, size: Constants.FontSizes.upperLarge))
-                .foregroundColor(Color(Colors.dark))
+                .foregroundColor(Colors.dark)
             Text(subTitle)
                 .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
-                .foregroundColor(Color(Colors.weakDark))
+                .foregroundColor(Colors.weakDark)
                 .multilineTextAlignment(.center)
         }
         .padding(.horizontal, Constants.Spacing.m)

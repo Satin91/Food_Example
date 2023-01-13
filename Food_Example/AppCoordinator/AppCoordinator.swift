@@ -13,6 +13,7 @@ enum Screen {
     case onboardingScreen
     case mainScreen
     case loginScreen
+    case signUpScreen
 }
 
 struct AppCoordinator: View {
@@ -28,9 +29,17 @@ struct AppCoordinator: View {
             case .loginScreen:
                 EmptyView()
             case .onboardingScreen:
-                OnboardingScreen()
+                OnboardingScreen(onSignUpScreen: {
+                    pushToSignUpScreen()
+                })
+            case .signUpScreen:
+                SignUpScreen()
             }
         }
+    }
+    
+    func pushToSignUpScreen() {
+        routes.push(.signUpScreen)
     }
     
     func pushOnboardingScreen() {

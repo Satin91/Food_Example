@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingScreen: View {
     @State var currentStep: Int = 0
+    let onSignUpScreen: () -> Void
     
     var body: some View {
         ZStack {
@@ -63,7 +64,7 @@ struct OnboardingScreen: View {
                 CapsuleButton(
                     title: "Get started now",
                     action: {
-                        print("Button tapped")
+                        onSignUpScreen()
                     }
                 )
                 .frame(width: Constants.ButtonWidth.medium)
@@ -71,11 +72,12 @@ struct OnboardingScreen: View {
                  NavigationButton(currentStep: $currentStep)
             }
         }
+        .padding(.bottom, Constants.Spacing.m)
     }
 }
 
 struct OnboardingScreen_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingScreen()
+        OnboardingScreen(onSignUpScreen: {})
     }
 }

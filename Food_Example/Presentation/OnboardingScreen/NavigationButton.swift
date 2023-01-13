@@ -17,12 +17,12 @@ struct NavigationButton: View {
     var navigationButton: some View {
         RoundedRectangle(cornerRadius: 16)
             .frame(width: 154, height: 64)
-            .foregroundColor(Color(Colors.backgroundWhite))
+            .foregroundColor(Colors.backgroundWhite)
             .overlay(
                 HStack {
                     Image(Images.icnArrowRight)
                         .renderingMode(.template)
-                        .foregroundColor(currentStep == 0 ? Color(Colors.placeholder) : Color(Colors.dark))
+                        .foregroundColor(currentStep == 0 ? Colors.placeholder : Colors.dark)
                         .onTapGesture {
                             previousStep()
                         }
@@ -41,7 +41,7 @@ struct NavigationButton: View {
 
     private var verticalSeparator: some View {
         RoundedRectangle(cornerRadius: 2)
-            .foregroundColor(Color(Colors.lightGray))
+            .foregroundColor(Colors.lightGray)
             .frame(width: 2, height: 24)
     }
     

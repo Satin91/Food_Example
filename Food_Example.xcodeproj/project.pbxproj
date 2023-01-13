@@ -38,6 +38,12 @@
 		8ECB36282971A5B30015646D /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36272971A5B30015646D /* NavigationButton.swift */; };
 		8ECB362C2971AA5F0015646D /* LargeShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB362B2971AA5F0015646D /* LargeShadowModifier.swift */; };
 		8ECB362E2971C0890015646D /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB362D2971C0890015646D /* CapsuleButton.swift */; };
+		8ECB36312971CA1B0015646D /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36302971CA1B0015646D /* BorderedTextField.swift */; };
+		8ECB36342971F7040015646D /* ReadSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36332971F7040015646D /* ReadSize.swift */; };
+		8ECB36362971FBFE0015646D /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36352971FBFE0015646D /* NavigationBarView.swift */; };
+		8ECB36382971FED40015646D /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36372971FED40015646D /* SignUpScreen.swift */; };
+		8ECB363A297207130015646D /* RoundedFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB3639297207130015646D /* RoundedFilledButton.swift */; };
+		8ECB363C29720C470015646D /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB363B29720C470015646D /* GoogleButton.swift */; };
 		DAC2CE7C0EA88D94EC95DE00 /* libPods-Food_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB13102025C97D49767D5162 /* libPods-Food_Example.a */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +80,12 @@
 		8ECB36272971A5B30015646D /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
 		8ECB362B2971AA5F0015646D /* LargeShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeShadowModifier.swift; sourceTree = "<group>"; };
 		8ECB362D2971C0890015646D /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
+		8ECB36302971CA1B0015646D /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
+		8ECB36332971F7040015646D /* ReadSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadSize.swift; sourceTree = "<group>"; };
+		8ECB36352971FBFE0015646D /* NavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		8ECB36372971FED40015646D /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
+		8ECB3639297207130015646D /* RoundedFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedFilledButton.swift; sourceTree = "<group>"; };
+		8ECB363B29720C470015646D /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
 		99A119B01161D5F324E565BF /* Pods-Food_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Food_Example.debug.xcconfig"; path = "Target Support Files/Pods-Food_Example/Pods-Food_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		CB13102025C97D49767D5162 /* libPods-Food_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Food_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15305536270F35792D3CD25 /* Pods-Food_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Food_Example.release.xcconfig"; path = "Target Support Files/Pods-Food_Example/Pods-Food_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,8 +133,9 @@
 		8E1E3EC22970631100990D9D /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				8E1E3EE229706C9B00990D9D /* Splash */,
-				8E1E3EF129707C1500990D9D /* Onboarding */,
+				8E1E3EE229706C9B00990D9D /* SplashScreen */,
+				8E1E3EF129707C1500990D9D /* OnboardingScreen */,
+				8ECB362F2971C99A0015646D /* SingUpScreen */,
 				8E1E3EC32970632200990D9D /* MainScreen */,
 				8E1E3EC82970658A00990D9D /* Theme */,
 			);
@@ -191,24 +204,24 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		8E1E3EE229706C9B00990D9D /* Splash */ = {
+		8E1E3EE229706C9B00990D9D /* SplashScreen */ = {
 			isa = PBXGroup;
 			children = (
 				8E1E3EE329706CB200990D9D /* SpashScreen.storyboard */,
 				8E1E3EC62970635F00990D9D /* SplashScreen.swift */,
 				8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */,
 			);
-			path = Splash;
+			path = SplashScreen;
 			sourceTree = "<group>";
 		};
-		8E1E3EF129707C1500990D9D /* Onboarding */ = {
+		8E1E3EF129707C1500990D9D /* OnboardingScreen */ = {
 			isa = PBXGroup;
 			children = (
 				8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */,
 				8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */,
 				8ECB36272971A5B30015646D /* NavigationButton.swift */,
 			);
-			path = Onboarding;
+			path = OnboardingScreen;
 			sourceTree = "<group>";
 		};
 		8E287828296EE1FB00AD8D25 = {
@@ -254,7 +267,11 @@
 		8ECB36292971AA350015646D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8ECB36322971F6F40015646D /* Extensions */,
 				8ECB362A2971AA4D0015646D /* Modifiers */,
+				8ECB36302971CA1B0015646D /* BorderedTextField.swift */,
+				8ECB363B29720C470015646D /* GoogleButton.swift */,
+				8ECB362D2971C0890015646D /* CapsuleButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -263,9 +280,26 @@
 			isa = PBXGroup;
 			children = (
 				8ECB362B2971AA5F0015646D /* LargeShadowModifier.swift */,
-				8ECB362D2971C0890015646D /* CapsuleButton.swift */,
+				8ECB3639297207130015646D /* RoundedFilledButton.swift */,
 			);
 			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		8ECB362F2971C99A0015646D /* SingUpScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8ECB36372971FED40015646D /* SignUpScreen.swift */,
+			);
+			path = SingUpScreen;
+			sourceTree = "<group>";
+		};
+		8ECB36322971F6F40015646D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8ECB36332971F7040015646D /* ReadSize.swift */,
+				8ECB36352971FBFE0015646D /* NavigationBarView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E3B5EC4911DCDF598C486067 /* Frameworks */ = {
@@ -410,17 +444,23 @@
 			files = (
 				8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */,
 				8E1E3EEE297077B400990D9D /* Theme.swift in Sources */,
+				8ECB36312971CA1B0015646D /* BorderedTextField.swift in Sources */,
 				8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */,
+				8ECB363C29720C470015646D /* GoogleButton.swift in Sources */,
 				8ECB362C2971AA5F0015646D /* LargeShadowModifier.swift in Sources */,
 				8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */,
 				8E287843296EEB2B00AD8D25 /* NetworkManager.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */,
+				8ECB36362971FBFE0015646D /* NavigationBarView.swift in Sources */,
+				8ECB36342971F7040015646D /* ReadSize.swift in Sources */,
 				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,
+				8ECB36382971FED40015646D /* SignUpScreen.swift in Sources */,
 				8EB4EC97296F3C9E00BDB2CF /* RecipeModel.swift in Sources */,
 				8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */,
 				8EB4EC95296F039800BDB2CF /* MainViewModel.swift in Sources */,
 				8E1E3EE629706E0700990D9D /* AppCoordinator.swift in Sources */,
 				8E1E3EF02970797200990D9D /* SplashScreenViewModel.swift in Sources */,
+				8ECB363A297207130015646D /* RoundedFilledButton.swift in Sources */,
 				8ECB362E2971C0890015646D /* CapsuleButton.swift in Sources */,
 				8ECB36282971A5B30015646D /* NavigationButton.swift in Sources */,
 			);

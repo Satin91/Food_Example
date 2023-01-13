@@ -5,7 +5,7 @@
 //  Created by Артур Кулик on 12.01.2023.
 //
 
-import Foundation
+import SwiftUI
 
 enum Constants {
     enum FontSizes {
@@ -36,6 +36,14 @@ enum Constants {
         static let medium: CGFloat = 190
         static let large: CGFloat = 327
     }
+    
+    enum ButtonHeight {
+        static let small: CGFloat = 30
+        static let medium: CGFloat = 48
+        static let large: CGFloat = 56
+    }
+    
+    static let cornerRadius: CGFloat = 16
 }
 
 enum Images {
@@ -56,17 +64,30 @@ enum Images {
     
     static let icnArrowLeft = "icnArrowLeft"
     static let icnArrowRight = "icnArrowRight"
+    static let icnEye = "icnEye"
+    static let icnEyeOff = "icnEyeOff"
+    static let icnHome = "icnHome"
+    static let icnLock = "icnLock"
+    static let icnMenu = "icnMenu"
+    static let icnMessage = "icnMessage"
+    static let icnSearch = "icnSearch"
+    static let icnUser = "icnUser"
+    
+    static let icnGoogle = "icnGoogle"
 }
 
 enum Colors {
-    static let backgroundWhite = "backgroundWhite"
-    static let black = "black"
-    static let dark = "dark"
-    static let gray = "gray"
-    static let green = "green"
-    static let lightGray = "lightGray"
-    static let weakDark = "weakDark"
-    static let weakGray = "weakGray"
-    static let yellow = "yellow"
-    static let placeholder = "placeholder"
+    static let backgroundWhite = Color("backgroundWhite")
+    static let black = Color("black")
+    static let dark = Color("dark")
+    static let gray = Color("gray")
+    static let green = Color("green")
+    static let red = Color("red")
+    static let lightGray = Color("lightGray")
+    static let weakDark = Color("weakDark")
+    static let weakGray = Color("weakGray")
+    static let yellow = Color("yellow")
+    static let placeholder = Color("placeholder")
+    static let border = Color("border")
+    
 }
