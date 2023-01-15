@@ -244,9 +244,9 @@
 			isa = PBXGroup;
 			children = (
 				8E1E3EC0297062EB00990D9D /* App */,
+				8E1E3EC42970633700990D9D /* AppCoordinator */,
 				8EF6378929736CC400AAD62E /* Data */,
 				8EF637852973694800AAD62E /* Domain */,
-				8E1E3EC42970633700990D9D /* AppCoordinator */,
 				8E1E3EC22970631100990D9D /* Presentation */,
 				8ECB36292971AA350015646D /* Components */,
 				8E1E3ECA297065BB00990D9D /* Resources */,
