@@ -53,5 +53,6 @@ struct MainScreen: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
+            .background(Color.black)
     }
 }
