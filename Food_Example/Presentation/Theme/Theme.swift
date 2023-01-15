@@ -72,6 +72,7 @@ enum Images {
     static let icnMessage = "icnMessage"
     static let icnSearch = "icnSearch"
     static let icnUser = "icnUser"
+    static let icnSettingsVertical = "icnSettingsVertical"
     
     static let icnGoogle = "icnGoogle"
 }

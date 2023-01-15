@@ -33,8 +33,9 @@
 		8E287843296EEB2B00AD8D25 /* RecipeApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287842296EEB2B00AD8D25 /* RecipeApiImpl.swift */; };
 		8EB4EC95296F039800BDB2CF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB4EC94296F039800BDB2CF /* MainViewModel.swift */; };
 		8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */; };
+		8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC926E6297466490012B0D5 /* RecipeGrid.swift */; };
 		8ECB36282971A5B30015646D /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36272971A5B30015646D /* NavigationButton.swift */; };
-		8ECB362C2971AA5F0015646D /* LargeShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB362B2971AA5F0015646D /* LargeShadowModifier.swift */; };
+		8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */; };
 		8ECB362E2971C0890015646D /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB362D2971C0890015646D /* CapsuleButton.swift */; };
 		8ECB36312971CA1B0015646D /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36302971CA1B0015646D /* BorderedTextField.swift */; };
 		8ECB36342971F7040015646D /* ReadSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36332971F7040015646D /* ReadSize.swift */; };
@@ -79,8 +80,9 @@
 		8E287842296EEB2B00AD8D25 /* RecipeApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeApiImpl.swift; sourceTree = "<group>"; };
 		8EB4EC94296F039800BDB2CF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
+		8EC926E6297466490012B0D5 /* RecipeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeGrid.swift; sourceTree = "<group>"; };
 		8ECB36272971A5B30015646D /* NavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
-		8ECB362B2971AA5F0015646D /* LargeShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeShadowModifier.swift; sourceTree = "<group>"; };
+		8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowModifiers.swift; sourceTree = "<group>"; };
 		8ECB362D2971C0890015646D /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
 		8ECB36302971CA1B0015646D /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		8ECB36332971F7040015646D /* ReadSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadSize.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				8ECB36322971F6F40015646D /* Extensions */,
 				8ECB362A2971AA4D0015646D /* Modifiers */,
 				8ECB36302971CA1B0015646D /* BorderedTextField.swift */,
+				8EC926E6297466490012B0D5 /* RecipeGrid.swift */,
 				8ECB3639297207130015646D /* RoundedFilledButton.swift */,
 				8ECB363B29720C470015646D /* GoogleButton.swift */,
 				8ECB362D2971C0890015646D /* CapsuleButton.swift */,
@@ -270,7 +273,7 @@
 		8ECB362A2971AA4D0015646D /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				8ECB362B2971AA5F0015646D /* LargeShadowModifier.swift */,
+				8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -518,10 +521,11 @@
 				8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */,
 				8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */,
 				8E1E3EEE297077B400990D9D /* Theme.swift in Sources */,
+				8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */,
 				8ECB36312971CA1B0015646D /* BorderedTextField.swift in Sources */,
 				8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */,
 				8ECB363C29720C470015646D /* GoogleButton.swift in Sources */,
-				8ECB362C2971AA5F0015646D /* LargeShadowModifier.swift in Sources */,
+				8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */,
 				8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */,
 				8E287843296EEB2B00AD8D25 /* RecipeApiImpl.swift in Sources */,
 				8EF6379C29738B8600AAD62E /* GetRecipeUseCase.swift in Sources */,

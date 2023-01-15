@@ -10,8 +10,10 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
 - file_name
 - vertical_whitespace_between_cases
 - function_default_parameter_at_end
+- line_length
 - todo
 - trailing_closure
+- discouraged_optional_boolean
 
 opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - anonymous_argument_in_multiline_closure
@@ -47,7 +49,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - discouraged_direct_init
 - discouraged_none_name
 - discouraged_object_literal
-- discouraged_optional_boolean
 - duplicate_enum_cases
 - duplicate_imports
 - duplicated_key_in_dictionary_literal
@@ -98,7 +99,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - legacy_nsgeometry_functions
 - legacy_random
 - let_var_whitespace
-- line_length
 - literal_expression_end_indentation
 - lower_acl_than_parent
 - mark
@@ -217,9 +217,6 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 
 # configurable rules can be customized from this configuration file
 # binary rules can set their severity level
-line_length:
-  error: 120
-
 implicitly_unwrapped_optional:
   severity: error
 

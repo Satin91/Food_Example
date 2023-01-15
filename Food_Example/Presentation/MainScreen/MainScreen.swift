@@ -9,39 +9,36 @@ import SwiftUI
 
 struct MainScreen: View {
     @ObservedObject var viewModel = MainViewModel()
+    let columns = [
+        GridItem(.flexible(), spacing: 0),
+        GridItem(.flexible(), spacing: 0)
+    ]
+    @State var gridWidth: CGFloat = 0
     
     var body: some View {
         ScrollView(.vertical) {
-            VStack {
-                recipeCell(viewModel.recipes)
-                    .padding()
+            VStack(spacing: Constants.Spacing.zero) {
+                recipesList(viewModel.recipes)
             }
         }
     }
     
-    private func recipeCell(_ recipes: [Recipe]) -> some View {
-        VStack(alignment: .leading) {
-            ForEach(recipes) { recipe in
-                HStack {
-                    AsyncImage(url: URL(string: recipe.image)) { image in
-                        switch image {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .padding()
-                        case .empty:
-                            EmptyView()
-                        case .failure:
-                            EmptyView()
-                        @unknown default:
-                            EmptyView()
-                        }
+    private func recipesList(_ recipes: [Recipe]) -> some View {
+        LazyVGrid(columns: columns, spacing: 0) {
+            ForEach(0..<15) { recipe in
+                RecipeGrid(
+                    recipe: Recipe(
+                        id: 125_245,
+                        title: "NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.",
+                        image: ""
+                    ),
+                    action: {
+                        print("Action")
+                    }, settingsAction: {
+                        print("Settings Action")
                     }
-                    Text(recipe.title)
-                        .foregroundColor(.black)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.gray)
+                )
+                .padding(Constants.Spacing.xs)
             }
         }
         .task {
