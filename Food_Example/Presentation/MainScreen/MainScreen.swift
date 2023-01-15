@@ -9,22 +9,21 @@ import SwiftUI
 
 struct MainScreen: View {
     @ObservedObject var viewModel = MainViewModel()
-    @State var recipes: String = ""
     
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                recipeCell
+                recipeCell(viewModel.recipes)
                     .padding()
             }
         }
     }
     
-    var recipeCell: some View {
+    private func recipeCell(_ recipes: [Recipe]) -> some View {
         VStack(alignment: .leading) {
-            ForEach(0..<viewModel.recipes.count, id: \.self) { index in
+            ForEach(recipes) { recipe in
                 HStack {
-                    AsyncImage(url: URL(string: viewModel.recipes[index].image)) { image in
+                    AsyncImage(url: URL(string: recipe.image)) { image in
                         switch image {
                         case .success(let image):
                             image
@@ -38,12 +37,15 @@ struct MainScreen: View {
                             EmptyView()
                         }
                     }
-                    Text(viewModel.recipes[index].title)
+                    Text(recipe.title)
                         .foregroundColor(.black)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.gray)
             }
+        }
+        .task {
+            await viewModel.getRecipes()
         }
     }
 }

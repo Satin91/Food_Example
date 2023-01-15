@@ -7,21 +7,24 @@
 
 import SwiftUI
 
+@MainActor
 final class MainViewModel: ObservableObject {
-    @Published var recipes: [Results] = []
-    private let networkingManager = NetworkManager()
+    var getRecipeUseCase = GetRecipeUseCase(repo: RecipeRepositoryImpl(dataSource: RecipeApiImpl()))
     
-    init() {
-        Task {
-            try await getRecipes()
-        }
-    }
+    @Published var recipes: [Recipe] = []
+    @Published var errorMessage = ""
+    @Published var hasError = false
     
-    private func getRecipes() async throws {
-        let recipes = try await networkingManager.getResult()
-        DispatchQueue.main.async {
+    func getRecipes() async {
+        errorMessage = ""
+        let result = await getRecipeUseCase.execute()
+        switch result {
+        case .success(let recipes):
             self.recipes = recipes
-            print(recipes)
+        case .failure(let error):
+            self .recipes = []
+            errorMessage = error.localizedDescription
+            hasError = true
         }
     }
 }

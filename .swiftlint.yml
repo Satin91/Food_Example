@@ -38,7 +38,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - contains_over_filter_is_empty
 - contains_over_first_not_nil
 - contains_over_range_nil_comparison
-- control_statement
 - convenience_type
 - custom_rules
 - cyclomatic_complexity
@@ -192,7 +191,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - unneeded_break_in_switch
 - unneeded_parentheses_in_closure_argument
 - unowned_variable_capture
-- untyped_error_in_catch
 - unused_capture_list
 - unused_closure_parameter
 - unused_control_flow_label

@@ -15,11 +15,12 @@ struct BorderedTextField: View {
     }
     
     @Binding var text: String
-    let type: TextFieldType
+    @State var isPasswordHidden = true
+    let textFieldType: TextFieldType
     let borderWidth: CGFloat = 1
     
     var title: String {
-        switch type {
+        switch textFieldType {
         case .userName:
             return "Username"
         case .email:
@@ -30,7 +31,7 @@ struct BorderedTextField: View {
     }
     
     var placeholderText: String {
-        switch type {
+        switch textFieldType {
         case .userName:
             return "Enter your name"
         case .email:
@@ -40,8 +41,8 @@ struct BorderedTextField: View {
         }
     }
     
-    var rightImageName: String {
-        switch type {
+    var leftImageName: String {
+        switch textFieldType {
         case .userName:
             return Images.icnUser
         case .email:
@@ -70,9 +71,7 @@ struct BorderedTextField: View {
             leftImage
             textField
             Spacer()
-            if type == .password {
-                rightImage
-            }
+            rightImage
         }
         .padding(Constants.Spacing.s)
         .overlay {
@@ -81,27 +80,50 @@ struct BorderedTextField: View {
         }
     }
     
-    var textField: some View {
-        TextField(placeholderText, text: $text)
+    @ViewBuilder var textField: some View {
+        if textFieldType == .password, isPasswordHidden {
+            SecureField(placeholderText, text: $text)
+                .modifier(TextFieldModifier())
+        } else {
+            TextField(placeholderText, text: $text)
+                .modifier(TextFieldModifier())
+        }
+    }
+    
+    var secureField: some View {
+        SecureField(placeholderText, text: $text)
             .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
             .foregroundColor(Colors.dark)
     }
     
     var leftImage: some View {
-        Image(rightImageName)
+        Image(leftImageName)
             .renderingMode(.template)
             .foregroundColor(Colors.gray)
     }
     
-    var rightImage: some View {
-        Image(Images.icnEyeOff)
-            .renderingMode(.template)
-            .foregroundColor(Colors.gray)
+    @ViewBuilder var rightImage: some View {
+        if textFieldType == .password {
+            Image(isPasswordHidden ? Images.icnEyeOff : Images.icnEye)
+                .renderingMode(.template)
+                .foregroundColor(Colors.gray)
+                .onTapGesture {
+                    isPasswordHidden.toggle()
+                }
+        }
     }
 }
 
 struct BorderedTextField_Previews: PreviewProvider {
     static var previews: some View {
-        BorderedTextField(text: .constant("Keks"), type: .userName)
+        BorderedTextField(text: .constant("Keks"), textFieldType: .userName)
+    }
+}
+
+struct TextFieldModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
+            .foregroundColor(Colors.dark)
     }
 }

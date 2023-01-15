@@ -13,6 +13,14 @@ struct SignUpScreen: View {
     @State var passwordText: String = ""
     
     var body: some View {
+        content
+            .onTapGesture {
+                hideKeyboard()
+            }
+            .toolbar(.hidden)
+    }
+    
+    private var content: some View {
         VStack(spacing: Constants.Spacing.zero) {
             navigationBarView
             textFieldContainer
@@ -21,7 +29,6 @@ struct SignUpScreen: View {
             googleButton
             Spacer()
         }
-        .toolbar(.hidden)
     }
     
     var navigationBarView: some View {
@@ -35,9 +42,9 @@ struct SignUpScreen: View {
     
     var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $usernameText, type: .userName)
-            BorderedTextField(text: $emailText, type: .email)
-            BorderedTextField(text: $passwordText, type: .password)
+            BorderedTextField(text: $usernameText, textFieldType: .userName)
+            BorderedTextField(text: $emailText, textFieldType: .email)
+            BorderedTextField(text: $passwordText, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
     }
@@ -45,8 +52,9 @@ struct SignUpScreen: View {
     private var filledButton: some View {
         RoundedFilledButton(text: "Sign Up", action: {
             print("Tapped")
-        })
-            .padding(.top, Constants.Spacing.m)
+            }
+        )
+        .padding(.top, Constants.Spacing.m)
     }
     
     private var separatorContainer: some View {

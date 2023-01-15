@@ -7,39 +7,41 @@
 
 import Foundation
 
-enum StatusCodeError: Error {
+enum ApiServerError: Error {
     case badURL
     case badConnection
+    case requestError
+    case statusError
 }
 
-class NetworkManager {
+class RecipeApiImpl: RecipeDataSource {
     private let maxFat: Int = 140
     private let searchCount: Int = 120
     private let successStatusCode = 200
     private let searchWord: String = "Wine"
     private let apiAddress = "https://api.spoonacular.com/recipes/complexSearch?apiKey="
     private let apiKey: String = "a053c68935284fc0b0041026bf79c509&query"
-    
-    private func fetchRecipes(url: URL) async throws -> [Results] {
+
+    func getRecipe() async throws -> [Recipe] {
+        let stringUrl = "\(apiAddress)\(apiKey)=\(searchWord)&maxFat=" + "\(maxFat)" + "&number=" + "\(maxFat)"
+        guard let url = URL(string: stringUrl) else {
+            throw ApiServerError.badURL
+        }
+        
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == successStatusCode else {
-            throw StatusCodeError.badConnection
+            throw ApiServerError.badConnection
         }
         
-        let recipes = try JSONDecoder().decode(RecipeModel.self, from: data)
-        return recipes.results
-    }
-    
-    func getResult() async throws -> [Results] {
-        let stringUrl = "\(apiAddress)\(apiKey)=\(searchWord)&maxFat=" + "\(maxFat)" + "&number=" + "\(maxFat)"
+        let recipes = try JSONDecoder().decode(RecipeApiHeaderEntity.self, from: data)
         
-        guard let url = URL(string: stringUrl) else {
-            throw StatusCodeError.badURL
+        return recipes.results.map { entity in
+            Recipe(
+                id: entity.id,
+                title: entity.title,
+                image: entity.image
+            )
         }
-        
-        let recipes = try await fetchRecipes(url: url)
-        
-        return recipes
     }
 }
