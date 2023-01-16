@@ -39,6 +39,7 @@ struct GoogleButton: View {
     private var textView: some View {
         Text("Continue with Google")
             .font(Fonts.custom(.medium, size: Constants.FontSizes.medium))
+            .foregroundColor(Colors.dark)
     }
 }
 

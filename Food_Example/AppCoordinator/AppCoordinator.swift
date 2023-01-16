@@ -17,7 +17,7 @@ enum Screen {
 }
 
 struct AppCoordinator: View {
-    @State var routes: Routes<Screen> = [.root(.mainScreen)]
+    @State var routes: Routes<Screen> = [.root(.signUpScreen)]
     
     var body: some View {
         Router($routes) { screen, _ in

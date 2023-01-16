@@ -72,17 +72,3 @@ struct RecipeGrid: View {
         .padding(Constants.Spacing.s)
     }
 }
-
-struct RecipeCell_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeGrid(
-            recipe: Recipe(
-                id: 142,
-                title: "Initializing for iOS · Add import ",
-                image: Images.icnEye
-            )
-        ) {
-        } settingsAction: {
-        }
-    }
-}

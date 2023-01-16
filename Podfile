@@ -2,8 +2,6 @@
 # platform :ios, '9.0'
 
 target 'Food_Example' do
-
-
-   pod 'SwiftLint'
-   pod 'FlowStacks'
+	pod 'SwiftLint'
+	pod 'FlowStacks'
 end

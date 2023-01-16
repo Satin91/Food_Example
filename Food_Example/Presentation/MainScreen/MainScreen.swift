@@ -25,13 +25,9 @@ struct MainScreen: View {
     
     private func recipesList(_ recipes: [Recipe]) -> some View {
         LazyVGrid(columns: columns, spacing: 0) {
-            ForEach(0..<15) { recipe in
+            ForEach(recipes) { recipe in
                 RecipeGrid(
-                    recipe: Recipe(
-                        id: 125_245,
-                        title: "NavigationLink presenting a value must appear inside a NavigationContent-based NavigationView. Link will be disabled.",
-                        image: ""
-                    ),
+                    recipe: recipe,
                     action: {
                         print("Action")
                     }, settingsAction: {

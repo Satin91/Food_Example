@@ -11,6 +11,7 @@ struct SignUpScreen: View {
     @State var usernameText: String = ""
     @State var emailText: String = ""
     @State var passwordText: String = ""
+    let viewModel = SignUpViewModel()
     
     var body: some View {
         content
@@ -51,8 +52,8 @@ struct SignUpScreen: View {
     
     private var filledButton: some View {
         RoundedFilledButton(text: "Sign Up", action: {
-            print("Tapped")
-            }
+            viewModel.signUpWithEmail(email: emailText, password: passwordText)
+        }
         )
         .padding(.top, Constants.Spacing.m)
     }

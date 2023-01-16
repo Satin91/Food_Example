@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 final class MainViewModel: ObservableObject {
-    var getRecipeUseCase = GetRecipeUseCase(repo: RecipeRepositoryImpl(dataSource: RecipeApiImpl()))
+    var searchRecipeUseCase = SearchRecipeUseCase(repo: RecipeRepoImpl())
     
     @Published var recipes: [Recipe] = []
     @Published var errorMessage = ""
@@ -17,7 +17,7 @@ final class MainViewModel: ObservableObject {
     
     func getRecipes() async {
         errorMessage = ""
-        let result = await getRecipeUseCase.execute()
+        let result = await searchRecipeUseCase.execute()
         switch result {
         case .success(let recipes):
             self.recipes = recipes
