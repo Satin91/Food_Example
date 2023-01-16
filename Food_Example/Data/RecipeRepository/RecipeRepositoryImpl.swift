@@ -15,7 +15,7 @@ class RecipeRepositoryImpl: RecipeRepository {
     }
     
     func getRecipes() async throws -> [Recipe] {
-        let recipe = try await dataSource.getRecipe()
+        let recipe = try await dataSource.searchRecipes()
         return recipe
     }
 }
