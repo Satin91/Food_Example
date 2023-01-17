@@ -5,10 +5,13 @@
 //  Created by Артур Кулик on 12.01.2023.
 //
 
+import FirebaseAuth
 import SwiftUI
 
 struct SplashScreen: View {
+    @ObservedObject var viewModel = SplashScreenViewModel()
     let onOnboardingScreen: () -> Void
+    let onMainScreen: (User) -> Void
     
     var body: some View {
         Text("Food Recipes")
@@ -16,7 +19,11 @@ struct SplashScreen: View {
             .foregroundColor(.red)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                    self.onOnboardingScreen()
+                    if let user = viewModel.user {
+                        onMainScreen(user)
+                    } else {
+                        onOnboardingScreen()
+                    }
                 })
             }
     }
@@ -25,6 +32,7 @@ struct SplashScreen: View {
 struct SplashScreen_Previews: PreviewProvider {
     static var previews: some View {
         SplashScreen(onOnboardingScreen: {
+        }, onMainScreen: { _ in
         })
     }
 }

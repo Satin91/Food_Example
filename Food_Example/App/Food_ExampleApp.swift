@@ -14,9 +14,10 @@ struct FoodExampleApp: App {
     var body: some Scene {
         WindowGroup {
             AppCoordinator()
-                .onAppear {
-                    FirebaseApp.configure()
-                }
         }
+    }
+    
+    init() {
+        FirebaseApp.configure()
     }
 }

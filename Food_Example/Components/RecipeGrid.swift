@@ -24,21 +24,29 @@ struct RecipeGrid: View {
     
     var content: some View {
         VStack(alignment: .leading, spacing: Constants.Spacing.zero) {
-            ZStack {
-                image
-                settingsButton
-            }
-            Text(recipe.title)
-                .font(Fonts.custom(.bold, size: Constants.FontSizes.small))
-                .foregroundColor(Colors.dark)
-                .frame(height: 52)
-                .padding(Constants.Spacing.xs)
-                .lineLimit(2)
+            imageContainer
+            title
         }
         .background(Color.white)
         .cornerRadius(gridCornerRadius)
         .modifier(SmallShadowModifier())
         .frame(alignment: .top)
+    }
+    
+    var title: some View {
+        Text(recipe.title)
+            .font(Fonts.custom(.bold, size: Constants.FontSizes.small))
+            .foregroundColor(Colors.dark)
+            .frame(height: 52)
+            .padding(Constants.Spacing.xs)
+            .lineLimit(2)
+    }
+    
+    var imageContainer: some View {
+        ZStack {
+            image
+            settingsButton
+        }
     }
     
     var image: some View {

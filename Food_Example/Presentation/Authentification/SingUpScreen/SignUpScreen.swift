@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct SignUpScreen: View {
-    @State var usernameText: String = ""
-    @State var emailText: String = ""
-    @State var passwordText: String = ""
+    @State var username = ""
+    @State var email = ""
+    @State var password = ""
     let viewModel = SignUpViewModel()
     
     var body: some View {
@@ -25,7 +25,7 @@ struct SignUpScreen: View {
         VStack(spacing: Constants.Spacing.zero) {
             navigationBarView
             textFieldContainer
-            filledButton
+            signUpButton
             separatorContainer
             googleButton
             Spacer()
@@ -43,16 +43,16 @@ struct SignUpScreen: View {
     
     var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $usernameText, textFieldType: .userName)
-            BorderedTextField(text: $emailText, textFieldType: .email)
-            BorderedTextField(text: $passwordText, textFieldType: .password)
+            BorderedTextField(text: $username, textFieldType: .userName)
+            BorderedTextField(text: $email, textFieldType: .email)
+            BorderedTextField(text: $password, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
     }
     
-    private var filledButton: some View {
+    private var signUpButton: some View {
         RoundedFilledButton(text: "Sign Up", action: {
-            viewModel.signUpWithEmail(email: emailText, password: passwordText)
+            viewModel.signUpWithEmail(email: email, password: password)
         }
         )
         .padding(.top, Constants.Spacing.m)

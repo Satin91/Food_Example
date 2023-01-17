@@ -5,11 +5,14 @@
 //  Created by Артур Кулик on 11.01.2023.
 //
 
+import FirebaseAuth
 import SwiftUI
 
 struct MainScreen: View {
     @ObservedObject var viewModel = MainViewModel()
     @State var recipes: [Recipe] = []
+    let user: User?
+    
     let columns = [
         GridItem(.flexible(), spacing: 0),
         GridItem(.flexible(), spacing: 0)
@@ -41,12 +44,5 @@ struct MainScreen: View {
         .task {
             await viewModel.getRecipes()
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainScreen()
-            .background(Color.black)
     }
 }

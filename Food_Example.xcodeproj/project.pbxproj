@@ -36,6 +36,9 @@
 		8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E287838296EE1FD00AD8D25 /* Assets.xcassets */; };
 		8E287843296EEB2B00AD8D25 /* RecipeRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287842296EEB2B00AD8D25 /* RecipeRepoImpl.swift */; };
 		8E4E31802974CE5E00C05818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */; };
+		8EB2431F2976E08600C1076C /* RemoteDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB2431E2976E08600C1076C /* RemoteDataBase.swift */; };
+		8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243222976E2BF00C1076C /* SignInScreen.swift */; };
+		8EB243252976E4CE00C1076C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243242976E4CE00C1076C /* SignInViewModel.swift */; };
 		8EB4EC95296F039800BDB2CF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB4EC94296F039800BDB2CF /* MainViewModel.swift */; };
 		8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */; };
 		8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC926E6297466490012B0D5 /* RecipeGrid.swift */; };
@@ -90,6 +93,9 @@
 		8E287838296EE1FD00AD8D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E287842296EEB2B00AD8D25 /* RecipeRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepoImpl.swift; sourceTree = "<group>"; };
 		8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8EB2431E2976E08600C1076C /* RemoteDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataBase.swift; sourceTree = "<group>"; };
+		8EB243222976E2BF00C1076C /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
+		8EB243242976E4CE00C1076C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		8EB4EC94296F039800BDB2CF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
 		8EC926E6297466490012B0D5 /* RecipeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeGrid.swift; sourceTree = "<group>"; };
@@ -139,6 +145,7 @@
 		8E0A307D297609FA005CBAEB /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				8EB2431E2976E08600C1076C /* RemoteDataBase.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -158,7 +165,7 @@
 			children = (
 				8E1E3EE229706C9B00990D9D /* SplashScreen */,
 				8E1E3EF129707C1500990D9D /* OnboardingScreen */,
-				8ECB362F2971C99A0015646D /* SingUpScreen */,
+				8EB243202976E2A100C1076C /* Authentification */,
 				8E1E3EC32970632200990D9D /* MainScreen */,
 				8E1E3EC82970658A00990D9D /* Theme */,
 			);
@@ -276,6 +283,24 @@
 				8E1E3ECA297065BB00990D9D /* Resources */,
 			);
 			path = Food_Example;
+			sourceTree = "<group>";
+		};
+		8EB243202976E2A100C1076C /* Authentification */ = {
+			isa = PBXGroup;
+			children = (
+				8EB243212976E2B000C1076C /* SignInScreen */,
+				8ECB362F2971C99A0015646D /* SingUpScreen */,
+			);
+			path = Authentification;
+			sourceTree = "<group>";
+		};
+		8EB243212976E2B000C1076C /* SignInScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8EB243222976E2BF00C1076C /* SignInScreen.swift */,
+				8EB243242976E4CE00C1076C /* SignInViewModel.swift */,
+			);
+			path = SignInScreen;
 			sourceTree = "<group>";
 		};
 		8ECB36292971AA350015646D /* Components */ = {
@@ -527,7 +552,9 @@
 				8E1E3EEE297077B400990D9D /* Theme.swift in Sources */,
 				8E0A30782975EEB7005CBAEB /* AuthRepo.swift in Sources */,
 				8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */,
+				8EB2431F2976E08600C1076C /* RemoteDataBase.swift in Sources */,
 				8ECB36312971CA1B0015646D /* BorderedTextField.swift in Sources */,
+				8EB243252976E4CE00C1076C /* SignInViewModel.swift in Sources */,
 				8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */,
 				8ECB363C29720C470015646D /* GoogleButton.swift in Sources */,
 				8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */,
@@ -541,6 +568,7 @@
 				8ECB36342971F7040015646D /* ReadSize.swift in Sources */,
 				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,
 				8ECB36382971FED40015646D /* SignUpScreen.swift in Sources */,
+				8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */,
 				8EF63798297370E400AAD62E /* RecipeRepo.swift in Sources */,
 				8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */,
 				8EB4EC95296F039800BDB2CF /* MainViewModel.swift in Sources */,
