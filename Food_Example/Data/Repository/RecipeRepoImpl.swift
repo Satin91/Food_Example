@@ -16,9 +16,9 @@ enum ApiServerError: Error {
 
 class RecipeRepoImpl: RecipeRepo {
     private let maxFat: Int = 140
-    private let searchCount: Int = 2
+    private let searchCount: Int = 150
     private let successStatusCode = 200
-    private let query: String = "Wine"
+    private let query: String = "Potatoes"
     
     func searchRecipes() async throws -> [Recipe] {
         guard var url = URL(string: "https://api.spoonacular.com/recipes/complexSearch") else {

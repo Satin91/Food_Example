@@ -136,6 +136,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8E0A307D297609FA005CBAEB /* Database */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		8E1E3EC0297062EB00990D9D /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,17 +359,10 @@
 		8EF6378929736CC400AAD62E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				8EF6379129736D9800AAD62E /* DataBase */,
+				8E0A307D297609FA005CBAEB /* Database */,
 				8EF6379229736DBE00AAD62E /* Repository */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		8EF6379129736D9800AAD62E /* DataBase */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataBase;
 			sourceTree = "<group>";
 		};
 		8EF6379229736DBE00AAD62E /* Repository */ = {

@@ -31,7 +31,8 @@ struct RecipeGrid: View {
             Text(recipe.title)
                 .font(Fonts.custom(.bold, size: Constants.FontSizes.small))
                 .foregroundColor(Colors.dark)
-                .padding(Constants.Spacing.s)
+                .frame(height: 52)
+                .padding(Constants.Spacing.xs)
                 .lineLimit(2)
         }
         .background(Color.white)
@@ -41,11 +42,21 @@ struct RecipeGrid: View {
     }
     
     var image: some View {
-        Image("mockFood")
-            .resizable()
-            .scaledToFill()
-            .foregroundColor(Colors.lightGray)
-            .frame(maxHeight: .infinity)
+        AsyncImage(
+            url: URL(string: recipe.image),
+            content: { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxHeight: .infinity)
+            }, placeholder: {
+                Image("mockFood")
+                    .resizable()
+                    .scaledToFill()
+                    .foregroundColor(Colors.lightGray)
+                    .frame(maxHeight: .infinity)
+            }
+        )
     }
     
     var settingsButton: some View {

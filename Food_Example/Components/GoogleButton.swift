@@ -12,10 +12,13 @@ struct GoogleButton: View {
     let action: () -> Void
     
     var body: some View {
-        googleButton
+        content
+            .onTapGesture {
+                action()
+            }
     }
     
-    var googleButton: some View {
+    var content: some View {
         HStack {
             googleImage
             textView
@@ -27,9 +30,6 @@ struct GoogleButton: View {
                 .stroke(Colors.border, lineWidth: borderWidth)
         }
         .padding(.horizontal, Constants.Spacing.s)
-        .onTapGesture {
-            action()
-        }
     }
     
     private var googleImage: some View {

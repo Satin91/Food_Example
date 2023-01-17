@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainScreen: View {
     @ObservedObject var viewModel = MainViewModel()
+    @State var recipes: [Recipe] = []
     let columns = [
         GridItem(.flexible(), spacing: 0),
         GridItem(.flexible(), spacing: 0)
