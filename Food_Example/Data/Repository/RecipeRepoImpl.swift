@@ -15,12 +15,13 @@ enum ApiServerError: Error {
 }
 
 class RecipeRepoImpl: RecipeRepo {
+    
     private let maxFat: Int = 140
     private let searchCount: Int = 150
     private let successStatusCode = 200
     private let query: String = "Potatoes"
     
-    func searchRecipes() async throws -> [Recipe] {
+    func showRandomRecipes() async throws -> [Recipe] {
         guard var url = URL(string: "https://api.spoonacular.com/recipes/complexSearch") else {
             throw ApiServerError.badURL
         }
@@ -41,5 +42,11 @@ class RecipeRepoImpl: RecipeRepo {
         let recipes = try JSONDecoder().decode(SearchRecipesWrapper.self, from: data)
         
         return recipes.results
-        }
     }
+    
+    func searchRecipesBy(query: String) async throws -> [Recipe] {
+    }
+    
+    func getRecipes() {
+    }
+}

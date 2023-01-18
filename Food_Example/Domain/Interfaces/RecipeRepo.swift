@@ -8,5 +8,6 @@
 import Foundation
 
 protocol RecipeRepo {
-    func searchRecipes() async throws -> [Recipe]
+    func showRandomRecipes() async throws -> [Recipe]
+    func searchRecipesBy(query: String) async throws -> [Recipe]
 }

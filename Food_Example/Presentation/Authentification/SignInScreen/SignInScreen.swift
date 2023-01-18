@@ -27,6 +27,7 @@ struct SignInScreen: View {
             separatorContainer
             googleButton
             Spacer()
+            bottomText
         }
     }
     
@@ -49,19 +50,13 @@ struct SignInScreen: View {
     
     private var signInButton: some View {
         RoundedFilledButton(text: "Sign In", action: {
-            viewModel.signIn(
-                email: email,
-                password: password,
-                completionHandler: { result in
-                    switch result {
-                    case .none:
-                        print("Error")
-                    case .some(let wrapped):
-                        print(wrapped.user.uid)
-                        self.onMainScreen()
-                    }
+            viewModel.signIn(email: email, password: password) { sucess in
+                if sucess {
+                    onMainScreen()
+                } else {
+                    print("Log In Error")
                 }
-            )
+            }
         }
         )
         .padding(.top, Constants.Spacing.m)
@@ -89,6 +84,21 @@ struct SignInScreen: View {
         GoogleButton {
             print("Sign UP!")
         }
+    }
+    
+    private var bottomText: some View {
+        HStack(spacing: Constants.Spacing.xxxs) {
+            Text("Don’t have an account?")
+                .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
+                .foregroundColor(Colors.dark)
+            Text("Sign Up")
+                .font(Fonts.custom(.bold, size: Constants.FontSizes.small))
+                .foregroundColor(Colors.red)
+                .onTapGesture {
+                    onSignUpScreen()
+                }
+        }
+        .padding(.bottom, Constants.Spacing.s)
     }
 }
 

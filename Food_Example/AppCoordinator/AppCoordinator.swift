@@ -18,7 +18,7 @@ enum Screen {
 }
 
 struct AppCoordinator: View {
-    @State var routes: Routes<Screen> = [.root(.signInScreen)]
+    @State var routes: Routes<Screen> = [.root(.splashScreen, embedInNavigationView: true)]
     
     var body: some View {
         Router($routes) { screen, _ in
@@ -32,14 +32,17 @@ struct AppCoordinator: View {
                 )
             case .onboardingScreen:
                 OnboardingScreen(onSignUpScreen: {
-                    pushToSignUpScreen()
+                    pushToSignInScreen()
                 })
             case .signUpScreen:
-                SignUpScreen()
+                SignUpScreen(
+                    onMainScreen: { pushToMainScreen() },
+                    onClose: { backToSignInScreen() }
+                )
             case .signInScreen:
                 SignInScreen(
                     onMainScreen: {
-                        onMainScreen(nil)
+                        pushToMainScreen()
                     },
                     onSignUpScreen: {
                         pushToSignUpScreen()
@@ -47,6 +50,10 @@ struct AppCoordinator: View {
                 )
             }
         }
+    }
+    
+    func pushToSignInScreen() {
+        routes.push(.signInScreen)
     }
     
     func pushToSignUpScreen() {
@@ -59,6 +66,10 @@ struct AppCoordinator: View {
     
     private func pushToMainScreen() {
         routes.push(.mainScreen(nil))
+    }
+    
+    private func backToSignInScreen() {
+        routes.goBack()
     }
     
     private func onMainScreen(_ user: User?) {

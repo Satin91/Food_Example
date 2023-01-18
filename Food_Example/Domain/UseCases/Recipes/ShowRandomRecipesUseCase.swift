@@ -16,7 +16,7 @@ protocol GetRecipes {
     func execute() async -> Result<[Recipe], SearchRecipeUseCaseError>
 }
 
-struct SearchRecipeUseCase: GetRecipes {
+struct ShowRandomRecipesUseCase: GetRecipes {
     var repo: RecipeRepo
     
     init(repo: RecipeRepo) {
@@ -25,7 +25,7 @@ struct SearchRecipeUseCase: GetRecipes {
     
     func execute() async -> Result<[Recipe], SearchRecipeUseCaseError> {
         do {
-            let recipes = try await repo.searchRecipes()
+            let recipes = try await repo.showRandomRecipes()
             return .success(recipes)
         } catch let error {
             switch error {

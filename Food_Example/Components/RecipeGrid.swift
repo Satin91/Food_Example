@@ -5,7 +5,9 @@
 //  Created by Артур Кулик on 15.01.2023.
 //
 
+import CoreML
 import SwiftUI
+import Vision
 
 struct RecipeGrid: View {
     let recipe: Recipe
@@ -65,6 +67,8 @@ struct RecipeGrid: View {
                     .frame(maxHeight: .infinity)
             }
         )
+        .onAppear {
+        }
     }
     
     var settingsButton: some View {

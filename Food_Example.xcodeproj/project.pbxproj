@@ -10,6 +10,8 @@
 		8E0A30782975EEB7005CBAEB /* AuthRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A30772975EEB7005CBAEB /* AuthRepo.swift */; };
 		8E0A307A29760242005CBAEB /* AuthRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A307929760242005CBAEB /* AuthRepoImpl.swift */; };
 		8E0A307C2976030B005CBAEB /* SignUpWithEmailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A307B2976030B005CBAEB /* SignUpWithEmailUseCase.swift */; };
+		8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */; };
+		8E129DD629778AEF00D9C442 /* SearchRecipesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DD529778AEF00D9C442 /* SearchRecipesUseCase.swift */; };
 		8E1A98922975BF93007555A8 /* URL+QueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1A98912975BF93007555A8 /* URL+QueryParams.swift */; };
 		8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EC62970635F00990D9D /* SplashScreen.swift */; };
 		8E1E3ED5297065FE00990D9D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ECC297065FD00990D9D /* Poppins-Bold.ttf */; };
@@ -39,6 +41,7 @@
 		8EB2431F2976E08600C1076C /* RemoteDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB2431E2976E08600C1076C /* RemoteDataBase.swift */; };
 		8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243222976E2BF00C1076C /* SignInScreen.swift */; };
 		8EB243252976E4CE00C1076C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243242976E4CE00C1076C /* SignInViewModel.swift */; };
+		8EB243272976F45B00C1076C /* SignInWIthEmailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243262976F45B00C1076C /* SignInWIthEmailUseCase.swift */; };
 		8EB4EC95296F039800BDB2CF /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB4EC94296F039800BDB2CF /* MainViewModel.swift */; };
 		8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */; };
 		8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC926E6297466490012B0D5 /* RecipeGrid.swift */; };
@@ -58,7 +61,7 @@
 		8EE835432974DBB200779B5D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8EE835422974DBB200779B5D /* FirebaseFirestore */; };
 		8EF6378E29736D2800AAD62E /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF6378D29736D2800AAD62E /* Recipe.swift */; };
 		8EF63798297370E400AAD62E /* RecipeRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF63797297370E400AAD62E /* RecipeRepo.swift */; };
-		8EF6379C29738B8600AAD62E /* SearchRecipeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF6379B29738B8600AAD62E /* SearchRecipeUseCase.swift */; };
+		8EF6379C29738B8600AAD62E /* ShowRandomRecipesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF6379B29738B8600AAD62E /* ShowRandomRecipesUseCase.swift */; };
 		DAC2CE7C0EA88D94EC95DE00 /* libPods-Food_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB13102025C97D49767D5162 /* libPods-Food_Example.a */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +69,8 @@
 		8E0A30772975EEB7005CBAEB /* AuthRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepo.swift; sourceTree = "<group>"; };
 		8E0A307929760242005CBAEB /* AuthRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepoImpl.swift; sourceTree = "<group>"; };
 		8E0A307B2976030B005CBAEB /* SignUpWithEmailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailUseCase.swift; sourceTree = "<group>"; };
+		8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarTextModifiers.swift; sourceTree = "<group>"; };
+		8E129DD529778AEF00D9C442 /* SearchRecipesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesUseCase.swift; sourceTree = "<group>"; };
 		8E1A98912975BF93007555A8 /* URL+QueryParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryParams.swift"; sourceTree = "<group>"; };
 		8E1E3EC62970635F00990D9D /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		8E1E3ECC297065FD00990D9D /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
@@ -96,6 +101,7 @@
 		8EB2431E2976E08600C1076C /* RemoteDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataBase.swift; sourceTree = "<group>"; };
 		8EB243222976E2BF00C1076C /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		8EB243242976E4CE00C1076C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		8EB243262976F45B00C1076C /* SignInWIthEmailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWIthEmailUseCase.swift; sourceTree = "<group>"; };
 		8EB4EC94296F039800BDB2CF /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
 		8EC926E6297466490012B0D5 /* RecipeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeGrid.swift; sourceTree = "<group>"; };
@@ -111,7 +117,7 @@
 		8ED730FD2975D77F0075ACCC /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		8EF6378D29736D2800AAD62E /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		8EF63797297370E400AAD62E /* RecipeRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepo.swift; sourceTree = "<group>"; };
-		8EF6379B29738B8600AAD62E /* SearchRecipeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipeUseCase.swift; sourceTree = "<group>"; };
+		8EF6379B29738B8600AAD62E /* ShowRandomRecipesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRandomRecipesUseCase.swift; sourceTree = "<group>"; };
 		99A119B01161D5F324E565BF /* Pods-Food_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Food_Example.debug.xcconfig"; path = "Target Support Files/Pods-Food_Example/Pods-Food_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		CB13102025C97D49767D5162 /* libPods-Food_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Food_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15305536270F35792D3CD25 /* Pods-Food_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Food_Example.release.xcconfig"; path = "Target Support Files/Pods-Food_Example/Pods-Food_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -148,6 +154,24 @@
 				8EB2431E2976E08600C1076C /* RemoteDataBase.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		8E129DD729778C0700D9C442 /* Authentification */ = {
+			isa = PBXGroup;
+			children = (
+				8E0A307B2976030B005CBAEB /* SignUpWithEmailUseCase.swift */,
+				8EB243262976F45B00C1076C /* SignInWIthEmailUseCase.swift */,
+			);
+			path = Authentification;
+			sourceTree = "<group>";
+		};
+		8E129DD829778C1600D9C442 /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				8EF6379B29738B8600AAD62E /* ShowRandomRecipesUseCase.swift */,
+				8E129DD529778AEF00D9C442 /* SearchRecipesUseCase.swift */,
+			);
+			path = Recipes;
 			sourceTree = "<group>";
 		};
 		8E1E3EC0297062EB00990D9D /* App */ = {
@@ -321,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */,
+				8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -349,7 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF6378829736AB900AAD62E /* Entities */,
-				8EF6378729736A9D00AAD62E /* UseCase */,
+				8EF6378729736A9D00AAD62E /* UseCases */,
 				8EF6378629736A8500AAD62E /* Interfaces */,
 			);
 			path = Domain;
@@ -364,13 +389,13 @@
 			path = Interfaces;
 			sourceTree = "<group>";
 		};
-		8EF6378729736A9D00AAD62E /* UseCase */ = {
+		8EF6378729736A9D00AAD62E /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				8EF6379B29738B8600AAD62E /* SearchRecipeUseCase.swift */,
-				8E0A307B2976030B005CBAEB /* SignUpWithEmailUseCase.swift */,
+				8E129DD729778C0700D9C442 /* Authentification */,
+				8E129DD829778C1600D9C442 /* Recipes */,
 			);
-			path = UseCase;
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 		8EF6378829736AB900AAD62E /* Entities */ = {
@@ -562,13 +587,16 @@
 				8E0A307A29760242005CBAEB /* AuthRepoImpl.swift in Sources */,
 				8E287843296EEB2B00AD8D25 /* RecipeRepoImpl.swift in Sources */,
 				8E1A98922975BF93007555A8 /* URL+QueryParams.swift in Sources */,
-				8EF6379C29738B8600AAD62E /* SearchRecipeUseCase.swift in Sources */,
+				8EB243272976F45B00C1076C /* SignInWIthEmailUseCase.swift in Sources */,
+				8EF6379C29738B8600AAD62E /* ShowRandomRecipesUseCase.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */,
+				8E129DD629778AEF00D9C442 /* SearchRecipesUseCase.swift in Sources */,
 				8ECB36362971FBFE0015646D /* NavigationBarView.swift in Sources */,
 				8ECB36342971F7040015646D /* ReadSize.swift in Sources */,
 				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,
 				8ECB36382971FED40015646D /* SignUpScreen.swift in Sources */,
 				8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */,
+				8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */,
 				8EF63798297370E400AAD62E /* RecipeRepo.swift in Sources */,
 				8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */,
 				8EB4EC95296F039800BDB2CF /* MainViewModel.swift in Sources */,

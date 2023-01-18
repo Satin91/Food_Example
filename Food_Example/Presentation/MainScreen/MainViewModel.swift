@@ -9,15 +9,20 @@ import SwiftUI
 
 @MainActor
 final class MainViewModel: ObservableObject {
-    var searchRecipeUseCase = SearchRecipeUseCase(repo: RecipeRepoImpl())
+    var showRandomRecipesUseCase = ShowRandomRecipesUseCase(repo: RecipeRepoImpl())
+    var searchRecipesUseCase = SearchRecipesUseCase(repo: RecipeRepoImpl())
     
     @Published var recipes: [Recipe] = []
     @Published var errorMessage = ""
     @Published var hasError = false
     
-    func getRecipes() async {
+    func searchRecipesBy(query: String) {
+        
+    }
+    
+    func showRandomRecipes() async {
         errorMessage = ""
-        let result = await searchRecipeUseCase.execute()
+        let result = await showRandomRecipesUseCase.execute()
         switch result {
         case .success(let recipes):
             self.recipes = recipes

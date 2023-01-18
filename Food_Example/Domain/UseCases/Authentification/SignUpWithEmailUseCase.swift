@@ -5,6 +5,7 @@
 //  Created by Артур Кулик on 17.01.2023.
 //
 
+import FirebaseAuth
 import Foundation
 
 enum SignUpWithEmailUseCaseError: Error {
@@ -14,7 +15,7 @@ enum SignUpWithEmailUseCaseError: Error {
 }
 
 protocol SignUp {
-    func execute(email: String, password: String) async throws
+    func execute(email: String, password: String, completion: @escaping (Result<AuthDataResult?, AuthError>) -> Void) async throws
 }
 
 class SignUpWithEmailUseCase: SignUp {
@@ -24,9 +25,16 @@ class SignUpWithEmailUseCase: SignUp {
         self.repo = repo
     }
     
-    func execute(email: String, password: String) async throws {
+    func execute(email: String, password: String, completion: @escaping (Result<AuthDataResult?, AuthError>) -> Void) async throws {
         do {
-            try await repo.signUpWithEmail(email: email, password: password)
+            try await repo.signUpWithEmail(email: email, password: password, completion: { result in
+                switch result {
+                case .success(let success):
+                    completion(.success(success))
+                case .failure(let failure):
+                    completion(.failure(failure))
+                }
+            })
         } catch let error as SignUpWithEmailUseCaseError {
             switch error {
             case .noConnection:

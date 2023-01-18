@@ -11,13 +11,13 @@ struct SignUpScreen: View {
     @State var username = ""
     @State var email = ""
     @State var password = ""
-    let viewModel = SignUpViewModel()
+    let onMainScreen: () -> Void
+    let onClose: () -> Void
+    
+    @ObservedObject var viewModel = SignUpViewModel()
     
     var body: some View {
         content
-            .onTapGesture {
-                hideKeyboard()
-            }
             .toolbar(.hidden)
     }
     
@@ -34,6 +34,12 @@ struct SignUpScreen: View {
     
     var navigationBarView: some View {
         NavigationBarView()
+            .addLeftContainer {
+                Image(Images.icnArrowRight)
+                    .onTapGesture {
+                        onClose()
+                    }
+            }
             .addCentralContainer {
                 Text("Create an Account")
                     .font(Fonts.custom(.bold, size: Constants.FontSizes.large))
@@ -52,7 +58,17 @@ struct SignUpScreen: View {
     
     private var signUpButton: some View {
         RoundedFilledButton(text: "Sign Up", action: {
-            viewModel.signUpWithEmail(email: email, password: password)
+            viewModel.signUpWithEmail(
+                email: email,
+                password: password,
+                completion: { success in
+                    if success {
+                        self.onMainScreen()
+                    } else {
+                        onMainScreen()
+                    }
+                }
+            )
         }
         )
         .padding(.top, Constants.Spacing.m)
@@ -85,6 +101,9 @@ struct SignUpScreen: View {
 
 struct SignUpScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpScreen()
+        SignUpScreen(
+            onMainScreen: {},
+            onClose: {}
+        )
     }
 }
