@@ -19,9 +19,10 @@ struct SplashScreen: View {
             .foregroundColor(.red)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                    if let user = viewModel.user {
-                        onMainScreen(user)
-                    } else {
+                    switch viewModel.sessionService.state {
+                    case .loggedIn:
+                        onMainScreen(Auth.auth().currentUser!)
+                    case .loggedOut:
                         onOnboardingScreen()
                     }
                 })

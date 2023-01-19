@@ -9,7 +9,6 @@ import FirebaseAuth
 import Foundation
 
 protocol AuthRepo {
-    func signUpWithEmail(email: String, password: String, completion: @escaping (Result<AuthDataResult?, AuthError>) -> Void) async throws
     func signInWithEmail(email: String, password: String, completion: @escaping (Result<AuthDataResult?, AuthError>) -> Void)
     func signUpWithGoogle() async throws
 }

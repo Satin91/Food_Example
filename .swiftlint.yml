@@ -35,7 +35,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - comment_spacing
 - compiler_protocol_init
 - computed_accessors_order
-- conditional_returns_on_newline
 - contains_over_filter_count
 - contains_over_filter_is_empty
 - contains_over_first_not_nil
@@ -61,7 +60,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - empty_xctest_method
 - enum_case_associated_values_count
 - expiring_todo
-- explicit_enum_raw_value
 - explicit_init
 - explicit_self
 - extension_access_modifier
@@ -115,7 +113,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - nimble_operator
 - no_extension_access_modifier
 - no_fallthrough_only
-- no_grouping_extension
 - no_space_in_method_call
 - no_magic_numbers
 - notification_center_detachment

@@ -8,12 +8,12 @@
 import Foundation
 
 enum SearchRecipesUseCaseError: Error {
+    case recipeNotFound
     case networkError
-    case decodingError
 }
 
 protocol SearchRecipes {
-    func execute(query: String) async -> Result<[Recipe], SearchRecipeUseCaseError>
+    func execute(query: String) async -> Result<[Recipe], SearchRecipesUseCaseError>
 }
 
 struct SearchRecipesUseCase: SearchRecipes {
@@ -23,14 +23,14 @@ struct SearchRecipesUseCase: SearchRecipes {
         self.repo = repo
     }
     
-    func execute(query: String) async -> Result<[Recipe], SearchRecipeUseCaseError> {
+    func execute(query: String) async -> Result<[Recipe], SearchRecipesUseCaseError> {
         do {
             let recipes = try await repo.searchRecipesBy(query: query)
             return .success(recipes)
         } catch let error {
             switch error {
-            case SearchRecipeUseCaseError.decodingError:
-                return .failure(.decodingError)
+            case SearchRecipesUseCaseError.recipeNotFound:
+                return .failure(.recipeNotFound)
             default:
                 return .failure(.networkError)
             }

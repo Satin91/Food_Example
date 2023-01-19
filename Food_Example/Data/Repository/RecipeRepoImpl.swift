@@ -5,6 +5,7 @@
 //  Created by Артур Кулик on 11.01.2023.
 //
 
+import Combine
 import Foundation
 
 enum ApiServerError: Error {
@@ -15,7 +16,6 @@ enum ApiServerError: Error {
 }
 
 class RecipeRepoImpl: RecipeRepo {
-    
     private let maxFat: Int = 140
     private let searchCount: Int = 150
     private let successStatusCode = 200
@@ -31,9 +31,8 @@ class RecipeRepoImpl: RecipeRepo {
             "maxFat": String(maxFat),
             "number": String(searchCount)
         ]
-        
+         
         url = url.appendingQueryParameters(URLParams)
-        
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == successStatusCode else {
@@ -44,7 +43,13 @@ class RecipeRepoImpl: RecipeRepo {
         return recipes.results
     }
     
+    func getRecipes(model: Any) -> Any {
+        model
+    }
+    
     func searchRecipesBy(query: String) async throws -> [Recipe] {
+        _ = getRecipes(model: [Recipe].self)
+        return []
     }
     
     func getRecipes() {

@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct SignUpScreen: View {
-    @State var username = ""
-    @State var email = ""
-    @State var password = ""
     let onMainScreen: () -> Void
     let onClose: () -> Void
     
-    @ObservedObject var viewModel = SignUpViewModel()
+    @StateObject var viewModel = SignUpViewModelImpl(repo: RegistrationRepositoryImpl())
     
     var body: some View {
         content
@@ -49,26 +46,16 @@ struct SignUpScreen: View {
     
     var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $username, textFieldType: .userName)
-            BorderedTextField(text: $email, textFieldType: .email)
-            BorderedTextField(text: $password, textFieldType: .password)
+            BorderedTextField(text: $viewModel.authDetails.name, textFieldType: .userName)
+            BorderedTextField(text: $viewModel.authDetails.email, textFieldType: .email)
+            BorderedTextField(text: $viewModel.authDetails.password, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
     }
     
     private var signUpButton: some View {
         RoundedFilledButton(text: "Sign Up", action: {
-            viewModel.signUpWithEmail(
-                email: email,
-                password: password,
-                completion: { success in
-                    if success {
-                        self.onMainScreen()
-                    } else {
-                        onMainScreen()
-                    }
-                }
-            )
+            viewModel.register()
         }
         )
         .padding(.top, Constants.Spacing.m)

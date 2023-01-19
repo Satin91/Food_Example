@@ -17,7 +17,6 @@ final class MainViewModel: ObservableObject {
     @Published var hasError = false
     
     func searchRecipesBy(query: String) {
-        
     }
     
     func showRandomRecipes() async {

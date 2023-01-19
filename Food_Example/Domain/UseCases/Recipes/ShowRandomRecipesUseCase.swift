@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum SearchRecipeUseCaseError: Error {
+enum ShowRandomRecipesUseCaseError: Error {
     case networkError
     case decodingError
 }
 
 protocol GetRecipes {
-    func execute() async -> Result<[Recipe], SearchRecipeUseCaseError>
+    func execute() async -> Result<[Recipe], ShowRandomRecipesUseCaseError>
 }
 
 struct ShowRandomRecipesUseCase: GetRecipes {
@@ -23,13 +23,13 @@ struct ShowRandomRecipesUseCase: GetRecipes {
         self.repo = repo
     }
     
-    func execute() async -> Result<[Recipe], SearchRecipeUseCaseError> {
+    func execute() async -> Result<[Recipe], ShowRandomRecipesUseCaseError> {
         do {
             let recipes = try await repo.showRandomRecipes()
             return .success(recipes)
         } catch let error {
             switch error {
-            case SearchRecipeUseCaseError.decodingError:
+            case ShowRandomRecipesUseCaseError.decodingError:
                 return .failure(.decodingError)
             default:
                 return .failure(.networkError)

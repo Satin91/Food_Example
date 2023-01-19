@@ -43,9 +43,7 @@ struct MainScreen: View {
                 .padding(.vertical)
             Divider()
             ScrollView(.vertical) {
-                VStack(spacing: Constants.Spacing.zero) {
-                    recipesList(viewModel.recipes)
-                }
+                recipesList(viewModel.recipes)
             }
         }
     }
