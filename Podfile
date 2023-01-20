@@ -4,6 +4,7 @@
 target 'Food_Example' do
 	pod 'SwiftLint'
 	pod 'FlowStacks'
+	pod 'ViewInspector'
 	pod 'FirebaseAnalytics'
 	pod 'FirebaseAuth', :modular_headers => true
 	pod ‘FirebaseDatabase’, :modular_headers => true
