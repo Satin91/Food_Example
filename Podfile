@@ -1,10 +1,10 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
+# pod 'ViewInspector'
 
 target 'Food_Example' do
 	pod 'SwiftLint'
-	pod 'FlowStacks'
-	pod 'ViewInspector'
+	pod 'FlowStacks'	
 	pod 'FirebaseAnalytics'
 	pod 'FirebaseAuth', :modular_headers => true
 	pod ‘FirebaseDatabase’, :modular_headers => true

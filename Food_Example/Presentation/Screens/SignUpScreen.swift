@@ -1,18 +1,17 @@
 //
-//  SignInScreen.swift
+//  SignUpScreen.swift
 //  Food_Example
 //
-//  Created by Артур Кулик on 17.01.2023.
+//  Created by Артур Кулик on 14.01.2023.
 //
 
 import SwiftUI
 
-struct SignInScreen: View {
-    @State var email = ""
-    @State var password = ""
-    @ObservedObject var viewModel = SignInViewModel()
+struct SignUpScreen: View {
+    @Environment(\.injected) var container: DIContainer
+    @State var registrationInfo = RegistrationInfo()
     let onMainScreen: () -> Void
-    let onSignUpScreen: () -> Void
+    let onClose: () -> Void
     
     var body: some View {
         content
@@ -23,18 +22,23 @@ struct SignInScreen: View {
         VStack(spacing: Constants.Spacing.zero) {
             navigationBarView
             textFieldContainer
-            signInButton
+            signUpButton
             separatorContainer
             googleButton
             Spacer()
-            bottomText
         }
     }
     
     var navigationBarView: some View {
         NavigationBarView()
+            .addLeftContainer {
+                Image(Images.icnArrowRight)
+                    .onTapGesture {
+                        onClose()
+                    }
+            }
             .addCentralContainer {
-                Text("Sign In")
+                Text("Create an Account")
                     .font(Fonts.custom(.bold, size: Constants.FontSizes.large))
                     .foregroundColor(Colors.dark)
             }
@@ -42,22 +46,27 @@ struct SignInScreen: View {
     
     var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $email, textFieldType: .email)
-            BorderedTextField(text: $password, textFieldType: .password)
+            BorderedTextField(text: $registrationInfo.name, textFieldType: .userName)
+            BorderedTextField(text: $registrationInfo.email, textFieldType: .email)
+            BorderedTextField(text: $registrationInfo.password, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
     }
     
-    private var signInButton: some View {
-        RoundedFilledButton(text: "Sign In", action: {
-            viewModel.signIn(email: email, password: password) { sucess in
-                if sucess {
-                    onMainScreen()
-                } else {
-                    print("Log In Error")
+    private var signUpButton: some View {
+        RoundedFilledButton(
+            text: "Sign Up", action: {
+                container.interactors.authInteractor.signUp(registrationInfo: registrationInfo) { result in
+                    print("RESULT \(result)")
+                    switch result {
+                    case .success:
+                        print("ON MINE SCREEN")
+                        onMainScreen()
+                    case .failure:
+                        print("Registration failed")
+                    }
                 }
             }
-        }
         )
         .padding(.top, Constants.Spacing.m)
     }
@@ -85,28 +94,13 @@ struct SignInScreen: View {
             print("Sign UP!")
         }
     }
-    
-    private var bottomText: some View {
-        HStack(spacing: Constants.Spacing.xxxs) {
-            Text("Don’t have an account?")
-                .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
-                .foregroundColor(Colors.dark)
-            Text("Sign Up")
-                .font(Fonts.custom(.bold, size: Constants.FontSizes.small))
-                .foregroundColor(Colors.red)
-                .onTapGesture {
-                    onSignUpScreen()
-                }
-        }
-        .padding(.bottom, Constants.Spacing.s)
-    }
 }
 
-struct SignInScreen_Previews: PreviewProvider {
+struct SignUpScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SignInScreen(
+        SignUpScreen(
             onMainScreen: {},
-            onSignUpScreen: {}
+            onClose: {}
         )
     }
 }

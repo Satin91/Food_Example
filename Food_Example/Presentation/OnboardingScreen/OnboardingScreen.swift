@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingScreen: View {
+    @Environment(\.injected) var container: DIContainer
     @State var currentStep: Int = 0
     let onSignUpScreen: () -> Void
     
@@ -68,7 +69,7 @@ struct OnboardingScreen: View {
                 )
                 .frame(width: Constants.ButtonWidth.medium)
             } else {
-                NavigationButton(currentStep: $currentStep)
+                OnboardingNavigationButton(currentStep: $currentStep)
             }
         }
         .padding(.bottom, Constants.Spacing.m)

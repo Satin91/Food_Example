@@ -167,7 +167,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - sorted_imports
 - statement_position
 - static_operator
-- strict_fileprivate
 - strong_iboutlet
 - superfluous_disable_command
 - switch_case_alignment

@@ -772,7 +772,6 @@ PODS:
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.1.1)
   - SwiftLint (0.49.1)
-  - ViewInspector (0.9.5)
 
 DEPENDENCIES:
   - FirebaseAnalytics
@@ -784,7 +783,6 @@ DEPENDENCIES:
   - FlowStacks
   - GoogleUtilities
   - SwiftLint
-  - ViewInspector
 
 SPEC REPOS:
   trunk:
@@ -808,7 +806,6 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SwiftLint
-    - ViewInspector
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -831,8 +828,7 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
-  ViewInspector: 607c4f3ea4be92c4c9e1e0cccfef54a1b8335b64
 
-PODFILE CHECKSUM: 80e29abcdff101572559bf435d96c47fb3bec7bc
+PODFILE CHECKSUM: ec33bf2999e32cb14d855749235f15ba26262bfc
 
 COCOAPODS: 1.11.3

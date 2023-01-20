@@ -13,7 +13,6 @@ struct MainScreen: View {
     @State var recipes: [Recipe] = []
     @State var isAnimate = false
     @State var searchText: String = ""
-    let user: User?
     let searchViewSize = CGSize(width: 40, height: 40)
     let searchButtonBackground = Colors.border
     

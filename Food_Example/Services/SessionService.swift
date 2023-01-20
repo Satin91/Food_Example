@@ -17,8 +17,6 @@ enum SessionState {
 protocol SessionService {
     var state: SessionState { get }
     var userInfo: UserInfo? { get }
-    
-    func logout()
 }
 
 final class SessionServiceImpl: ObservableObject, SessionService {
@@ -27,9 +25,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     private var handle: AuthStateDidChangeListenerHandle?
     
     init() {
-    }
-    
-    func logout() {
+        setupFirebaseAuthHandler()
     }
     
     private func setupFirebaseAuthHandler() {

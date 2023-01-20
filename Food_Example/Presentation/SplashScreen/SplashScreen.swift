@@ -10,8 +10,9 @@ import SwiftUI
 
 struct SplashScreen: View {
     @ObservedObject var viewModel = SplashScreenViewModel()
+    @Environment(\.injected) var container: DIContainer
     let onOnboardingScreen: () -> Void
-    let onMainScreen: (User) -> Void
+    let onMainScreen: () -> Void
     
     var body: some View {
         Text("Food Recipes")
@@ -19,21 +20,14 @@ struct SplashScreen: View {
             .foregroundColor(.red)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                    switch viewModel.sessionService.state {
+                    switch container.appState.sessionService.state {
                     case .loggedIn:
-                        onMainScreen(Auth.auth().currentUser!)
+                        // onMainScreen()
+                        onOnboardingScreen()
                     case .loggedOut:
                         onOnboardingScreen()
                     }
                 })
             }
-    }
-}
-
-struct SplashScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        SplashScreen(onOnboardingScreen: {
-        }, onMainScreen: { _ in
-        })
     }
 }

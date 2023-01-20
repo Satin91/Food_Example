@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavigationButton: View {
+struct OnboardingNavigationButton: View {
     @Binding var currentStep: Int
     
     var body: some View {
@@ -60,7 +60,7 @@ struct NavigationButton: View {
 
 struct NavigationButton_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButton(currentStep: .constant(0))
+        OnboardingNavigationButton(currentStep: .constant(0))
             .background(Color.black)
     }
 }

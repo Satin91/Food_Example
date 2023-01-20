@@ -8,11 +8,6 @@
 import FirebaseAuth
 import Foundation
 
-enum AuthError: Error {
-    case wrongEmail
-    case wrongPassword
-}
-
 class AuthRepoImpl: AuthRepo {
     func signInWithEmail(email: String, password: String, completion: @escaping (Result<AuthDataResult?, AuthError>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password, completion: { result, error in
