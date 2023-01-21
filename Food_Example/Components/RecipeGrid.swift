@@ -25,7 +25,7 @@ struct RecipeGrid: View {
     }
     
     var content: some View {
-        VStack(alignment: .leading, spacing: Constants.Spacing.zero) {
+        VStack(alignment: .leading, spacing: .zero) {
             imageContainer
             title
         }
@@ -37,7 +37,7 @@ struct RecipeGrid: View {
     
     var title: some View {
         Text(recipe.title)
-            .font(Fonts.custom(.bold, size: Constants.FontSizes.small))
+            .font(Fonts.makeFont(.bold, size: Constants.FontSizes.small))
             .foregroundColor(Colors.dark)
             .frame(height: 52)
             .padding(Constants.Spacing.xs)
@@ -72,8 +72,8 @@ struct RecipeGrid: View {
     }
     
     var settingsButton: some View {
-        VStack(spacing: Constants.Spacing.zero) {
-            HStack(spacing: Constants.Spacing.zero) {
+        VStack(spacing: .zero) {
+            HStack(spacing: .zero) {
                 Spacer()
                 Image(Images.icnSettingsVertical)
                     .renderingMode(.template)

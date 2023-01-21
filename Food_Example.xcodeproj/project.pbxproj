@@ -37,7 +37,6 @@
 		8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE9297072C600990D9D /* Fonts.swift */; };
 		8E1E3EEC297075F100990D9D /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */; };
 		8E1E3EEE297077B400990D9D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EED297077B400990D9D /* Theme.swift */; };
-		8E1E3EF02970797200990D9D /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */; };
 		8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */; };
 		8E1E3EF529707DC500990D9D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF429707DC500990D9D /* Images.xcassets */; };
 		8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */; };
@@ -48,7 +47,12 @@
 		8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287836296EE1FB00AD8D25 /* MainScreen.swift */; };
 		8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E287838296EE1FD00AD8D25 /* Assets.xcassets */; };
 		8E287843296EEB2B00AD8D25 /* RecipeRepoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287842296EEB2B00AD8D25 /* RecipeRepoImpl.swift */; };
+		8E39E152297B7C8C0042A551 /* ResetPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */; };
+		8E448F5F297BA6EC00F3C7D7 /* Send.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E448F5E297BA6EC00F3C7D7 /* Send.json */; };
+		8E448F62297BAA8800F3C7D7 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E448F61297BAA8800F3C7D7 /* Popup.swift */; };
 		8E4E31802974CE5E00C05818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */; };
+		8E88ECCC297B920A00ACF1C7 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88ECCB297B920A00ACF1C7 /* LottieView.swift */; };
+		8E88ECDA297BA03700ACF1C7 /* Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E88ECD9297BA03700ACF1C7 /* Loader.json */; };
 		8EB2431F2976E08600C1076C /* RemoteDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB2431E2976E08600C1076C /* RemoteDataBase.swift */; };
 		8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243222976E2BF00C1076C /* SignInScreen.swift */; };
 		8EB243272976F45B00C1076C /* SignInWIthEmailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243262976F45B00C1076C /* SignInWIthEmailUseCase.swift */; };
@@ -101,7 +105,6 @@
 		8E1E3EE9297072C600990D9D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		8E1E3EED297077B400990D9D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreen.swift; sourceTree = "<group>"; };
 		8E1E3EF429707DC500990D9D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
@@ -113,7 +116,12 @@
 		8E287836296EE1FB00AD8D25 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		8E287838296EE1FD00AD8D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E287842296EEB2B00AD8D25 /* RecipeRepoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRepoImpl.swift; sourceTree = "<group>"; };
+		8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordScreen.swift; sourceTree = "<group>"; };
+		8E448F5E297BA6EC00F3C7D7 /* Send.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Send.json; sourceTree = "<group>"; };
+		8E448F61297BAA8800F3C7D7 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E88ECCB297B920A00ACF1C7 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		8E88ECD9297BA03700ACF1C7 /* Loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loader.json; sourceTree = "<group>"; };
 		8EB2431E2976E08600C1076C /* RemoteDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataBase.swift; sourceTree = "<group>"; };
 		8EB243222976E2BF00C1076C /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		8EB243262976F45B00C1076C /* SignInWIthEmailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWIthEmailUseCase.swift; sourceTree = "<group>"; };
@@ -233,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				8E854683297A571400AC76BA /* Screens */,
-				8E1E3EE229706C9B00990D9D /* SplashScreen */,
 				8E1E3EF129707C1500990D9D /* OnboardingScreen */,
 				8EB243212976E2B000C1076C /* SignInScreen */,
 				8E1E3EC32970632200990D9D /* MainScreen */,
@@ -279,6 +286,7 @@
 		8E1E3ECA297065BB00990D9D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8E88ECC8297B91A200ACF1C7 /* Lottie */,
 				8E1E3ECB297065E300990D9D /* Fonts */,
 				8E287838296EE1FD00AD8D25 /* Assets.xcassets */,
 				8E1E3EF429707DC500990D9D /* Images.xcassets */,
@@ -290,6 +298,7 @@
 		8E1E3ECB297065E300990D9D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				8E39E153297B917D0042A551 /* Lottie */,
 				8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */,
 				8E1E3ED0297065FD00990D9D /* Poppins-Black.ttf */,
 				8E1E3ECC297065FD00990D9D /* Poppins-Bold.ttf */,
@@ -304,19 +313,9 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		8E1E3EE229706C9B00990D9D /* SplashScreen */ = {
-			isa = PBXGroup;
-			children = (
-				8E1E3EC62970635F00990D9D /* SplashScreen.swift */,
-				8E1E3EEF2970797200990D9D /* SplashScreenViewModel.swift */,
-			);
-			path = SplashScreen;
-			sourceTree = "<group>";
-		};
 		8E1E3EF129707C1500990D9D /* OnboardingScreen */ = {
 			isa = PBXGroup;
 			children = (
-				8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */,
 			);
 			path = OnboardingScreen;
 			sourceTree = "<group>";
@@ -358,6 +357,13 @@
 			path = Food_Example;
 			sourceTree = "<group>";
 		};
+		8E39E153297B917D0042A551 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		8E41786D297A19290065731A /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +371,14 @@
 				8E15C3E5297A2DFA00BAF333 /* AuthInteractor.swift */,
 			);
 			path = Interactor;
+			sourceTree = "<group>";
+		};
+		8E448F60297BAA2100F3C7D7 /* PopUp */ = {
+			isa = PBXGroup;
+			children = (
+				8E448F61297BAA8800F3C7D7 /* Popup.swift */,
+			);
+			path = PopUp;
 			sourceTree = "<group>";
 		};
 		8E49D6852979C7CB004C53AE /* Services */ = {
@@ -380,8 +394,20 @@
 			children = (
 				8ECB36372971FED40015646D /* SignUpScreen.swift */,
 				8EB243222976E2BF00C1076C /* SignInScreen.swift */,
+				8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */,
+				8E1E3EC62970635F00990D9D /* SplashScreen.swift */,
+				8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		8E88ECC8297B91A200ACF1C7 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				8E448F5E297BA6EC00F3C7D7 /* Send.json */,
+				8E88ECD9297BA03700ACF1C7 /* Loader.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		8EB243212976E2B000C1076C /* SignInScreen */ = {
@@ -396,6 +422,7 @@
 			children = (
 				8ECB36322971F6F40015646D /* Extensions */,
 				8ECB362A2971AA4D0015646D /* Modifiers */,
+				8E448F60297BAA2100F3C7D7 /* PopUp */,
 				8ECB36302971CA1B0015646D /* BorderedTextField.swift */,
 				8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */,
 				8ECB36272971A5B30015646D /* OnboardingNavigationButton.swift */,
@@ -403,6 +430,7 @@
 				8ECB3639297207130015646D /* RoundedFilledButton.swift */,
 				8ECB363B29720C470015646D /* GoogleButton.swift */,
 				8ECB362D2971C0890015646D /* CapsuleButton.swift */,
+				8E88ECCB297B920A00ACF1C7 /* LottieView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -552,6 +580,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E448F5F297BA6EC00F3C7D7 /* Send.json in Resources */,
 				8E1E3ED6297065FE00990D9D /* Poppins-ExtraLight.ttf in Resources */,
 				8E1E3EDC297065FE00990D9D /* Poppins-Light.ttf in Resources */,
 				8E4E31802974CE5E00C05818 /* GoogleService-Info.plist in Resources */,
@@ -564,6 +593,7 @@
 				8E1E3EDD297065FE00990D9D /* Poppins-ExtraBold.ttf in Resources */,
 				8E1E3EDB297065FE00990D9D /* Poppins-SemiBold.ttf in Resources */,
 				8E1E3ED7297065FE00990D9D /* Poppins-Medium.ttf in Resources */,
+				8E88ECDA297BA03700ACF1C7 /* Loader.json in Resources */,
 				8E1E3EF92970878700990D9D /* Colors.xcassets in Resources */,
 				8E1E3EDA297065FE00990D9D /* Poppins-Regular.ttf in Resources */,
 				8E1E3EE12970697000990D9D /* Food-Example-Info.plist in Resources */,
@@ -640,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E15C3E9297A329F00BAF333 /* CancelBag.swift in Sources */,
+				8E448F62297BAA8800F3C7D7 /* Popup.swift in Sources */,
 				8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */,
 				8E1E11A52978E56C00CD62DF /* AuthRepository.swift in Sources */,
 				8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */,
@@ -649,10 +680,12 @@
 				8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */,
 				8E15C3DE297A1FFD00BAF333 /* AppState.swift in Sources */,
 				8EB2431F2976E08600C1076C /* RemoteDataBase.swift in Sources */,
+				8E88ECCC297B920A00ACF1C7 /* LottieView.swift in Sources */,
 				8ECB36312971CA1B0015646D /* BorderedTextField.swift in Sources */,
 				8E241F7229790233007E4025 /* SessionService.swift in Sources */,
 				8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */,
 				8ECB363C29720C470015646D /* GoogleButton.swift in Sources */,
+				8E39E152297B7C8C0042A551 /* ResetPasswordScreen.swift in Sources */,
 				8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */,
 				8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */,
 				8E0A307A29760242005CBAEB /* AuthRepoImpl.swift in Sources */,
@@ -679,7 +712,6 @@
 				8EF6378E29736D2800AAD62E /* Recipe.swift in Sources */,
 				8E1E3EE629706E0700990D9D /* AppCoordinator.swift in Sources */,
 				8E15C3E2297A2CDD00BAF333 /* InteractorsContainer.swift in Sources */,
-				8E1E3EF02970797200990D9D /* SplashScreenViewModel.swift in Sources */,
 				8E15C3E6297A2DFA00BAF333 /* AuthInteractor.swift in Sources */,
 				8ECB363A297207130015646D /* RoundedFilledButton.swift in Sources */,
 				8ECB362E2971C0890015646D /* CapsuleButton.swift in Sources */,

@@ -15,6 +15,7 @@ enum Screen {
     case mainScreen
     case signUpScreen
     case signInScreen
+    case resetPasswordScreen
 }
 
 struct AppCoordinator: View {
@@ -40,11 +41,14 @@ struct AppCoordinator: View {
             case .signInScreen:
                 SignInScreen(
                     onMainScreen: pushToMainScreen,
-                    onSignUpScreen: pushToSignUpScreen
+                    onSignUpScreen: pushToSignUpScreen,
+                    onResetPasswordScreen: pushToResetPaswordScreen
                 )
-                .inject(AppEnvironment.bootstrap().container)
+            case .resetPasswordScreen:
+                ResetPasswordScreen(onClose: back)
             }
         }
+        .inject(AppEnvironment.bootstrap().container)
     }
     
     private func pushToSignInScreen() {
@@ -53,6 +57,10 @@ struct AppCoordinator: View {
     
     private func pushToSignUpScreen() {
         routes.push(.signUpScreen)
+    }
+    
+    private func pushToResetPaswordScreen() {
+        routes.push(.resetPasswordScreen)
     }
     
     private func pushOnboardingScreen() {

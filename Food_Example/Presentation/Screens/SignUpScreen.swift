@@ -5,11 +5,14 @@
 //  Created by Артур Кулик on 14.01.2023.
 //
 
+import FirebaseAuth
 import SwiftUI
 
 struct SignUpScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var registrationInfo = RegistrationInfo()
+    @State var error: AuthErrorCode.Code = .keychainError
+    @State var verificationError: VerificationError?
     let onMainScreen: () -> Void
     let onClose: () -> Void
     
@@ -19,7 +22,7 @@ struct SignUpScreen: View {
     }
     
     private var content: some View {
-        VStack(spacing: Constants.Spacing.zero) {
+        VStack(spacing: .zero) {
             navigationBarView
             textFieldContainer
             signUpButton
@@ -32,23 +35,23 @@ struct SignUpScreen: View {
     var navigationBarView: some View {
         NavigationBarView()
             .addLeftContainer {
-                Image(Images.icnArrowRight)
+                Image(Images.icnArrowLeft)
                     .onTapGesture {
                         onClose()
                     }
             }
             .addCentralContainer {
                 Text("Create an Account")
-                    .font(Fonts.custom(.bold, size: Constants.FontSizes.large))
+                    .font(Fonts.makeFont(.bold, size: Constants.FontSizes.large))
                     .foregroundColor(Colors.dark)
             }
     }
     
     var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $registrationInfo.name, textFieldType: .userName)
-            BorderedTextField(text: $registrationInfo.email, textFieldType: .email)
-            BorderedTextField(text: $registrationInfo.password, textFieldType: .password)
+            BorderedTextField(text: $registrationInfo.name, verificationError: $verificationError, textFieldType: .userName)
+            BorderedTextField(text: $registrationInfo.email, verificationError: $verificationError, textFieldType: .email)
+            BorderedTextField(text: $registrationInfo.password, verificationError: $verificationError, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
     }
@@ -60,7 +63,6 @@ struct SignUpScreen: View {
                     print("RESULT \(result)")
                     switch result {
                     case .success:
-                        print("ON MINE SCREEN")
                         onMainScreen()
                     case .failure:
                         print("Registration failed")
@@ -75,7 +77,7 @@ struct SignUpScreen: View {
         HStack(spacing: Constants.Spacing.s) {
             separator
             Text("OR")
-                .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
+                .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
                 .foregroundColor(Colors.gray)
             separator
         }
@@ -99,6 +101,7 @@ struct SignUpScreen: View {
 struct SignUpScreen_Previews: PreviewProvider {
     static var previews: some View {
         SignUpScreen(
+            error: .keychainError,
             onMainScreen: {},
             onClose: {}
         )

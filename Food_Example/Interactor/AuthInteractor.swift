@@ -6,55 +6,68 @@
 //
 
 import Combine
-import Foundation
+import FirebaseAuth
 
 protocol AuthInteractor {
     func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void)
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void)
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
+    func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
     func logout()
     func signUpWithGoogle()
 }
 
-struct AuthInteractorImpl: AuthInteractor {
+class AuthInteractorImpl: AuthInteractor {
     let authRepository: AuthRepository
+    var cancelBag = Set<AnyCancellable>()
     
     init(authRepository: AuthRepository) {
         self.authRepository = authRepository
     }
     
     func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void) {
-        let cancelBag = CancelBag()
         authRepository.signUp(info: registrationInfo)
-            .print("Repo with")
             .sink { result in
                 switch result {
                 case .failure:
-                    print("FAILURE")
                     completion(.failure(AuthError.wrongPassword))
                 default:
-                    print("BREAK")
+                    break
                 }
             } receiveValue: {
-                print("RECEIVE VALUE")
                 completion(.success(()))
             }
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
     }
     
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void) {
-        let cancelBag = CancelBag()
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
         authRepository.logIn(registrationInfo: registrationInfo)
+            .sink { result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                    completion(.failure(error))
+                case .finished:
+                    print(result)
+                }
+            } receiveValue: {
+                completion(.success(()))
+            }
+            .store(in: &cancelBag)
+    }
+    
+    func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
+        authRepository.resetPassword(to: email)
             .sink { result in
                 switch result {
                 case .failure(let error):
                     completion(.failure(error))
                 case .finished:
-                    break
+                    print(result)
                 }
             } receiveValue: {
                 completion(.success(Void()))
             }
-            .store(in: cancelBag)
+            .store(in: &cancelBag)
     }
     
     func logout() {
@@ -65,10 +78,13 @@ struct AuthInteractorImpl: AuthInteractor {
 }
 
 struct StubAuthInteractor: AuthInteractor {
+    func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
+    }
+    
     func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void) {
     }
     
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void) {
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
     }
     
     func logout() {

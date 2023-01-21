@@ -5,7 +5,14 @@
 //  Created by Артур Кулик on 13.01.2023.
 //
 
+import FirebaseAuth
 import SwiftUI
+
+enum VerificationError {
+    case username
+    case email
+    case password
+}
 
 struct BorderedTextField: View {
     enum TextFieldType {
@@ -15,7 +22,21 @@ struct BorderedTextField: View {
     }
     
     @Binding var text: String
+    @Binding var verificationError: VerificationError?
     @State var isPasswordHidden = true
+    var borderColor: Color {
+        switch verificationError {
+        case .username:
+            return textFieldType == .userName ? Colors.red : Colors.border
+        case .email:
+            return textFieldType == .email ? Colors.red : Colors.border
+        case .password:
+            return textFieldType == .password ? Colors.red : Colors.border
+        case .none:
+            return Colors.border
+        }
+    }
+    
     let textFieldType: TextFieldType
     let borderWidth: CGFloat = 1
     
@@ -53,6 +74,10 @@ struct BorderedTextField: View {
     }
     
     var body: some View {
+        content
+    }
+    
+    var content: some View {
         VStack(alignment: .leading, spacing: Constants.Spacing.xxs) {
             titleView
             borderedTextFieldView
@@ -62,7 +87,7 @@ struct BorderedTextField: View {
     
     var titleView: some View {
         Text(title)
-            .font(Fonts.custom(.medium, size: Constants.FontSizes.small))
+            .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
             .foregroundColor(Colors.gray)
     }
     
@@ -76,7 +101,7 @@ struct BorderedTextField: View {
         .padding(Constants.Spacing.s)
         .overlay {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .stroke(Colors.border, lineWidth: borderWidth)
+                .stroke(borderColor, lineWidth: borderWidth)
         }
     }
     
@@ -92,7 +117,7 @@ struct BorderedTextField: View {
     
     var secureField: some View {
         SecureField(placeholderText, text: $text)
-            .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
+            .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
             .foregroundColor(Colors.dark)
     }
     
@@ -116,14 +141,14 @@ struct BorderedTextField: View {
 
 struct BorderedTextField_Previews: PreviewProvider {
     static var previews: some View {
-        BorderedTextField(text: .constant("Keks"), textFieldType: .userName)
+        BorderedTextField(text: .constant("Keks"), verificationError: .constant(.none), textFieldType: .userName)
     }
 }
 
 struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
+            .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
             .foregroundColor(Colors.dark)
     }
 }

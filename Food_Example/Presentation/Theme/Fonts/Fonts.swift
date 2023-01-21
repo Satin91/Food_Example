@@ -22,7 +22,7 @@ enum Fonts {
         case dmSans = "DMSans-Bold"
     }
     
-    static func custom(_ fontName: Poppins, size: CGFloat) -> Font {
+    static func makeFont(_ fontName: Poppins, size: CGFloat) -> Font {
         Font.custom(fontName.rawValue, size: size)
     }
 }

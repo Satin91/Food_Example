@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct OnboardingScreen: View {
-    @Environment(\.injected) var container: DIContainer
     @State var currentStep: Int = 0
     let onSignUpScreen: () -> Void
     
     var body: some View {
+        content
+    }
+    
+    private var content: some View {
         ZStack {
             tabView
             bottomView
@@ -58,7 +61,7 @@ struct OnboardingScreen: View {
     }
     
     var bottomView: some View {
-        VStack(spacing: Constants.Spacing.zero) {
+        VStack(spacing: .zero) {
             Spacer()
             if currentStep == 4 {
                 CapsuleButton(

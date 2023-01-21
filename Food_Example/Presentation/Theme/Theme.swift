@@ -77,6 +77,11 @@ enum Images {
     static let icnGoogle = "icnGoogle"
 }
 
+enum Lottie {
+    static let loader = "Loader"
+    static let send = "Send"
+}
+
 enum Colors {
     static let backgroundWhite = Color("backgroundWhite")
     static let black = Color("black")

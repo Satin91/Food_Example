@@ -28,7 +28,7 @@ struct MainScreen: View {
     }
     
     private var content: some View {
-        VStack(spacing: Constants.Spacing.zero) {
+        VStack(spacing: .zero) {
             NavigationBarView()
                 .addLeftContainer {
                     Text("Most popular recipes")
@@ -56,14 +56,14 @@ struct MainScreen: View {
                 .frame(width: isAnimate ? .infinity : searchViewSize.width, height: searchViewSize.height)
             HStack(spacing: Constants.Spacing.xxs) {
                 Image(Images.icnSearch)
-                    .padding(.leading, isAnimate ? Constants.Spacing.xxs : Constants.Spacing.zero)
+                    .padding(.leading, isAnimate ? Constants.Spacing.xxs : .zero)
                     .onTapGesture {
                         animateSearchView()
                     }
                 if isAnimate {
                     TextField("Search by ingridients", text: $searchText)
                         .frame(width: .infinity)
-                        .font(Fonts.custom(.regular, size: Constants.FontSizes.medium))
+                        .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
                         .foregroundColor(Colors.dark)
                         .submitLabel(.search)
                         .onSubmit {

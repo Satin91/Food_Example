@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 final class CancelBag {
     fileprivate var subscriptions = Set<AnyCancellable>()

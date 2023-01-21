@@ -5,13 +5,18 @@
 //  Created by Артур Кулик on 17.01.2023.
 //
 
+import Combine
+import FirebaseAuth
 import SwiftUI
 
 struct SignInScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var registrationInfo = RegistrationInfo()
+    @State var authError: AuthErrorCode.Code = .keychainError
+    @State var verificationError: VerificationError?
     let onMainScreen: () -> Void
     let onSignUpScreen: () -> Void
+    let onResetPasswordScreen: () -> Void
     
     var body: some View {
         content
@@ -19,9 +24,14 @@ struct SignInScreen: View {
     }
     
     private var content: some View {
-        VStack(spacing: Constants.Spacing.zero) {
+        VStack(spacing: .zero) {
             navigationBarView
             textFieldContainer
+            HStack {
+                errorLabel
+                Spacer()
+                forgotPasswordButton
+            }
             signInButton
             separatorContainer
             googleButton
@@ -34,17 +44,40 @@ struct SignInScreen: View {
         NavigationBarView()
             .addCentralContainer {
                 Text("Sign In")
-                    .font(Fonts.custom(.bold, size: Constants.FontSizes.large))
+                    .font(Fonts.makeFont(.bold, size: Constants.FontSizes.large))
                     .foregroundColor(Colors.dark)
             }
     }
     
     var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $registrationInfo.email, textFieldType: .email)
-            BorderedTextField(text: $registrationInfo.password, textFieldType: .password)
+            BorderedTextField(text: $registrationInfo.email, verificationError: $verificationError, textFieldType: .email)
+            BorderedTextField(text: $registrationInfo.password, verificationError: $verificationError, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
+    }
+    
+    var errorLabel: some View {
+        errorText(error: authError)
+            .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
+            .foregroundColor(.red)
+            .padding(.vertical, Constants.Spacing.s)
+            .padding(.horizontal, Constants.Spacing.s)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var forgotPasswordButton: some View {
+        Button(
+            action: {
+                onResetPasswordScreen()
+            }
+            , label: {
+                Text("Forgot password ?")
+                    .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
+                    .foregroundColor(Colors.dark)
+                    .padding(.horizontal, Constants.Spacing.s)
+            }
+        )
     }
     
     private var signInButton: some View {
@@ -54,19 +87,18 @@ struct SignInScreen: View {
                 case .success:
                     onMainScreen()
                 case .failure(let error):
-                    print(error)
+                    authError = error.code
                 }
             }
         }
         )
-        .padding(.top, Constants.Spacing.m)
     }
     
     private var separatorContainer: some View {
         HStack(spacing: Constants.Spacing.s) {
             separator
             Text("OR")
-                .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
+                .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
                 .foregroundColor(Colors.gray)
             separator
         }
@@ -89,10 +121,10 @@ struct SignInScreen: View {
     private var bottomText: some View {
         HStack(spacing: Constants.Spacing.xxxs) {
             Text("Don’t have an account?")
-                .font(Fonts.custom(.regular, size: Constants.FontSizes.small))
+                .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
                 .foregroundColor(Colors.dark)
             Text("Sign Up")
-                .font(Fonts.custom(.bold, size: Constants.FontSizes.small))
+                .font(Fonts.makeFont(.bold, size: Constants.FontSizes.small))
                 .foregroundColor(Colors.red)
                 .onTapGesture {
                     onSignUpScreen()
@@ -102,11 +134,17 @@ struct SignInScreen: View {
     }
 }
 
-struct SignInScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInScreen(
-            onMainScreen: {},
-            onSignUpScreen: {}
-        )
+extension SignInScreen {
+    @ViewBuilder func errorText(error: AuthErrorCode.Code) -> some View {
+        switch error {
+        case .invalidEmail:
+            Text("Invalid Email")
+        case .userNotFound:
+            Text("Invalid Email")
+        case .wrongPassword:
+            Text("Wrong Password")
+        default:
+            Text(" ")
+        }
     }
 }

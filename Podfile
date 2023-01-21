@@ -12,4 +12,5 @@ target 'Food_Example' do
 	pod 'FirebaseCore', :modular_headers => true
 	pod 'FirebaseCoreInternal', :modular_headers => true
 	pod 'GoogleUtilities', :modular_headers => true
+	pod 'lottie-ios'
 end
