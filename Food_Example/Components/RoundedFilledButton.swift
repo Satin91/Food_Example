@@ -22,7 +22,7 @@ struct RoundedFilledButton: View {
             .padding(.horizontal, Constants.Spacing.s)
             .overlay {
                 Text(text)
-                    .font(Fonts.custom(.bold, size: Constants.FontSizes.medium))
+                    .font(Fonts.makeFont(.bold, size: Constants.FontSizes.medium))
                     .foregroundColor(.white)
             }
             .onTapGesture {

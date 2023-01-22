@@ -14,7 +14,7 @@ struct NavBarTextModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .font(Fonts.custom(.bold, size: Constants.FontSizes.upperMedium))
+            .font(Fonts.makeFont(.bold, size: Constants.FontSizes.upperMedium))
             .foregroundColor(Colors.dark)
     }
 }
@@ -26,7 +26,7 @@ struct LargeNavBarTextModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .font(Fonts.custom(.bold, size: Constants.FontSizes.large))
+            .font(Fonts.makeFont(.bold, size: Constants.FontSizes.large))
             .foregroundColor(Colors.dark)
     }
 }

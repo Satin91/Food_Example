@@ -14,6 +14,7 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
 - todo
 - trailing_closure
 - discouraged_optional_boolean
+- force_cast
 
 opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - anonymous_argument_in_multiline_closure
@@ -70,7 +71,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - first_where
 - flatmap_over_map_reduce
 - for_where
-- force_cast
 - force_try
 - function_body_length
 - function_parameter_count
@@ -167,7 +167,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - sorted_imports
 - statement_position
 - static_operator
-- strict_fileprivate
 - strong_iboutlet
 - superfluous_disable_command
 - switch_case_alignment

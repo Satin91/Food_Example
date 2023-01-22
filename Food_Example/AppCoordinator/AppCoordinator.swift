@@ -12,9 +12,10 @@ import SwiftUI
 enum Screen {
     case splashScreen
     case onboardingScreen
-    case mainScreen(User?)
+    case mainScreen
     case signUpScreen
     case signInScreen
+    case resetPasswordScreen
 }
 
 struct AppCoordinator: View {
@@ -24,55 +25,57 @@ struct AppCoordinator: View {
         Router($routes) { screen, _ in
             switch screen {
             case .mainScreen:
-                MainScreen(user: nil)
+                MainScreen()
             case .splashScreen:
                 SplashScreen(
                     onOnboardingScreen: pushOnboardingScreen,
-                    onMainScreen: onMainScreen(_:)
+                    onMainScreen: onMainScreen
                 )
             case .onboardingScreen:
-                OnboardingScreen(onSignUpScreen: {
-                    pushToSignInScreen()
-                })
+                OnboardingScreen(onSignUpScreen: pushToSignInScreen)
             case .signUpScreen:
                 SignUpScreen(
-                    onMainScreen: { pushToMainScreen() },
-                    onClose: { backToSignInScreen() }
+                    onMainScreen: pushToMainScreen,
+                    onClose: back
                 )
             case .signInScreen:
                 SignInScreen(
-                    onMainScreen: {
-                        pushToMainScreen()
-                    },
-                    onSignUpScreen: {
-                        pushToSignUpScreen()
-                    }
+                    onMainScreen: pushToMainScreen,
+                    onSignUpScreen: pushToSignUpScreen,
+                    onResetPasswordScreen: pushToResetPaswordScreen
                 )
+            case .resetPasswordScreen:
+                ResetPasswordScreen(onClose: back)
             }
         }
+        .inject(AppEnvironment.bootstrap().container)
     }
     
-    func pushToSignInScreen() {
+    private func pushToSignInScreen() {
         routes.push(.signInScreen)
     }
     
-    func pushToSignUpScreen() {
+    private func pushToSignUpScreen() {
         routes.push(.signUpScreen)
     }
     
-    func pushOnboardingScreen() {
+    private func pushToResetPaswordScreen() {
+        routes.push(.resetPasswordScreen)
+    }
+    
+    private func pushOnboardingScreen() {
         routes = [.root(.onboardingScreen, embedInNavigationView: true)]
     }
     
     private func pushToMainScreen() {
-        routes.push(.mainScreen(nil))
+        routes.push(.mainScreen)
     }
     
-    private func backToSignInScreen() {
+    private func onMainScreen() {
+        routes = [.root(.mainScreen, embedInNavigationView: true)]
+    }
+    
+    private func back() {
         routes.goBack()
-    }
-    
-    private func onMainScreen(_ user: User?) {
-        routes = [.root(.mainScreen(user), embedInNavigationView: true)]
     }
 }

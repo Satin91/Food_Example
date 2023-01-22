@@ -12,6 +12,10 @@ struct OnboardingScreen: View {
     let onSignUpScreen: () -> Void
     
     var body: some View {
+        content
+    }
+    
+    private var content: some View {
         ZStack {
             tabView
             bottomView
@@ -57,7 +61,7 @@ struct OnboardingScreen: View {
     }
     
     var bottomView: some View {
-        VStack(spacing: Constants.Spacing.zero) {
+        VStack(spacing: .zero) {
             Spacer()
             if currentStep == 4 {
                 CapsuleButton(
@@ -68,7 +72,7 @@ struct OnboardingScreen: View {
                 )
                 .frame(width: Constants.ButtonWidth.medium)
             } else {
-                NavigationButton(currentStep: $currentStep)
+                OnboardingNavigationButton(currentStep: $currentStep)
             }
         }
         .padding(.bottom, Constants.Spacing.m)

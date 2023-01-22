@@ -1,0 +1,36 @@
+//
+//  SplashScreen.swift
+//  Food_Example
+//
+//  Created by Артур Кулик on 12.01.2023.
+//
+
+import FirebaseAuth
+import SwiftUI
+
+struct SplashScreen: View {
+    @Environment(\.injected) var container: DIContainer
+    let lottieSize: CGFloat = 120
+    let onOnboardingScreen: () -> Void
+    let onMainScreen: () -> Void
+    
+    var body: some View {
+        VStack {
+            LottieView(name: Lottie.loader, loopMode: .loop, speed: 1.5, isStopped: false)
+                .frame(width: lottieSize, height: lottieSize)
+            Text("Food Recipes")
+                .font(Fonts.makeFont(.bold, size: Constants.FontSizes.upperLarge))
+                .foregroundColor(Colors.red)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                        switch container.appState.sessionService.state {
+                        case .loggedIn:
+                            onMainScreen()
+                        case .loggedOut:
+                            onOnboardingScreen()
+                        }
+                    })
+                }
+        }
+    }
+}

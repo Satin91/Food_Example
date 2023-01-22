@@ -765,6 +765,7 @@ PODS:
   - Libuv-gRPC/Implementation (0.0.10):
     - Libuv-gRPC/Interface (= 0.0.10)
   - Libuv-gRPC/Interface (0.0.10)
+  - lottie-ios (4.1.1)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -772,7 +773,6 @@ PODS:
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.1.1)
   - SwiftLint (0.49.1)
-  - ViewInspector (0.9.5)
 
 DEPENDENCIES:
   - FirebaseAnalytics
@@ -783,8 +783,8 @@ DEPENDENCIES:
   - FirebaseFirestore
   - FlowStacks
   - GoogleUtilities
+  - lottie-ios
   - SwiftLint
-  - ViewInspector
 
 SPEC REPOS:
   trunk:
@@ -805,10 +805,10 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - Libuv-gRPC
+    - lottie-ios
     - nanopb
     - PromisesObjC
     - SwiftLint
-    - ViewInspector
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -828,11 +828,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
+  lottie-ios: efa7224964a14f690efc7d3996e7dfebdcd3b499
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
-  ViewInspector: 607c4f3ea4be92c4c9e1e0cccfef54a1b8335b64
 
-PODFILE CHECKSUM: 80e29abcdff101572559bf435d96c47fb3bec7bc
+PODFILE CHECKSUM: a2784bc22b9c6b6d17ea5d34b6306dde6cbdb0b3
 
 COCOAPODS: 1.11.3

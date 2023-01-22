@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct NavigationButton: View {
+struct OnboardingNavigationButton: View {
     @Binding var currentStep: Int
     
     var body: some View {
-        navigationButton
+        content
     }
     
-    var navigationButton: some View {
+    var content: some View {
         RoundedRectangle(cornerRadius: 16)
             .frame(width: 154, height: 64)
             .foregroundColor(Colors.backgroundWhite)
             .overlay(
                 HStack {
-                    Image(Images.icnArrowRight)
+                    Image(Images.icnArrowLeft)
                         .renderingMode(.template)
                         .foregroundColor(currentStep == 0 ? Colors.placeholder : Colors.dark)
                         .onTapGesture {
@@ -29,7 +29,7 @@ struct NavigationButton: View {
                     Spacer()
                     verticalSeparator
                     Spacer()
-                    Image(Images.icnArrowLeft)
+                    Image(Images.icnArrowRight)
                         .onTapGesture {
                             nextStep()
                         }
@@ -60,7 +60,7 @@ struct NavigationButton: View {
 
 struct NavigationButton_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButton(currentStep: .constant(0))
+        OnboardingNavigationButton(currentStep: .constant(0))
             .background(Color.black)
     }
 }

@@ -17,8 +17,6 @@ enum SessionState {
 protocol SessionService {
     var state: SessionState { get }
     var userInfo: UserInfo? { get }
-    
-    func logout()
 }
 
 final class SessionServiceImpl: ObservableObject, SessionService {
@@ -27,9 +25,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     private var handle: AuthStateDidChangeListenerHandle?
     
     init() {
-    }
-    
-    func logout() {
+        setupFirebaseAuthHandler()
     }
     
     private func setupFirebaseAuthHandler() {
@@ -40,7 +36,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     }
     
     private func handleRefresh(uid: String) {
-        Database.referenceFrom(uid: uid)
+        Database.userReferenceFrom(uid: uid)
             .observe(.value) { [weak self] snapshot in
                 guard let self = self,
                     let value = snapshot.value as? NSDictionary,
@@ -61,7 +57,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
 }
 
 extension Database {
-    static func referenceFrom(uid: String) -> DatabaseReference {
+    static func userReferenceFrom(uid: String) -> DatabaseReference {
         self.database().reference().child("users").child(uid)
     }
 }
