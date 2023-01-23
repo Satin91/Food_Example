@@ -12,9 +12,9 @@ enum Constants {
         static let minimum: CGFloat = 12
         static let small: CGFloat = 14
         static let medium: CGFloat = 16
-        static let upperMedium: CGFloat = 18
+        static let extraMedium: CGFloat = 18
         static let large: CGFloat = 24
-        static let upperLarge: CGFloat = 40
+        static let extraLarge: CGFloat = 40
     }
     
     enum Spacing {

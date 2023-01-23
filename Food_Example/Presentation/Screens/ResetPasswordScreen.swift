@@ -10,9 +10,10 @@ import SwiftUI
 
 struct ResetPasswordScreen: View {
     let onClose: () -> Void
+    let animationViewSize: CGFloat = 120
+    
     @Environment(\.injected) var container: DIContainer
-    @State var emailError: AuthErrorCode.Code = .keychainError
-    @State var verificationError: VerificationError?
+    @State var emailError: AuthErrorCode.Code?
     @State var email = ""
     @State var showPopUp = false
     var body: some View {
@@ -33,8 +34,8 @@ struct ResetPasswordScreen: View {
         .popup(isPresented: $showPopUp, overlayView: {
             CentralPopupView(isPresented: $showPopUp, title: "Password has been sended!") {
                 VStack {
-                    LottieView(name: Lottie.send, loopMode: .playOnce, speed: 2, isStopped: !showPopUp)
-                        .frame(width: 120, height: 120)
+                    LottieView(name: Lottie.send, loopMode: .playOnce, speed: 1.8, isStopped: !showPopUp)
+                        .frame(width: animationViewSize, height: animationViewSize)
                     Text("check your email for a link to the password change page")
                         .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
                         .foregroundColor(Colors.dark)
@@ -75,15 +76,11 @@ struct ResetPasswordScreen: View {
     }
     
     var errorLabel: some View {
-        errorText(error: emailError)
-            .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
-            .foregroundColor(.red)
-            .padding(Constants.Spacing.s)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        AuthErrorLabel(authError: emailError)
     }
     
     private var textField: some View {
-        BorderedTextField(text: $email, verificationError: $verificationError, textFieldType: .email)
+        BorderedTextField(text: $email, verificationError: $emailError, textFieldType: .email)
     }
     
     private var resetPaswordButton: some View {
@@ -94,6 +91,7 @@ struct ResetPasswordScreen: View {
                     switch result {
                     case .success:
                         showPopUp.toggle()
+                        emailError = nil
                     case .failure(let error):
                         emailError = error.code
                     }
@@ -106,25 +104,5 @@ struct ResetPasswordScreen: View {
 struct ResetPasswordScreen_Previews: PreviewProvider {
     static var previews: some View {
         ResetPasswordScreen(onClose: {})
-    }
-}
-
-extension ResetPasswordScreen {
-    @ViewBuilder func errorText(error: AuthErrorCode.Code) -> some View {
-        switch error {
-        case .invalidEmail:
-            self.verificationError = .email
-            return Text("Invalid Email")
-        case .missingEmail:
-            self.verificationError = .email
-            return Text("An email address must be provided")
-        default:
-            return Text(" ")
-        }
-    }
-}
-
-extension ResetPasswordScreen {
-    func resetPasword(to: String, completion: @escaping () -> Void) {
     }
 }

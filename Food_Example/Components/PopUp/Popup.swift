@@ -35,7 +35,7 @@ struct CentralPopupView<Content: View>: View {
     
     var titleLabel: some View {
         Text(title)
-            .font(Fonts.makeFont(.bold, size: Constants.FontSizes.upperMedium))
+            .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraMedium))
             .foregroundColor(Colors.dark)
             .multilineTextAlignment(.center)
     }

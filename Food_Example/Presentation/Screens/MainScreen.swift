@@ -9,7 +9,6 @@ import FirebaseAuth
 import SwiftUI
 
 struct MainScreen: View {
-    @ObservedObject var viewModel = MainViewModel()
     @State var recipes: [Recipe] = []
     @State var isAnimate = false
     @State var searchText: String = ""
@@ -42,7 +41,7 @@ struct MainScreen: View {
                 .padding(.vertical)
             Divider()
             ScrollView(.vertical) {
-                recipesList(viewModel.recipes)
+                EmptyView()
             }
         }
     }
@@ -88,9 +87,6 @@ struct MainScreen: View {
                 )
                 .padding(Constants.Spacing.xs)
             }
-        }
-        .task {
-            await viewModel.showRandomRecipes()
         }
     }
     

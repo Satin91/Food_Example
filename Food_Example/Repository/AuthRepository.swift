@@ -10,14 +10,8 @@ import FirebaseAuth
 import FirebaseDatabase
 import Foundation
 
-enum AuthError: Error {
-    case wrongEmail
-    case wrongPassword
-    case invalidUid
-}
-
 protocol AuthRepository {
-    func signUp(info: RegistrationInfo) -> AnyPublisher<Void, Error>
+    func signUp(info: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
     func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
     func resetPassword(to email: String) -> AnyPublisher<Void, AuthErrorCode>
     func logout()
@@ -41,13 +35,13 @@ struct AuthRepositoryImpl: AuthRepository {
         .eraseToAnyPublisher()
     }
     
-    func signUp(info: RegistrationInfo) -> AnyPublisher<Void, Error> {
+    func signUp(info: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode> {
         Deferred {
             Future { promise in
                 // Create user
                 Auth.auth().createUser(withEmail: info.email, password: info.password) { result, error in
-                    guard error == nil else { return promise(.failure(error!)) }
-                    guard let uid = result?.user.uid else { return promise(.failure(AuthError.invalidUid)) }
+                    guard error == nil else { return promise(.failure(error as! AuthErrorCode)) }
+                    guard let uid = result?.user.uid else { return promise(.failure(AuthErrorCode(.userMismatch))) }
                     let values = [
                         "username": info.name,
                         "email": info.email
@@ -61,7 +55,7 @@ struct AuthRepositoryImpl: AuthRepository {
                     Database.userReferenceFrom(uid: uid)
                         .updateChildValues(values) { error, _ in
                             if let error {
-                                promise(.failure(error))
+                                promise(.failure(error as! AuthErrorCode))
                             } else {
                                 promise(.success(()))
                             }

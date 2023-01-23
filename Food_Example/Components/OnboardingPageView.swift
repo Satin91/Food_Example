@@ -18,12 +18,13 @@ struct OnboardingPageView: View {
             foodImage(image)
             Text(title)
                 .multilineTextAlignment(.center)
-                .font(Fonts.makeFont(.dmSans, size: Constants.FontSizes.upperLarge))
+                .font(Fonts.makeFont(.dmSans, size: Constants.FontSizes.extraLarge))
                 .foregroundColor(Colors.dark)
             Text(subTitle)
                 .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
                 .foregroundColor(Colors.weakDark)
                 .multilineTextAlignment(.center)
+                .frame(minHeight: 60)
         }
         .padding(.horizontal, Constants.Spacing.m)
     }

@@ -19,7 +19,7 @@ struct SplashScreen: View {
             LottieView(name: Lottie.loader, loopMode: .loop, speed: 1.5, isStopped: false)
                 .frame(width: lottieSize, height: lottieSize)
             Text("Food Recipes")
-                .font(Fonts.makeFont(.bold, size: Constants.FontSizes.upperLarge))
+                .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraLarge))
                 .foregroundColor(Colors.red)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {

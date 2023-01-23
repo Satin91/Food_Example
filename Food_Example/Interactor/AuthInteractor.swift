@@ -9,7 +9,7 @@ import Combine
 import FirebaseAuth
 
 protocol AuthInteractor {
-    func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void)
+    func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
     func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
     func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
     func logout()
@@ -24,12 +24,12 @@ class AuthInteractorImpl: AuthInteractor {
         self.authRepository = authRepository
     }
     
-    func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void) {
+    func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
         authRepository.signUp(info: registrationInfo)
             .sink { result in
                 switch result {
-                case .failure:
-                    completion(.failure(AuthError.wrongPassword))
+                case .failure(let error):
+                    completion(.failure(error))
                 default:
                     break
                 }
@@ -78,10 +78,10 @@ class AuthInteractorImpl: AuthInteractor {
 }
 
 struct StubAuthInteractor: AuthInteractor {
-    func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
+    func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
     }
     
-    func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthError>) -> Void) {
+    func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
     }
     
     func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {

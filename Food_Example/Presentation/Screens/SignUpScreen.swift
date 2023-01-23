@@ -11,8 +11,7 @@ import SwiftUI
 struct SignUpScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var registrationInfo = RegistrationInfo()
-    @State var error: AuthErrorCode.Code = .keychainError
-    @State var verificationError: VerificationError?
+    @State var authError: AuthErrorCode.Code?
     let onMainScreen: () -> Void
     let onClose: () -> Void
     
@@ -25,6 +24,7 @@ struct SignUpScreen: View {
         VStack(spacing: .zero) {
             navigationBarView
             textFieldContainer
+            errorLabel
             signUpButton
             separatorContainer
             googleButton
@@ -32,7 +32,7 @@ struct SignUpScreen: View {
         }
     }
     
-    var navigationBarView: some View {
+    private var navigationBarView: some View {
         NavigationBarView()
             .addLeftContainer {
                 Image(Images.icnArrowLeft)
@@ -47,13 +47,17 @@ struct SignUpScreen: View {
             }
     }
     
-    var textFieldContainer: some View {
+    private var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $registrationInfo.name, verificationError: $verificationError, textFieldType: .userName)
-            BorderedTextField(text: $registrationInfo.email, verificationError: $verificationError, textFieldType: .email)
-            BorderedTextField(text: $registrationInfo.password, verificationError: $verificationError, textFieldType: .password)
+            BorderedTextField(text: $registrationInfo.name, verificationError: $authError, textFieldType: .userName)
+            BorderedTextField(text: $registrationInfo.email, verificationError: $authError, textFieldType: .email)
+            BorderedTextField(text: $registrationInfo.password, verificationError: $authError, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
+    }
+    
+    private var errorLabel: some View {
+        AuthErrorLabel(authError: authError)
     }
     
     private var signUpButton: some View {
@@ -64,13 +68,12 @@ struct SignUpScreen: View {
                     switch result {
                     case .success:
                         onMainScreen()
-                    case .failure:
-                        print("Registration failed")
+                    case .failure(let error):
+                        authError = error.code
                     }
                 }
             }
         )
-        .padding(.top, Constants.Spacing.m)
     }
     
     private var separatorContainer: some View {
@@ -101,7 +104,7 @@ struct SignUpScreen: View {
 struct SignUpScreen_Previews: PreviewProvider {
     static var previews: some View {
         SignUpScreen(
-            error: .keychainError,
+            authError: .keychainError,
             onMainScreen: {},
             onClose: {}
         )

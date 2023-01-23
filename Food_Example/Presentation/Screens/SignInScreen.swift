@@ -12,8 +12,7 @@ import SwiftUI
 struct SignInScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var registrationInfo = RegistrationInfo()
-    @State var authError: AuthErrorCode.Code = .keychainError
-    @State var verificationError: VerificationError?
+    @State var authError: AuthErrorCode.Code?
     let onMainScreen: () -> Void
     let onSignUpScreen: () -> Void
     let onResetPasswordScreen: () -> Void
@@ -51,19 +50,14 @@ struct SignInScreen: View {
     
     var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $registrationInfo.email, verificationError: $verificationError, textFieldType: .email)
-            BorderedTextField(text: $registrationInfo.password, verificationError: $verificationError, textFieldType: .password)
+            BorderedTextField(text: $registrationInfo.email, verificationError: $authError, textFieldType: .email)
+            BorderedTextField(text: $registrationInfo.password, verificationError: $authError, textFieldType: .password)
         }
         .padding(.top, Constants.Spacing.xl)
     }
     
     var errorLabel: some View {
-        errorText(error: authError)
-            .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
-            .foregroundColor(.red)
-            .padding(.vertical, Constants.Spacing.s)
-            .padding(.horizontal, Constants.Spacing.s)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        AuthErrorLabel(authError: authError)
     }
     
     private var forgotPasswordButton: some View {
@@ -134,17 +128,12 @@ struct SignInScreen: View {
     }
 }
 
-extension SignInScreen {
-    @ViewBuilder func errorText(error: AuthErrorCode.Code) -> some View {
-        switch error {
-        case .invalidEmail:
-            Text("Invalid Email")
-        case .userNotFound:
-            Text("Invalid Email")
-        case .wrongPassword:
-            Text("Wrong Password")
-        default:
-            Text(" ")
-        }
+struct MyPreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        SignInScreen(
+            onMainScreen: {},
+            onSignUpScreen: {},
+            onResetPasswordScreen: {}
+        )
     }
 }

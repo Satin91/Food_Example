@@ -10,24 +10,45 @@ import SwiftUI
 struct RoundedFilledButton: View {
     let text: String
     let action: () -> Void
+    let pressedScaleFactor: CGFloat = 0.98
+    let initialScaleFactor: CGFloat = 1.0
+    let animateDuration: CGFloat = 0.1
+    
+    @State var isPressed = false
+    @State var currentScaleFactor: CGFloat = 1.0
     
     var body: some View {
-        roundedFilledButton
+        content
     }
     
-    private var roundedFilledButton: some View {
+    private var content: some View {
         RoundedRectangle(cornerRadius: Constants.cornerRadius)
             .foregroundColor(Colors.red)
             .frame(height: Constants.ButtonHeight.large)
             .padding(.horizontal, Constants.Spacing.s)
+            .animation(.easeInOut(duration: 0.3), value: isPressed)
             .overlay {
                 Text(text)
                     .font(Fonts.makeFont(.bold, size: Constants.FontSizes.medium))
                     .foregroundColor(.white)
+                    .opacity(isPressed ? 0.3 : 1)
             }
             .onTapGesture {
+                animate()
                 action()
             }
+            .scaleEffect(currentScaleFactor)
+    }
+    
+    private func animate() {
+        withAnimation(Animation.easeInOut(duration: animateDuration)) {
+            currentScaleFactor = pressedScaleFactor
+            isPressed = true
+        }
+        withAnimation(Animation.linear(duration: animateDuration).delay(animateDuration)) {
+            currentScaleFactor = initialScaleFactor
+            isPressed = false
+        }
     }
 }
 

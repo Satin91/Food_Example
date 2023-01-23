@@ -8,12 +8,6 @@
 import FirebaseAuth
 import SwiftUI
 
-enum VerificationError {
-    case username
-    case email
-    case password
-}
-
 struct BorderedTextField: View {
     enum TextFieldType {
         case email
@@ -22,17 +16,15 @@ struct BorderedTextField: View {
     }
     
     @Binding var text: String
-    @Binding var verificationError: VerificationError?
+    @Binding var verificationError: AuthErrorCode.Code?
     @State var isPasswordHidden = true
     var borderColor: Color {
         switch verificationError {
-        case .username:
-            return textFieldType == .userName ? Colors.red : Colors.border
-        case .email:
+        case .userNotFound, .missingEmail, .invalidEmail, .emailAlreadyInUse:
             return textFieldType == .email ? Colors.red : Colors.border
-        case .password:
+        case .weakPassword, .wrongPassword:
             return textFieldType == .password ? Colors.red : Colors.border
-        case .none:
+        default:
             return Colors.border
         }
     }
@@ -58,7 +50,7 @@ struct BorderedTextField: View {
         case .email:
             return "Myemail@mail.com"
         case .password:
-            return "At least 8 characters"
+            return "At least 6 characters"
         }
     }
     

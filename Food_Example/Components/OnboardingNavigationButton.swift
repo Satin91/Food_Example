@@ -9,9 +9,16 @@ import SwiftUI
 
 struct OnboardingNavigationButton: View {
     @Binding var currentStep: Int
+    @State var isPressed = true
+    @State var degrees: CGFloat = 0
+    let duration: CGFloat = 3
     
     var body: some View {
         content
+            .frame(width: 50, height: 34)
+            .rotation3DEffect(Angle(degrees: degrees), axis: (x: 0, y: 1, z: 0))
+            .foregroundColor(Colors.lightGray)
+            .animation(.easeInOut(duration: 0.3), value: isPressed)
     }
     
     var content: some View {
@@ -38,7 +45,7 @@ struct OnboardingNavigationButton: View {
             )
             .modifier(LargeShadowModifier())
     }
-
+    
     private var verticalSeparator: some View {
         RoundedRectangle(cornerRadius: 2)
             .foregroundColor(Colors.lightGray)
@@ -48,12 +55,25 @@ struct OnboardingNavigationButton: View {
     private func nextStep() {
         if currentStep != 4 {
             currentStep += 1
+            animate(isNext: true)
         }
     }
     
     private func previousStep() {
         if currentStep != 0 {
             currentStep -= 1
+            animate(isNext: false)
+        }
+    }
+    
+    func animate(isNext: Bool) {
+        withAnimation(Animation.easeInOut(duration: duration / 2)) {
+            isPressed.toggle()
+            degrees = isNext ? 8 : -8
+        }
+        withAnimation(Animation.easeOut(duration: duration / 2).delay(duration / 2)) {
+            isPressed.toggle()
+            degrees = 0
         }
     }
 }
