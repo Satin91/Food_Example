@@ -1,6 +1,6 @@
 ### Food Example
 Приложение для поиска рецептов приготовления пищи.
-* Стек: SwiftUI, Combine, Firebase
+* Стек: SwiftUI, Combine, Firebase, Lottie
 * Архитектура: Clean Swift
 * API: spoonacular.com
 
