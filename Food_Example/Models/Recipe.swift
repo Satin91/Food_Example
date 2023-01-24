@@ -34,7 +34,7 @@ struct Recipe: Decodable, Identifiable {
         case pricePerServing
         case extendedIngredients
         case readyInMinutes
-        case sourceURL
+        case sourceUrl
         case summary
     }
     
@@ -59,10 +59,34 @@ struct Recipe: Decodable, Identifiable {
     let pricePerServing: Double?
     let extendedIngredients: [ExtendedIngredient]?
     let readyInMinutes: Int?
-    let sourceURL: String?
+    let sourceUrl: String?
     let summary: String?
     
-    init(id: Int, title: String, image: String, vegetarian: Bool?, vegan: Bool?, glutenFree: Bool?, dairyFree: Bool?, cheap: Bool?, veryPopular: Bool?, sustainable: Bool?, veryHealthy: Bool?, lowFodmap: Bool?, weightWatcherSmartPoints: Int?, gaps: String?, preparationMinutes: Int?, cookingMinutes: Int?, aggregateLikes: Int?, healthScore: Int?, pricePerServing: Double?, extendedIngredients: [ExtendedIngredient]?, readyInMinutes: Int?, sourceURL: String?, summary: String?) {
+    init(
+        id: Int,
+        title: String,
+        image: String,
+        vegetarian: Bool?,
+        vegan: Bool?,
+        glutenFree: Bool?,
+        dairyFree: Bool?,
+        cheap: Bool?,
+        veryPopular: Bool?,
+        sustainable: Bool?,
+        veryHealthy: Bool?,
+        lowFodmap: Bool?,
+        weightWatcherSmartPoints: Int?,
+        gaps: String?,
+        preparationMinutes: Int?,
+        cookingMinutes: Int?,
+        aggregateLikes: Int?,
+        healthScore: Int?,
+        pricePerServing: Double?,
+        extendedIngredients: [ExtendedIngredient]?,
+        readyInMinutes: Int?,
+        sourceUrl: String?,
+        summary: String?
+    ) {
         self.id = id
         self.title = title
         self.image = image
@@ -84,7 +108,7 @@ struct Recipe: Decodable, Identifiable {
         self.pricePerServing = pricePerServing
         self.extendedIngredients = extendedIngredients
         self.readyInMinutes = readyInMinutes
-        self.sourceURL = sourceURL
+        self.sourceUrl = sourceUrl
         self.summary = summary
     }
     
@@ -93,26 +117,26 @@ struct Recipe: Decodable, Identifiable {
         self.id = try container.decode(Int.self, forKey: .id)
         self.title = try container.decode(String.self, forKey: .title)
         self.image = try container.decode(String.self, forKey: .image)
-        self.vegetarian = try container.decode(Bool.self, forKey: .vegetarian)
-        self.vegan = try container.decode(Bool.self, forKey: .vegan)
-        self.glutenFree = try container.decode(Bool.self, forKey: .glutenFree)
-        self.dairyFree = try container.decode(Bool.self, forKey: .dairyFree)
+        self.vegetarian = try container.decodeIfPresent(Bool.self, forKey: .vegetarian)
+        self.vegan = try container.decodeIfPresent(Bool.self, forKey: .vegan)
+        self.glutenFree = try container.decodeIfPresent(Bool.self, forKey: .glutenFree)
+        self.dairyFree = try container.decodeIfPresent(Bool.self, forKey: .dairyFree)
         self.cheap = try container.decodeIfPresent(Bool.self, forKey: .cheap)
-        self.veryPopular = try container.decode(Bool.self, forKey: .veryPopular)
-        self.sustainable = try container.decode(Bool.self, forKey: .sustainable)
-        self.veryHealthy = try container.decode(Bool.self, forKey: .veryHealthy)
-        self.lowFodmap = try container.decode(Bool.self, forKey: .lowFodmap)
-        self.weightWatcherSmartPoints = try container.decode(Int.self, forKey: .weightWatcherSmartPoints)
-        self.gaps = try container.decode(String.self, forKey: .gaps)
-        self.preparationMinutes = try container.decode(Int.self, forKey: .preparationMinutes)
-        self.cookingMinutes = try container.decode(Int.self, forKey: .cookingMinutes)
-        self.aggregateLikes = try container.decode(Int.self, forKey: .aggregateLikes)
-        self.healthScore = try container.decode(Int.self, forKey: .healthScore)
-        self.pricePerServing = try container.decode(Double.self, forKey: .pricePerServing)
-        self.extendedIngredients = try container.decode([ExtendedIngredient].self, forKey: .extendedIngredients)
-        self.readyInMinutes = try container.decode(Int.self, forKey: .readyInMinutes)
-        self.sourceURL = try container.decode(String.self, forKey: .sourceURL)
-        self.summary = try container.decode(String.self, forKey: .summary)
+        self.veryPopular = try container.decodeIfPresent(Bool.self, forKey: .veryPopular)
+        self.sustainable = try container.decodeIfPresent(Bool.self, forKey: .sustainable)
+        self.veryHealthy = try container.decodeIfPresent(Bool.self, forKey: .veryHealthy)
+        self.lowFodmap = try container.decodeIfPresent(Bool.self, forKey: .lowFodmap)
+        self.weightWatcherSmartPoints = try container.decodeIfPresent(Int.self, forKey: .weightWatcherSmartPoints)
+        self.gaps = try container.decodeIfPresent(String.self, forKey: .gaps)
+        self.preparationMinutes = try container.decodeIfPresent(Int.self, forKey: .preparationMinutes)
+        self.cookingMinutes = try container.decodeIfPresent(Int.self, forKey: .cookingMinutes)
+        self.aggregateLikes = try container.decodeIfPresent(Int.self, forKey: .aggregateLikes)
+        self.healthScore = try container.decodeIfPresent(Int.self, forKey: .healthScore)
+        self.pricePerServing = try container.decodeIfPresent(Double.self, forKey: .pricePerServing)
+        self.extendedIngredients = try container.decodeIfPresent([ExtendedIngredient].self, forKey: .extendedIngredients)
+        self.readyInMinutes = try container.decodeIfPresent(Int.self, forKey: .readyInMinutes)
+        self.sourceUrl = try container.decodeIfPresent(String.self, forKey: .sourceUrl)
+        self.summary = try container.decodeIfPresent(String.self, forKey: .summary)
     }
 }
 

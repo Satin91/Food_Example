@@ -1,8 +1,8 @@
 //
-//  NetworkManager.swift
+//  RecipesWebRepository.swift
 //  Food_Example
 //
-//  Created by Артур Кулик on 11.01.2023.
+//  Created by Артур Кулик on 23.01.2023.
 //
 
 import Combine
@@ -15,7 +15,13 @@ enum ApiServerError: Error {
     case statusError
 }
 
-class RecipeRepoImpl: RecipeRepo {
+protocol RecipesWebRepository {
+    func showRandomRecipes()
+    func searchRecipesBy(query: String)
+    func getRecipeInfo()
+}
+
+class RecipesWebRepositoryImpl: RecipesWebRepository {
     private let maxFat: Int = 140
     private let searchCount: Int = 150
     private let successStatusCode = 200
@@ -53,5 +59,13 @@ class RecipeRepoImpl: RecipeRepo {
     }
     
     func getRecipes() {
+    }
+    func showRandomRecipes() {
+    }
+    
+    func searchRecipesBy(query: String) {
+    }
+    
+    func getRecipeInfo() {
     }
 }

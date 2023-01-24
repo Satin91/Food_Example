@@ -20,6 +20,9 @@ struct SignInScreen: View {
     var body: some View {
         content
             .toolbar(.hidden)
+            .onAppear {
+                getRecipes()
+            }
     }
     
     private var content: some View {
@@ -76,6 +79,7 @@ struct SignInScreen: View {
     
     private var signInButton: some View {
         RoundedFilledButton(text: "Sign In", action: {
+            getRecipes()
             container.interactors.authInteractor.logIn(registrationInfo: registrationInfo) { result in
                 switch result {
                 case .success:
@@ -125,6 +129,14 @@ struct SignInScreen: View {
                 }
         }
         .padding(.bottom, Constants.Spacing.s)
+    }
+    
+    func getRecipes() {
+        do {
+            try NetworkServiceImpl(session: URLSession(), baseURL: "https://api.spoonacular.com/recipes/complexSearch", queue: DispatchQueue.main).searchRecipes(model: SearchRecipesWrapper.self, params: ComplexSearchParams(query: "", includeIngridients: "", number: 5, maxFat: 15))
+        } catch let error {
+            print(error)
+        }
     }
 }
 
