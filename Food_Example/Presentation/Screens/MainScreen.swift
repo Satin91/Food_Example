@@ -9,6 +9,7 @@ import FirebaseAuth
 import SwiftUI
 
 struct MainScreen: View {
+    @Environment(\.injected) var container: DIContainer
     @State var recipes: [Recipe] = []
     @State var isAnimate = false
     @State var searchText: String = ""
@@ -24,6 +25,9 @@ struct MainScreen: View {
     var body: some View {
         content
             .toolbar(.hidden)
+            .onAppear {
+                searchRecipes()
+            }
     }
     
     private var content: some View {
@@ -88,6 +92,22 @@ struct MainScreen: View {
                 .padding(Constants.Spacing.xs)
             }
         }
+    }
+    
+    private func searchRecipes() {
+        container
+            .interactors
+            .recipesInteractor
+            .searchRecipesBy(
+                params: ComplexSearchParams(
+                    query: "wine",
+                    includeIngridients: "",
+                    number: 15,
+                    maxFat: 600
+                ), completion: { recipes in
+                    print("Recipes! \(recipes)")
+                }
+            )
     }
     
     func animateSearchView() {

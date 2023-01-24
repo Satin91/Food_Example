@@ -42,6 +42,10 @@ enum Constants {
         static let medium: CGFloat = 48
         static let large: CGFloat = 56
     }
+    enum API {
+        static let apiKey = "a053c68935284fc0b0041026bf79c509"
+        static let baseURL: String = "https://api.spoonacular.com/recipes/"
+    }
     
     static let cornerRadius: CGFloat = 16
 }

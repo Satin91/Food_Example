@@ -12,7 +12,6 @@
 		8E15C3DE297A1FFD00BAF333 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3DD297A1FFD00BAF333 /* AppState.swift */; };
 		8E15C3E0297A245700BAF333 /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3DF297A245700BAF333 /* DependencyInjection.swift */; };
 		8E15C3E2297A2CDD00BAF333 /* InteractorsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3E1297A2CDD00BAF333 /* InteractorsContainer.swift */; };
-		8E15C3E4297A2D3200BAF333 /* RecipesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3E3297A2D3200BAF333 /* RecipesInteractor.swift */; };
 		8E15C3E6297A2DFA00BAF333 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3E5297A2DFA00BAF333 /* AuthInteractor.swift */; };
 		8E15C3E9297A329F00BAF333 /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3E8297A329F00BAF333 /* CancelBag.swift */; };
 		8E15C3EB297A3EA500BAF333 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3EA297A3EA500BAF333 /* AppEnvironment.swift */; };
@@ -43,12 +42,13 @@
 		8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */; };
 		8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287836296EE1FB00AD8D25 /* MainScreen.swift */; };
 		8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E287838296EE1FD00AD8D25 /* Assets.xcassets */; };
-		8E330987297F27D7006B2145 /* RecipesWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E330986297F27D7006B2145 /* RecipesWebRepository.swift */; };
-		8E330989297F3972006B2145 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E330988297F3972006B2145 /* NetworkService.swift */; };
+		8E330987297F27D7006B2145 /* RecipesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E330986297F27D7006B2145 /* RecipesInteractor.swift */; };
+		8E330989297F3972006B2145 /* RecipesWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E330988297F3972006B2145 /* RecipesWebRepository.swift */; };
 		8E39E152297B7C8C0042A551 /* ResetPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */; };
 		8E448F5F297BA6EC00F3C7D7 /* Send.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E448F5E297BA6EC00F3C7D7 /* Send.json */; };
 		8E448F62297BAA8800F3C7D7 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E448F61297BAA8800F3C7D7 /* Popup.swift */; };
 		8E4E31802974CE5E00C05818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */; };
+		8E75642F297FB24800767FB8 /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75642E297FB24800767FB8 /* RequestParameters.swift */; };
 		8E88ECCC297B920A00ACF1C7 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88ECCB297B920A00ACF1C7 /* LottieView.swift */; };
 		8E88ECDA297BA03700ACF1C7 /* Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E88ECD9297BA03700ACF1C7 /* Loader.json */; };
 		8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243222976E2BF00C1076C /* SignInScreen.swift */; };
@@ -74,7 +74,6 @@
 		8E15C3DD297A1FFD00BAF333 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		8E15C3DF297A245700BAF333 /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		8E15C3E1297A2CDD00BAF333 /* InteractorsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorsContainer.swift; sourceTree = "<group>"; };
-		8E15C3E3297A2D3200BAF333 /* RecipesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesInteractor.swift; sourceTree = "<group>"; };
 		8E15C3E5297A2DFA00BAF333 /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
 		8E15C3E8297A329F00BAF333 /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
 		8E15C3EA297A3EA500BAF333 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -106,12 +105,13 @@
 		8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food_ExampleApp.swift; sourceTree = "<group>"; };
 		8E287836296EE1FB00AD8D25 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		8E287838296EE1FD00AD8D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8E330986297F27D7006B2145 /* RecipesWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesWebRepository.swift; sourceTree = "<group>"; };
-		8E330988297F3972006B2145 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		8E330986297F27D7006B2145 /* RecipesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RecipesInteractor.swift; path = ../Repository/RecipesInteractor.swift; sourceTree = "<group>"; };
+		8E330988297F3972006B2145 /* RecipesWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesWebRepository.swift; sourceTree = "<group>"; };
 		8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordScreen.swift; sourceTree = "<group>"; };
 		8E448F5E297BA6EC00F3C7D7 /* Send.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Send.json; sourceTree = "<group>"; };
 		8E448F61297BAA8800F3C7D7 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E75642E297FB24800767FB8 /* RequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
 		8E88ECCB297B920A00ACF1C7 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		8E88ECD9297BA03700ACF1C7 /* Loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loader.json; sourceTree = "<group>"; };
 		8EB243222976E2BF00C1076C /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				8E1E11A42978E56C00CD62DF /* AuthRepository.swift */,
-				8E330986297F27D7006B2145 /* RecipesWebRepository.swift */,
+				8E330988297F3972006B2145 /* RecipesWebRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -298,6 +298,7 @@
 				8EF6378D29736D2800AAD62E /* Recipe.swift */,
 				8E1E11A02978E3CA00CD62DF /* RegistrationInfo.swift */,
 				8E241F7329790CCF007E4025 /* UserInfo.swift */,
+				8E75642E297FB24800767FB8 /* RequestParameters.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -312,7 +313,7 @@
 		8E41786D297A19290065731A /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				8E15C3E3297A2D3200BAF333 /* RecipesInteractor.swift */,
+				8E330986297F27D7006B2145 /* RecipesInteractor.swift */,
 				8E15C3E5297A2DFA00BAF333 /* AuthInteractor.swift */,
 			);
 			path = Interactor;
@@ -330,7 +331,6 @@
 			isa = PBXGroup;
 			children = (
 				8E241F7129790233007E4025 /* SessionService.swift */,
-				8E330988297F3972006B2145 /* NetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -561,7 +561,6 @@
 				8E1E11A52978E56C00CD62DF /* AuthRepository.swift in Sources */,
 				8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */,
 				8E1E3EEE297077B400990D9D /* Theme.swift in Sources */,
-				8E15C3E4297A2D3200BAF333 /* RecipesInteractor.swift in Sources */,
 				8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */,
 				8E15C3DE297A1FFD00BAF333 /* AppState.swift in Sources */,
 				8E88ECCC297B920A00ACF1C7 /* LottieView.swift in Sources */,
@@ -572,15 +571,16 @@
 				8E39E152297B7C8C0042A551 /* ResetPasswordScreen.swift in Sources */,
 				8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */,
 				8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */,
+				8E75642F297FB24800767FB8 /* RequestParameters.swift in Sources */,
 				8E1A98922975BF93007555A8 /* URL+QueryParams.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */,
 				8ECB36362971FBFE0015646D /* NavigationBarView.swift in Sources */,
 				8ECB36342971F7040015646D /* ReadSize.swift in Sources */,
 				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,
 				8ECB36382971FED40015646D /* SignUpScreen.swift in Sources */,
-				8E330987297F27D7006B2145 /* RecipesWebRepository.swift in Sources */,
+				8E330987297F27D7006B2145 /* RecipesInteractor.swift in Sources */,
 				8E15C3E0297A245700BAF333 /* DependencyInjection.swift in Sources */,
-				8E330989297F3972006B2145 /* NetworkService.swift in Sources */,
+				8E330989297F3972006B2145 /* RecipesWebRepository.swift in Sources */,
 				8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */,
 				8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */,
 				8E129DDA29778F7B00D9C442 /* ButtonTappedModifier.swift in Sources */,

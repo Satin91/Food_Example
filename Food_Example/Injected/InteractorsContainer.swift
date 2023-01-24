@@ -10,13 +10,15 @@ import Foundation
 extension DIContainer {
     struct Interactors {
         let authInteractor: AuthInteractor
+        let recipesInteractor: RecipesInteractor
         
-        init(authInteractor: AuthInteractor) {
+        init(authInteractor: AuthInteractor, recipesInteractor: RecipesInteractor) {
             self.authInteractor = authInteractor
+            self.recipesInteractor = recipesInteractor
         }
         
         static var stub: Self {
-            .init(authInteractor: StubAuthInteractor())
+            .init(authInteractor: StubAuthInteractor(), recipesInteractor: StubRecipesInteractor())
         }
     }
 }

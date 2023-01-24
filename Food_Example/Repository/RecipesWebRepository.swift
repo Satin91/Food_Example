@@ -2,70 +2,49 @@
 //  RecipesWebRepository.swift
 //  Food_Example
 //
-//  Created by Артур Кулик on 23.01.2023.
+//  Created by Артур Кулик on 24.01.2023.
 //
 
 import Combine
 import Foundation
 
-enum ApiServerError: Error {
-    case badURL
-    case badConnection
-    case requestError
-    case statusError
-}
-
 protocol RecipesWebRepository {
-    func showRandomRecipes()
-    func searchRecipesBy(query: String)
-    func getRecipeInfo()
+    func searchRecipes<T: Decodable>(model: T.Type, params: [String: String], path: ApiEndpoint) throws -> AnyPublisher<T, Error>
 }
 
 class RecipesWebRepositoryImpl: RecipesWebRepository {
-    private let maxFat: Int = 140
-    private let searchCount: Int = 150
-    private let successStatusCode = 200
-    private let query: String = "Potatoes"
+    var cancelBag = Set<AnyCancellable>()
     
-    func showRandomRecipes() async throws -> [Recipe] {
-        guard var url = URL(string: "https://api.spoonacular.com/recipes/complexSearch") else {
-            throw ApiServerError.badURL
+    func searchRecipes<T: Decodable>(model: T.Type, params: [String: String], path: ApiEndpoint) throws -> AnyPublisher<T, Error> {
+        guard var url = URL(string: Constants.API.baseURL + path.path) else { throw NetworkRequestError.invalidURL }
+        url = url.appendingQueryParameters(params)
+        return URLSession.shared
+            .dataTaskPublisher(for: url)
+            .map { $0.data }
+            .decode(type: model.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+}
+
+enum NetworkRequestError: Swift.Error {
+    case invalidURL
+    case serverError
+    case unexpectedResponse
+}
+
+enum ApiEndpoint {
+    case searchByName
+    case searchByIngridient
+    case pecipeInfo(String)
+    
+    var path: String {
+        switch self {
+        case .searchByName:
+            return "complexSearch"
+        case .searchByIngridient:
+            return "findByIngredients"
+        case .pecipeInfo:
+            return "information"
         }
-        let URLParams = [
-            "apiKey": "a053c68935284fc0b0041026bf79c509",
-            "query": query,
-            "maxFat": String(maxFat),
-            "number": String(searchCount)
-        ]
-         
-        url = url.appendingQueryParameters(URLParams)
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == successStatusCode else {
-            throw ApiServerError.badConnection
-        }
-        let recipes = try JSONDecoder().decode(SearchRecipesWrapper.self, from: data)
-        
-        return recipes.results
-    }
-    
-    func getRecipes(model: Any) -> Any {
-        model
-    }
-    
-    func searchRecipesBy(query: String) async throws -> [Recipe] {
-        _ = getRecipes(model: [Recipe].self)
-        return []
-    }
-    
-    func getRecipes() {
-    }
-    func showRandomRecipes() {
-    }
-    
-    func searchRecipesBy(query: String) {
-    }
-    
-    func getRecipeInfo() {
     }
 }

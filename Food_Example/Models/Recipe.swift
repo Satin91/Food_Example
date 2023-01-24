@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchRecipesWrapper: Decodable {
+struct SearchRecipesWrapper: RecipesRequestParams {
     var results: [Recipe]
 }
 
