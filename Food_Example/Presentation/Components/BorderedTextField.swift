@@ -95,6 +95,9 @@ struct BorderedTextField: View {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .stroke(borderColor, lineWidth: borderWidth)
         }
+        .background(Color.white)
+        .cornerRadius(16)
+        .modifier(LightShadowModifier())
     }
     
     @ViewBuilder var textField: some View {

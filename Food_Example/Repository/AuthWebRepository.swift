@@ -10,7 +10,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import Foundation
 
-protocol AuthRepository {
+protocol AuthWebRepository {
     func signUp(info: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
     func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
     func resetPassword(to email: String) -> AnyPublisher<Void, AuthErrorCode>
@@ -18,7 +18,7 @@ protocol AuthRepository {
     func signUpWithGoogle()
 }
 
-struct AuthRepositoryImpl: AuthRepository {
+struct AuthWebRepositoryImpl: AuthWebRepository {
     func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode> {
         Deferred {
             Future { promise in
@@ -49,7 +49,6 @@ struct AuthRepositoryImpl: AuthRepository {
                     // Upload registration data to remote database
                     if let user = result?.user {
                         user.sendEmailVerification()
-                        print("Send verification")
                     }
                     
                     Database.userReferenceFrom(uid: uid)

@@ -17,10 +17,10 @@ protocol AuthInteractor {
 }
 
 class AuthInteractorImpl: AuthInteractor {
-    let authRepository: AuthRepository
+    let authRepository: AuthWebRepository
     var cancelBag = Set<AnyCancellable>()
     
-    init(authRepository: AuthRepository) {
+    init(authRepository: AuthWebRepository) {
         self.authRepository = authRepository
     }
     
@@ -44,10 +44,10 @@ class AuthInteractorImpl: AuthInteractor {
             .sink { result in
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("Registration error \(error) ")
                     completion(.failure(error))
                 case .finished:
-                    print(result)
+                    break
                 }
             } receiveValue: {
                 completion(.success(()))
@@ -62,7 +62,7 @@ class AuthInteractorImpl: AuthInteractor {
                 case .failure(let error):
                     completion(.failure(error))
                 case .finished:
-                    print(result)
+                    break
                 }
             } receiveValue: {
                 completion(.success(Void()))

@@ -7,11 +7,61 @@
 
 import Foundation
 
-struct SearchRecipesWrapper: RecipesRequestParams {
+struct SearchRecipesWrapper: Decodable {
     var results: [Recipe]
 }
 
-struct Recipe: Decodable, Identifiable {
+struct Recipe: Identifiable {
+    let id: Int
+    let title: String
+    let image: String
+    var vegetarian: Bool?
+    var vegan: Bool?
+    var glutenFree: Bool?
+    var dairyFree: Bool?
+    var cheap: Bool?
+    var veryPopular: Bool?
+    var sustainable: Bool?
+    var veryHealthy: Bool?
+    var lowFodmap: Bool?
+    var weightWatcherSmartPoints: Int?
+    var gaps: String?
+    var preparationMinutes: Int?
+    var cookingMinutes: Int?
+    var aggregateLikes: Int?
+    var healthScore: Int?
+    var pricePerServing: Double?
+    var extendedIngredients: [ExtendedIngredient]?
+    var readyInMinutes: Int?
+    var sourceUrl: String?
+    var summary: String?
+    
+    init(
+        id: Int,
+        title: String,
+        image: String
+    ) {
+        self.id = id
+        self.title = title
+        self.image = image
+    }
+}
+
+struct ExtendedIngredient: Decodable {
+    let id: Int
+    let aisle, image: String
+    let name, nameClean, original, originalName: String
+    let amount: Double
+    let unit: String
+    let meta: [String]
+}
+
+enum Consistency: Decodable {
+    case liquid
+    case solid
+}
+
+extension Recipe: Decodable {
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -36,80 +86,6 @@ struct Recipe: Decodable, Identifiable {
         case readyInMinutes
         case sourceUrl
         case summary
-    }
-    
-    let id: Int
-    let title: String
-    let image: String
-    let vegetarian: Bool?
-    let vegan: Bool?
-    let glutenFree: Bool?
-    let dairyFree: Bool?
-    let cheap: Bool?
-    let veryPopular: Bool?
-    let sustainable: Bool?
-    let veryHealthy: Bool?
-    let lowFodmap: Bool?
-    let weightWatcherSmartPoints: Int?
-    let gaps: String?
-    let preparationMinutes: Int?
-    let cookingMinutes: Int?
-    let aggregateLikes: Int?
-    let healthScore: Int?
-    let pricePerServing: Double?
-    let extendedIngredients: [ExtendedIngredient]?
-    let readyInMinutes: Int?
-    let sourceUrl: String?
-    let summary: String?
-    
-    init(
-        id: Int,
-        title: String,
-        image: String,
-        vegetarian: Bool?,
-        vegan: Bool?,
-        glutenFree: Bool?,
-        dairyFree: Bool?,
-        cheap: Bool?,
-        veryPopular: Bool?,
-        sustainable: Bool?,
-        veryHealthy: Bool?,
-        lowFodmap: Bool?,
-        weightWatcherSmartPoints: Int?,
-        gaps: String?,
-        preparationMinutes: Int?,
-        cookingMinutes: Int?,
-        aggregateLikes: Int?,
-        healthScore: Int?,
-        pricePerServing: Double?,
-        extendedIngredients: [ExtendedIngredient]?,
-        readyInMinutes: Int?,
-        sourceUrl: String?,
-        summary: String?
-    ) {
-        self.id = id
-        self.title = title
-        self.image = image
-        self.vegetarian = vegetarian
-        self.vegan = vegan
-        self.glutenFree = glutenFree
-        self.dairyFree = dairyFree
-        self.cheap = cheap
-        self.veryPopular = veryPopular
-        self.sustainable = sustainable
-        self.veryHealthy = veryHealthy
-        self.lowFodmap = lowFodmap
-        self.weightWatcherSmartPoints = weightWatcherSmartPoints
-        self.gaps = gaps
-        self.preparationMinutes = preparationMinutes
-        self.cookingMinutes = cookingMinutes
-        self.aggregateLikes = aggregateLikes
-        self.healthScore = healthScore
-        self.pricePerServing = pricePerServing
-        self.extendedIngredients = extendedIngredients
-        self.readyInMinutes = readyInMinutes
-        self.sourceUrl = sourceUrl
-        self.summary = summary
     }
     
     init(from decoder: Decoder) throws {
@@ -138,18 +114,4 @@ struct Recipe: Decodable, Identifiable {
         self.sourceUrl = try container.decodeIfPresent(String.self, forKey: .sourceUrl)
         self.summary = try container.decodeIfPresent(String.self, forKey: .summary)
     }
-}
-
-struct ExtendedIngredient: Decodable {
-    let id: Int
-    let aisle, image: String
-    let name, nameClean, original, originalName: String
-    let amount: Double
-    let unit: String
-    let meta: [String]
-}
-
-enum Consistency: Decodable {
-    case liquid
-    case solid
 }

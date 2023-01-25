@@ -7,35 +7,42 @@
 
 import Combine
 
-protocol RecipesRequestParams: Decodable {
-    func URLParams() -> [String: String]
-}
-
-struct ComplexSearchParams: RecipesRequestParams {
-    private var query = String()
-    private var includeIngridients = String()
-    private var number = Int()
-    private var maxFat = Int()
+struct RecipesRequestParams {
+    private var query: String?
+    private var includeIngridients: String? {
+        didSet {
+            updateParams(key: "key")
+        }
+    }
+    private var number: Int? {
+        didSet {
+            updateParams(key: "key")
+        }
+    }
+    private var maxFat: Int? {
+        didSet {
+            updateParams(key: "key")
+        }
+    }
+    var URLParams = ["apiKey": Constants.API.apiKey]
     
-    init(query: String, includeIngridients: String, number: Int, maxFat: Int) {
+    init(
+        query: String? = nil,
+        includeIngridients: String? = nil,
+        number: Int? = nil,
+        maxFat: Int? = nil
+    ) {
         self.query = query
         self.includeIngridients = includeIngridients
         self.number = number
         self.maxFat = maxFat
     }
-    
-    func URLParams() -> [String: String] {
-        [
-            "apiKey": Constants.API.apiKey,
-            "query": query,
-            "number": String(number),
-            "maxFat": String(maxFat)
-        ]
-    }
-}
-
-extension RecipesRequestParams {
-    func URLParams() -> [String: String] {
-        [:]
+    mutating func updateParams(key: String) {
+        let mirror = Mirror(reflecting: self)
+        print("________________")
+        mirror.children.forEach { child in
+            let str = String.StringLiteralType(describing: child.value)
+            print(str)
+        }
     }
 }

@@ -11,10 +11,11 @@ import SwiftUI
 struct MainScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var recipes: [Recipe] = []
-    @State var isAnimate = false
+    @State var isAnimateViews = false
     @State var searchText: String = ""
     let searchViewSize = CGSize(width: 40, height: 40)
     let searchButtonBackground = Colors.border
+    let onShowRecipeScreen: (_ id: Int) -> Void
     
     let columns = [
         GridItem(.flexible(), spacing: 0),
@@ -36,8 +37,8 @@ struct MainScreen: View {
                 .addLeftContainer {
                     Text("Most popular recipes")
                         .modifier(LargeNavBarTextModifier())
-                        .opacity(isAnimate ? 0 : 1)
-                        .animation(.easeInOut(duration: 0.1), value: isAnimate)
+                        .opacity(isAnimateViews ? 0 : 1)
+                        .animation(.easeInOut(duration: 0.1), value: isAnimateViews)
                 }
                 .addRightContainer {
                     searchView
@@ -45,7 +46,7 @@ struct MainScreen: View {
                 .padding(.vertical)
             Divider()
             ScrollView(.vertical) {
-                EmptyView()
+                recipesList
             }
         }
     }
@@ -53,38 +54,38 @@ struct MainScreen: View {
     private var searchView: some View {
         ZStack {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .stroke(isAnimate ? Colors.lightGray : .clear, lineWidth: 1)
-                .background(isAnimate ? Colors.backgroundWhite : Colors.border)
+                .stroke(isAnimateViews ? Colors.lightGray : .clear, lineWidth: 1)
+                .background(isAnimateViews ? Colors.backgroundWhite : Colors.border)
                 .cornerRadius(Constants.cornerRadius)
-                .frame(width: isAnimate ? .infinity : searchViewSize.width, height: searchViewSize.height)
+                .frame(width: isAnimateViews ? .infinity : searchViewSize.width, height: searchViewSize.height)
             HStack(spacing: Constants.Spacing.xxs) {
                 Image(Images.icnSearch)
-                    .padding(.leading, isAnimate ? Constants.Spacing.xxs : .zero)
+                    .padding(.leading, isAnimateViews ? Constants.Spacing.xxs : .zero)
                     .onTapGesture {
                         animateSearchView()
                     }
-                if isAnimate {
+                if isAnimateViews {
                     TextField("Search by ingridients", text: $searchText)
                         .frame(width: .infinity)
                         .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
                         .foregroundColor(Colors.dark)
                         .submitLabel(.search)
                         .onSubmit {
-                            isAnimate.toggle()
+                            searchRecipes()
                         }
                 }
             }
         }
-        .animation(.easeInOut, value: isAnimate)
+        .animation(.easeInOut, value: isAnimateViews)
     }
     
-    private func recipesList(_ recipes: [Recipe]) -> some View {
+    private var recipesList: some View {
         LazyVGrid(columns: columns, spacing: 0) {
             ForEach(recipes) { recipe in
                 RecipeGrid(
                     recipe: recipe,
                     action: {
-                        print("Action")
+                        onShowRecipeScreen(recipe.id)
                     }, settingsAction: {
                         print("Settings Action")
                     }
@@ -99,18 +100,18 @@ struct MainScreen: View {
             .interactors
             .recipesInteractor
             .searchRecipesBy(
-                params: ComplexSearchParams(
-                    query: "wine",
+                params: RecipesRequestParams(
+                    query: searchText,
                     includeIngridients: "",
                     number: 15,
                     maxFat: 600
                 ), completion: { recipes in
-                    print("Recipes! \(recipes)")
+                    self.recipes = recipes
                 }
             )
     }
     
     func animateSearchView() {
-        isAnimate.toggle()
+        isAnimateViews.toggle()
     }
 }

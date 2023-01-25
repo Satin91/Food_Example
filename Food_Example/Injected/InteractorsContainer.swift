@@ -11,14 +11,20 @@ extension DIContainer {
     struct Interactors {
         let authInteractor: AuthInteractor
         let recipesInteractor: RecipesInteractor
+        let imageInteractor: ImageInteractor
         
-        init(authInteractor: AuthInteractor, recipesInteractor: RecipesInteractor) {
+        init(authInteractor: AuthInteractor, recipesInteractor: RecipesInteractor, imageInteractor: ImageInteractor) {
             self.authInteractor = authInteractor
             self.recipesInteractor = recipesInteractor
+            self.imageInteractor = imageInteractor
         }
         
         static var stub: Self {
-            .init(authInteractor: StubAuthInteractor(), recipesInteractor: StubRecipesInteractor())
+            .init(
+                authInteractor: StubAuthInteractor(),
+                recipesInteractor: StubRecipesInteractor(),
+                imageInteractor: StubImageInteractor()
+            )
         }
     }
 }

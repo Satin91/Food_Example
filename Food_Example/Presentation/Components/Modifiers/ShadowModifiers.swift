@@ -36,3 +36,23 @@ struct SmallShadowModifier: ViewModifier {
             )
     }
 }
+
+struct LightShadowModifier: ViewModifier {
+    let color: Color
+    let shadowRaduis: CGFloat = 30
+    let yOffset: CGFloat = 15
+    let opacity: CGFloat = 0.9
+    
+    init(color: Color = Colors.border) {
+        self.color = color
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .shadow(
+                color: color.opacity(opacity),
+                radius: shadowRaduis,
+                y: yOffset
+            )
+    }
+}

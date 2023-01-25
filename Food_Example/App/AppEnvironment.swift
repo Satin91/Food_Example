@@ -13,9 +13,9 @@ struct AppEnvironment {
     
     static func bootstrap() -> AppEnvironment {
         let sessionService = SessionServiceImpl()
-        let authRepository = AuthRepositoryImpl()
+        let authRepository = AuthWebRepositoryImpl()
         let recipesInteractor = RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl())
-        let interactors = configureInteractors(authRepository: authRepository, recipesInteractor: recipesInteractor)
+        let interactors = configureInteractors()
         let appState = configureAppState(sessionService: sessionService)
         let container = DIContainer(appState: appState, interactors: interactors)
         return AppEnvironment(appState: appState, container: container)
@@ -25,7 +25,11 @@ struct AppEnvironment {
         AppState(sessionService: sessionService)
     }
     
-    private static func configureInteractors(authRepository: AuthRepository, recipesInteractor: RecipesInteractor) -> DIContainer.Interactors {
-        .init(authInteractor: AuthInteractorImpl(authRepository: authRepository), recipesInteractor: recipesInteractor)
+    private static func configureInteractors() -> DIContainer.Interactors {
+        .init(
+            authInteractor: AuthInteractorImpl(authRepository: AuthWebRepositoryImpl()),
+            recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl()),
+            imageInteractor: ImageInteractorImpl(repository: ImageWebRepositoryImpl())
+        )
     }
 }

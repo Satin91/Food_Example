@@ -31,7 +31,7 @@ struct RecipeGrid: View {
         }
         .background(Color.white)
         .cornerRadius(gridCornerRadius)
-        .modifier(SmallShadowModifier())
+        .modifier(LightShadowModifier())
         .frame(alignment: .top)
     }
     
@@ -59,6 +59,15 @@ struct RecipeGrid: View {
                     .resizable()
                     .scaledToFill()
                     .frame(maxHeight: .infinity)
+                    .cornerRadius(8)
+                    .padding(
+                        EdgeInsets(
+                            top: Constants.Spacing.xs,
+                            leading: Constants.Spacing.xs,
+                            bottom: .zero,
+                            trailing: Constants.Spacing.xs
+                        )
+                    )
             }, placeholder: {
                 Image("mockFood")
                     .resizable()

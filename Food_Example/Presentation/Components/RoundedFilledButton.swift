@@ -27,6 +27,7 @@ struct RoundedFilledButton: View {
             .frame(height: Constants.ButtonHeight.large)
             .padding(.horizontal, Constants.Spacing.s)
             .animation(.easeInOut(duration: 0.3), value: isPressed)
+            .modifier(LightShadowModifier(color: Colors.red.opacity(0.3)))
             .overlay {
                 Text(text)
                     .font(Fonts.makeFont(.bold, size: Constants.FontSizes.medium))
