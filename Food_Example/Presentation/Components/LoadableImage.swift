@@ -8,13 +8,27 @@
 import SwiftUI
 
 struct LoadableImage: View {
+    let urlString: String
+    @ObservedObject var imageLoader = ImageLoader()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        content
+            .onAppear {
+                imageLoader.loadImage(urlString: urlString)
+            }
+    }
+    
+    private var content: some View {
+        image
+    }
+    
+    private var image: some View {
+        Image(uiImage: imageLoader.image ?? UIImage())
     }
 }
 
-struct LoadableImage_Previews: PreviewProvider {
+ struct LoadableImage_Previews: PreviewProvider {
     static var previews: some View {
-        LoadableImage()
+        LoadableImage(urlString: "https://mobimg.b-cdn.net/v3/fetch/91/91f15b2e0be2a8f4efcbcd9502006f97.jpeg")
     }
-}
+ }

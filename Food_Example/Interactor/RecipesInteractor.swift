@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 enum ApiServerError: Error {
     case badURL

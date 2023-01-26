@@ -13,7 +13,7 @@ enum Screen {
     case splashScreen
     case onboardingScreen
     case mainScreen
-    case recipeScreen(Int)
+    case recipeScreen(Recipe)
     case signUpScreen
     case signInScreen
     case resetPasswordScreen
@@ -26,9 +26,9 @@ struct AppCoordinator: View {
         Router($routes) { screen, _ in
             switch screen {
             case .mainScreen:
-                MainScreen(onShowRecipeScreen: pushToRecipeScreen(id:))
-            case .recipeScreen(let id):
-                RecipeScreen(id: id, onClose: back)
+                MainScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
+            case .recipeScreen(let recipe):
+                RecipeScreen(recipe: recipe, onClose: back)
             case .splashScreen:
                 SplashScreen(
                     onOnboardingScreen: pushOnboardingScreen,
@@ -78,8 +78,8 @@ struct AppCoordinator: View {
         routes = [.root(.mainScreen, embedInNavigationView: true)]
     }
     
-    private func pushToRecipeScreen(id: Int) {
-        routes.push(.recipeScreen(id))
+    private func pushToRecipeScreen(recipe: Recipe) {
+        routes.push(.recipeScreen(recipe))
     }
     
     private func back() {

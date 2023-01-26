@@ -24,7 +24,10 @@ struct RecipesRequestParams {
             updateParams(key: "key")
         }
     }
-    var URLParams = ["apiKey": Constants.API.apiKey]
+    var URLParams = [
+        "apiKey": Constants.API.apiKey,
+        "number": "35"
+    ]
     
     init(
         query: String? = nil,

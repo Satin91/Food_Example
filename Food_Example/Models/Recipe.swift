@@ -12,9 +12,9 @@ struct SearchRecipesWrapper: Decodable {
 }
 
 struct Recipe: Identifiable {
-    let id: Int
-    let title: String
-    let image: String
+    var id: Int
+    var title: String
+    var image: String
     var vegetarian: Bool?
     var vegan: Bool?
     var glutenFree: Bool?

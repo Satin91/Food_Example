@@ -14,6 +14,7 @@ struct RecipeGrid: View {
     let imageHeight: CGFloat = 100
     let gridCornerRadius: CGFloat = 12
     let settingsButtonSize: CGFloat = 24
+    @ObservedObject var imageLoader = ImageLoader()
     let action: () -> Void
     let settingsAction: () -> Void
     
@@ -33,6 +34,9 @@ struct RecipeGrid: View {
         .cornerRadius(gridCornerRadius)
         .modifier(LightShadowModifier())
         .frame(alignment: .top)
+        .onAppear {
+            imageLoader.loadImage(urlString: recipe.image)
+        }
     }
     
     var title: some View {
@@ -52,32 +56,19 @@ struct RecipeGrid: View {
     }
     
     var image: some View {
-        AsyncImage(
-            url: URL(string: recipe.image),
-            content: { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxHeight: .infinity)
-                    .cornerRadius(8)
-                    .padding(
-                        EdgeInsets(
-                            top: Constants.Spacing.xs,
-                            leading: Constants.Spacing.xs,
-                            bottom: .zero,
-                            trailing: Constants.Spacing.xs
-                        )
-                    )
-            }, placeholder: {
-                Image("mockFood")
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(Colors.lightGray)
-                    .frame(maxHeight: .infinity)
-            }
-        )
-        .onAppear {
-        }
+        Image(uiImage: imageLoader.image ?? UIImage())
+            .resizable()
+            .scaledToFill()
+            .frame(maxHeight: .infinity)
+            .cornerRadius(8)
+            .padding(
+                EdgeInsets(
+                    top: Constants.Spacing.xs,
+                    leading: Constants.Spacing.xs,
+                    bottom: .zero,
+                    trailing: Constants.Spacing.xs
+                )
+            )
     }
     
     var settingsButton: some View {

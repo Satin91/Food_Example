@@ -15,7 +15,7 @@ struct MainScreen: View {
     @State var searchText: String = ""
     let searchViewSize = CGSize(width: 40, height: 40)
     let searchButtonBackground = Colors.border
-    let onShowRecipeScreen: (_ id: Int) -> Void
+    let onShowRecipeScreen: (_ id: Recipe) -> Void
     
     let columns = [
         GridItem(.flexible(), spacing: 0),
@@ -85,7 +85,7 @@ struct MainScreen: View {
                 RecipeGrid(
                     recipe: recipe,
                     action: {
-                        onShowRecipeScreen(recipe.id)
+                        onShowRecipeScreen(recipe)
                     }, settingsAction: {
                         print("Settings Action")
                     }
