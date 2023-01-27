@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoadableImage: View {
     let urlString: String
-    @ObservedObject var imageLoader = ImageLoader()
+    @StateObject var imageLoader = ImageLoader()
     
     var body: some View {
         content
@@ -19,16 +19,18 @@ struct LoadableImage: View {
     }
     
     private var content: some View {
-        image
+        Image(uiImage: imageLoader.image)
+            .resizable()
+            .scaledToFill()
     }
     
     private var image: some View {
-        Image(uiImage: imageLoader.image ?? UIImage())
+        Image(uiImage: imageLoader.image)
     }
 }
 
- struct LoadableImage_Previews: PreviewProvider {
+struct LoadableImage_Previews: PreviewProvider {
     static var previews: some View {
         LoadableImage(urlString: "https://mobimg.b-cdn.net/v3/fetch/91/91f15b2e0be2a8f4efcbcd9502006f97.jpeg")
     }
- }
+}

@@ -19,6 +19,7 @@ struct FoodExampleApp: App {
     
     init() {
         FirebaseApp.configure()
+// For develop
 //        do {
 //            try Auth.auth().signOut()
 //        } catch let error {

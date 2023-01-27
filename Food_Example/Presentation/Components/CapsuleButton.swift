@@ -14,6 +14,7 @@ struct CapsuleButton: View {
     }
     
     let title: String
+    var image: String?
     let size: CapsuleButtonSize
     
     var capsuleHeight: CGFloat {
@@ -34,7 +35,14 @@ struct CapsuleButton: View {
             .foregroundColor(Color.red)
             .frame(height: capsuleHeight)
             .overlay(
-                text
+                HStack(spacing: Constants.Spacing.xxs) {
+                    if let image {
+                        Image(image)
+                            .renderingMode(.template)
+                            .foregroundColor(.white)
+                    }
+                    text
+                }
             )
             .onTapGesture {
                 action()
@@ -43,7 +51,7 @@ struct CapsuleButton: View {
     var text: some View {
         Text(title)
             .font(Fonts.makeFont(.dmSans, size: Constants.FontSizes.medium))
-            .foregroundColor(Color.white)
+            .foregroundColor(.white)
     }
     
     init(title: String, size: CapsuleButtonSize = .medium, action: @escaping () -> Void) {

@@ -19,7 +19,6 @@ struct Recipe: Identifiable {
     var vegan: Bool?
     var glutenFree: Bool?
     var dairyFree: Bool?
-    var cheap: Bool?
     var veryPopular: Bool?
     var sustainable: Bool?
     var veryHealthy: Bool?
@@ -70,7 +69,6 @@ extension Recipe: Decodable {
         case vegan
         case glutenFree
         case dairyFree
-        case cheap
         case veryPopular
         case sustainable
         case veryHealthy
@@ -97,7 +95,6 @@ extension Recipe: Decodable {
         self.vegan = try container.decodeIfPresent(Bool.self, forKey: .vegan)
         self.glutenFree = try container.decodeIfPresent(Bool.self, forKey: .glutenFree)
         self.dairyFree = try container.decodeIfPresent(Bool.self, forKey: .dairyFree)
-        self.cheap = try container.decodeIfPresent(Bool.self, forKey: .cheap)
         self.veryPopular = try container.decodeIfPresent(Bool.self, forKey: .veryPopular)
         self.sustainable = try container.decodeIfPresent(Bool.self, forKey: .sustainable)
         self.veryHealthy = try container.decodeIfPresent(Bool.self, forKey: .veryHealthy)

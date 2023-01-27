@@ -14,7 +14,7 @@ struct RecipeGrid: View {
     let imageHeight: CGFloat = 100
     let gridCornerRadius: CGFloat = 12
     let settingsButtonSize: CGFloat = 24
-    @ObservedObject var imageLoader = ImageLoader()
+    @StateObject var imageLoader = ImageLoader()
     let action: () -> Void
     let settingsAction: () -> Void
     
@@ -56,19 +56,10 @@ struct RecipeGrid: View {
     }
     
     var image: some View {
-        Image(uiImage: imageLoader.image ?? UIImage())
+        Image(uiImage: imageLoader.image)
             .resizable()
             .scaledToFill()
             .frame(maxHeight: .infinity)
-            .cornerRadius(8)
-            .padding(
-                EdgeInsets(
-                    top: Constants.Spacing.xs,
-                    leading: Constants.Spacing.xs,
-                    bottom: .zero,
-                    trailing: Constants.Spacing.xs
-                )
-            )
     }
     
     var settingsButton: some View {

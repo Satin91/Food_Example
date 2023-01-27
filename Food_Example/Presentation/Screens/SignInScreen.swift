@@ -129,7 +129,7 @@ struct SignInScreen: View {
     }
 }
 
-struct MyPreviewProvider_Previews: PreviewProvider {
+struct SignInScreen_Previews: PreviewProvider {
     static var previews: some View {
         SignInScreen(
             onMainScreen: {},

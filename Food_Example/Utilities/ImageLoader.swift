@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
+    @Published var image = UIImage()
     var cancelBag = Set<AnyCancellable>()
     let imageCache = ImageCache.shared
     
@@ -22,7 +22,9 @@ class ImageLoader: ObservableObject {
     }
     
     private func loadImageFromCache(urlString: String) -> Bool {
-        guard let cacheImage = imageCache.get(forKey: urlString) else { return false}
+        guard let cacheImage = imageCache.get(forKey: urlString) else {
+            return false
+        }
         image = cacheImage
         return true
     }
@@ -38,7 +40,7 @@ class ImageLoader: ObservableObject {
                 return image
             }
             .sink { error in
-                print("Error parse image \(error)")
+                print("\(error)")
             } receiveValue: { image in
                 self.image = image
             }

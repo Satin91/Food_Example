@@ -10,14 +10,13 @@ import SwiftUI
 
 struct SplashScreen: View {
     @Environment(\.injected) var container: DIContainer
-    let lottieSize: CGFloat = 120
     let onOnboardingScreen: () -> Void
     let onMainScreen: () -> Void
     
     var body: some View {
         VStack {
             LottieView(name: Lottie.loader, loopMode: .loop, speed: 1.5, isStopped: false)
-                .frame(width: lottieSize, height: lottieSize)
+                .frame(width: Constants.loaderLottieSize, height: Constants.loaderLottieSize)
             Text("Food Recipes")
                 .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraLarge))
                 .foregroundColor(Colors.red)

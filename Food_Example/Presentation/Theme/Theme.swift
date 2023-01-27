@@ -43,10 +43,13 @@ enum Constants {
         static let large: CGFloat = 56
     }
     enum API {
+        // first key "a053c68935284fc0b0041026bf79c509"
+        // secondary key "67dbadc95b2244a2964aae01c89b3277"
         static let apiKey = "a053c68935284fc0b0041026bf79c509"
         static let baseURL: String = "https://api.spoonacular.com/recipes/"
     }
     
+    static let loaderLottieSize: CGFloat = 120
     static let cornerRadius: CGFloat = 16
 }
 
@@ -65,6 +68,7 @@ enum Images {
     static let icnSandwich = "icnSandwich"
     static let icnTacos = "icnTacos"
     static let foodBackground = "foodBackground"
+    static let mockFood = "mockFood"
     
     static let icnArrowLeft = "icnArrowLeft"
     static let icnArrowRight = "icnArrowRight"
@@ -79,6 +83,7 @@ enum Images {
     static let icnSettingsVertical = "icnSettingsVertical"
     static let icnChevronLeft = "icnChevronLeft"
     static let icnChevronRight = "icnChevronRight"
+    static let icnClock = "icnClock"
     
     static let icnGoogle = "icnGoogle"
 }
