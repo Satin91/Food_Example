@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct RecipeScreen: View {
-    //    @State var recipe: Recipe
-    let recipe = RecipeMock()
-    @Environment(\.injected) var container: DIContainer
-    let onClose: () -> Void
+    @State var recipe: Recipe
     @State var isLoaded = false
     @State var heightImageContainer: CGFloat = 180
+    @Environment(\.injected) var container: DIContainer
+    
+    let onClose: () -> Void
+    let parser = HTMLParser()
+    
     var body: some View {
         if isLoaded {
             content
+                .toolbar(.hidden)
         } else {
             LoadingView()
                 .onAppear {
@@ -28,7 +31,9 @@ struct RecipeScreen: View {
     private var content: some View {
         VStack(spacing: .zero) {
             imageContainer
-            titleContainer
+            titleLabel
+            nutrientsContainer
+            Spacer()
         }
         .overlay {
             VStack(spacing: .zero) {
@@ -44,7 +49,7 @@ struct RecipeScreen: View {
                 Image(Images.icnChevronLeft)
                     .padding(Constants.Spacing.xxs)
                     .background(Colors.backgroundWhite.opacity(0.8))
-                    .cornerRadius(8)
+                    .cornerRadius(Constants.smallCornerRadius)
                     .onTapGesture {
                         onClose()
                     }
@@ -52,12 +57,11 @@ struct RecipeScreen: View {
     }
     
     private var imageContainer: some View {
-        //            LoadableImage(urlString: recipe.image)
         HStack(spacing: Constants.Spacing.xxs) {
             Image(Images.icnClock)
                 .renderingMode(.template)
                 .foregroundColor(.white)
-            Text(String(recipe.readyInMinutes) + " min")
+            Text(String(recipe.readyInMinutes!) + " min")
                 .font(Fonts.makeFont(.semiBold, size: Constants.FontSizes.small))
                 .foregroundColor(.white)
         }
@@ -68,43 +72,55 @@ struct RecipeScreen: View {
         .padding(Constants.Spacing.s)
         .frame(maxWidth: .infinity, maxHeight: heightImageContainer, alignment: .bottomLeading)
         .background(
-            Image(recipe.image)
-                .resizable()
-                .scaledToFill()
+            LoadableImage(urlString: recipe.image)
                 .edgesIgnoringSafeArea(.top)
         )
     }
     
-    @ViewBuilder private var titleContainer: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: .zero) {
-                Text(recipe.title)
-                    .modifier(LargeNavBarTextModifier())
-                    .padding(.vertical, Constants.Spacing.s)
-                Text(recipe.summary)
-                    .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
+    private var nutrientsContainer: some View {
+        VStack {
+            HStack(spacing: .zero) {
+                NutrientView(nutrientType: .carbs(214))
+                NutrientView(nutrientType: .protein(244))
             }
-            .multilineTextAlignment(.leading)
+            HStack(spacing: .zero) {
+                NutrientView(nutrientType: .kcal(125))
+                NutrientView(nutrientType: .fats(425))
+            }
         }
         .padding(.horizontal, Constants.Spacing.s)
+    }
+    
+    private var titleLabel: some View {
+        Text(recipe.title)
+            .modifier(LargeNavBarTextModifier())
+            .padding(Constants.Spacing.s)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.white)
+    }
+    
+    private var summaryView: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            Text(recipe.summary!)
+                .font(Fonts.makeFont(.medium, size: Constants.FontSizes.medium))
+                .foregroundColor(Colors.gray)
+        }
         .background(Color.white)
     }
     
     private func getRecipeBy(id: Int) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        container.interactors.recipesInteractor.getRecipeInfoBy(id: id) { recipe in
+            self.recipe = recipe
             isLoaded = true
+            print(parser.getExcerpt(text: recipe.summary ?? ""))
         }
-        //        container.interactors.recipesInteractor.getRecipeInfoBy(id: id) { recipe in
-        //            self.recipe = recipe
-        //        }
     }
 }
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         //        RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), onClose: {})
-        RecipeScreen {
-        }
+        RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), onClose: {})
     }
 }
 

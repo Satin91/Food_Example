@@ -20,7 +20,7 @@ enum Screen {
 }
 
 struct AppCoordinator: View {
-    @State var routes: Routes<Screen> = [.root(.recipeScreen(Recipe(id: 0, title: "", image: "")), embedInNavigationView: true)]
+    @State var routes: Routes<Screen> = [.root(.splashScreen, embedInNavigationView: true)]
     
     var body: some View {
         Router($routes) { screen, _ in
@@ -29,7 +29,7 @@ struct AppCoordinator: View {
                 MainScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .recipeScreen(let recipe):
                 //                RecipeScreen(recipe: recipe, onClose: back)
-                RecipeScreen(onClose: back)
+                RecipeScreen(recipe: recipe, onClose: back)
             case .splashScreen:
                 SplashScreen(
                     onOnboardingScreen: pushOnboardingScreen,

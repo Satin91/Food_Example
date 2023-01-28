@@ -43,7 +43,7 @@ struct LightShadowModifier: ViewModifier {
     let yOffset: CGFloat = 15
     let opacity: CGFloat = 0.9
     
-    init(color: Color = Colors.border) {
+    init(color: Color = Colors.neutralGray) {
         self.color = color
     }
     

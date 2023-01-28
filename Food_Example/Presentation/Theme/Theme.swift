@@ -50,6 +50,7 @@ enum Constants {
     }
     
     static let loaderLottieSize: CGFloat = 120
+    static let smallCornerRadius: CGFloat = 8
     static let cornerRadius: CGFloat = 16
 }
 
@@ -85,6 +86,11 @@ enum Images {
     static let icnChevronRight = "icnChevronRight"
     static let icnClock = "icnClock"
     
+    static let icnFats = "icnFats"
+    static let icnProtein = "icnProtein"
+    static let icnCarbs = "icnCarbs"
+    static let icnKcal = "icnKcal"
+    
     static let icnGoogle = "icnGoogle"
 }
 
@@ -105,5 +111,5 @@ enum Colors {
     static let weakGray = Color("weakGray")
     static let yellow = Color("yellow")
     static let placeholder = Color("placeholder")
-    static let border = Color("border")
+    static let neutralGray = Color("neutralGray")
 }

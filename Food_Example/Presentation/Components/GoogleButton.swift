@@ -27,7 +27,7 @@ struct GoogleButton: View {
         .padding(Constants.Spacing.s)
         .overlay {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .stroke(Colors.border, lineWidth: borderWidth)
+                .stroke(Colors.neutralGray, lineWidth: borderWidth)
         }
         .padding(.horizontal, Constants.Spacing.s)
     }

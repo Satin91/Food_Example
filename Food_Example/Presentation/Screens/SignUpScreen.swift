@@ -91,7 +91,7 @@ struct SignUpScreen: View {
     private var separator: some View {
         RoundedRectangle(cornerRadius: 1)
             .frame(height: 1)
-            .foregroundColor(Colors.border)
+            .foregroundColor(Colors.neutralGray)
     }
     
     private var googleButton: some View {

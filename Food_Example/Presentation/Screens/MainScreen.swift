@@ -13,7 +13,7 @@ struct MainScreen: View {
     @State var recipes: [Recipe] = []
     @State var searchText: String = ""
     let searchViewHeight: CGFloat = 56
-    let searchButtonBackground = Colors.border
+    let searchButtonBackground = Colors.neutralGray
     let onShowRecipeScreen: (_ id: Recipe) -> Void
     
     let columns = [

@@ -48,11 +48,11 @@ struct Recipe: Identifiable {
 
 struct ExtendedIngredient: Decodable {
     let id: Int
-    let aisle, image: String
-    let name, nameClean, original, originalName: String
-    let amount: Double
-    let unit: String
-    let meta: [String]
+    let aisle, image: String?
+    let name, nameClean, original, originalName: String?
+    let amount: Double?
+    let unit: String?
+    let meta: [String?]
 }
 
 enum Consistency: Decodable {

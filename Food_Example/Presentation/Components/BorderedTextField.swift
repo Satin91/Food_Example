@@ -21,11 +21,11 @@ struct BorderedTextField: View {
     var borderColor: Color {
         switch verificationError {
         case .userNotFound, .missingEmail, .invalidEmail, .emailAlreadyInUse:
-            return textFieldType == .email ? Colors.red : Colors.border
+            return textFieldType == .email ? Colors.red : Colors.neutralGray
         case .weakPassword, .wrongPassword:
-            return textFieldType == .password ? Colors.red : Colors.border
+            return textFieldType == .password ? Colors.red : Colors.neutralGray
         default:
-            return Colors.border
+            return Colors.neutralGray
         }
     }
     
@@ -96,7 +96,7 @@ struct BorderedTextField: View {
                 .stroke(borderColor, lineWidth: borderWidth)
         }
         .background(Color.white)
-        .cornerRadius(16)
+        .cornerRadius(Constants.cornerRadius)
         .modifier(LightShadowModifier())
     }
     
