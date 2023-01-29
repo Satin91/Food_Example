@@ -15,9 +15,10 @@ protocol RecipesWebRepository {
 class RecipesWebRepositoryImpl: RecipesWebRepository {
     var cancelBag = Set<AnyCancellable>()
     
-    @MainActor
     func searchRecipes<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error> {
-        guard var url = URL(string: Constants.API.baseURL + path.path) else { return Fail(outputType: model, failure: APIRequestError.invalidURL).eraseToAnyPublisher() }
+        guard var url = URL(string: Constants.API.baseURL + path.path) else {
+            return Fail(outputType: model, failure: APIRequestError.invalidURL).eraseToAnyPublisher()
+        }
         url = url.appendingQueryParameters(params)
         return URLSession.shared
             .dataTaskPublisher(for: url)

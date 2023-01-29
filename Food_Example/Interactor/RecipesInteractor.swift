@@ -25,8 +25,6 @@ class RecipesInteractorImpl: RecipesInteractor {
     var recipesWebRepository: RecipesWebRepository
     var cancelBag = Set<AnyCancellable>()
     
-    let semaphore = DispatchSemaphore(value: 1)
-    
     init(recipesWebRepository: RecipesWebRepository) {
         self.recipesWebRepository = recipesWebRepository
     }
@@ -40,10 +38,13 @@ class RecipesInteractorImpl: RecipesInteractor {
             .store(in: &cancelBag)
     }
     
-    @MainActor
     func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
         var recipe: Recipe?
+        let semaphore = DispatchSemaphore(value: 1)
+        
+        semaphore.wait()
         getRecipeInfo(id: id) { result in
+            semaphore.signal()
             switch result {
             case .success(let receiveValue):
                 recipe = receiveValue
@@ -51,13 +52,15 @@ class RecipesInteractorImpl: RecipesInteractor {
                 completion(.failure(error))
             }
         }
-        
+        semaphore.wait()
         setRecipeNutritionsBy(id: id) { result in
+            semaphore.signal()
             switch result {
             case .success(let receiveValue):
                 recipe?.nutrients = receiveValue
                 guard let recipe = recipe else {
-                    completion(.failure(ApiServerError.requestError))
+                    completion(.failure(ApiServerError.statusError))
+                    print("ERROR STATUS ERROR")
                     return
                 }
                 completion(.success(recipe))
@@ -69,27 +72,23 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     private func getRecipeInfo(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
         print("getRecipeInfo on \(Thread.current)")
-        semaphore.wait()
         recipesWebRepository.searchRecipes(model: Recipe.self, params: RecipesRequestParams().URLParams, path: .recipeInfo(id))
-            .sink { _ in
-                // completion(.failure(ApiServerError.badConnection))
+            .eraseToAnyPublisher()
+            .sink { error in
+                print("ERROR INFO \(error)")
             } receiveValue: { recipe in
                 completion(.success(recipe))
-                self.semaphore.signal()
             }
             .store(in: &cancelBag)
     }
     
     private func setRecipeNutritionsBy(id: Int, completion: @escaping (Result<Nutritient, Error>) -> Void) {
-        print("setRecipeNutritionsBy on \(Thread.current)")
-        self.semaphore.wait()
         recipesWebRepository.searchRecipes(model: Nutritient.self, params: RecipesRequestParams().URLParams, path: .nutritions(id))
             .sink { error in
-                print(error)
+                print("ERROR NUTRITIONS \(error)")
                 completion(.failure(ApiServerError.requestError))
             } receiveValue: { nutritients in
                 completion(.success(nutritients))
-                self.semaphore.signal()
             }
             .store(in: &cancelBag)
     }
