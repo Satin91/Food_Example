@@ -31,6 +31,7 @@ struct Recipe: Identifiable {
     var healthScore: Int?
     var pricePerServing: Double?
     var extendedIngredients: [ExtendedIngredient]?
+    var nutrients: Nutritient?
     var readyInMinutes: Int?
     var sourceUrl: String?
     var summary: String?
@@ -60,6 +61,44 @@ enum Consistency: Decodable {
     case solid
 }
 
+struct Nutritient: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case calories
+        case carbs
+        case fat
+        case protein
+    }
+    
+    private var caloriesValue: String
+    private var carbsValue: String
+    private var fatValue: String
+    private var proteinValue: String
+    
+    var calories: String {
+        caloriesValue + " calories"
+    }
+    
+    var carbs: String {
+        carbsValue + " carbs"
+    }
+    
+    var fat: String {
+        fatValue + " fat"
+    }
+    
+    var protein: String {
+        proteinValue + " protein"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.caloriesValue = try container.decode(String.self, forKey: .calories)
+        self.carbsValue = try container.decode(String.self, forKey: .carbs)
+        self.fatValue = try container.decode(String.self, forKey: .fat)
+        self.proteinValue = try container.decode(String.self, forKey: .protein)
+    }
+}
+
 extension Recipe: Decodable {
     enum CodingKeys: String, CodingKey {
         case id
@@ -80,6 +119,7 @@ extension Recipe: Decodable {
         case aggregateLikes
         case healthScore
         case pricePerServing
+        case nutrients
         case extendedIngredients
         case readyInMinutes
         case sourceUrl
@@ -107,6 +147,7 @@ extension Recipe: Decodable {
         self.healthScore = try container.decodeIfPresent(Int.self, forKey: .healthScore)
         self.pricePerServing = try container.decodeIfPresent(Double.self, forKey: .pricePerServing)
         self.extendedIngredients = try container.decodeIfPresent([ExtendedIngredient].self, forKey: .extendedIngredients)
+        self.nutrients = try container.decodeIfPresent(Nutritient.self, forKey: .nutrients)
         self.readyInMinutes = try container.decodeIfPresent(Int.self, forKey: .readyInMinutes)
         self.sourceUrl = try container.decodeIfPresent(String.self, forKey: .sourceUrl)
         self.summary = try container.decodeIfPresent(String.self, forKey: .summary)

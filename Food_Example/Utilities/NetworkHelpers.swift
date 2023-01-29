@@ -11,6 +11,7 @@ enum APIEndpoint {
     case searchByName
     case searchByIngridient
     case recipeInfo(Int)
+    case nutritions(Int)
     
     var path: String {
         switch self {
@@ -20,11 +21,13 @@ enum APIEndpoint {
             return "findByIngredients"
         case .recipeInfo(let id):
             return "\(id)/" + "information"
+        case .nutritions(let id):
+            return "\(id)/" + "nutritionWidget.json"
         }
     }
 }
 
-enum APIRequestError: Swift.Error {
+enum APIRequestError: Error {
     case invalidURL
     case serverError
     case unexpectedResponse

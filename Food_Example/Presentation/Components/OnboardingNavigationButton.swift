@@ -17,7 +17,7 @@ struct OnboardingNavigationButton: View {
         content
             .frame(width: 50, height: 34)
             .rotation3DEffect(Angle(degrees: degrees), axis: (x: 0, y: 1, z: 0))
-            .foregroundColor(Colors.lightGray)
+            .foregroundColor(Colors.silver)
             .animation(.easeInOut(duration: 0.3), value: isPressed)
     }
     
@@ -48,7 +48,7 @@ struct OnboardingNavigationButton: View {
     
     private var verticalSeparator: some View {
         RoundedRectangle(cornerRadius: 2)
-            .foregroundColor(Colors.lightGray)
+            .foregroundColor(Colors.silver)
             .frame(width: 2, height: 24)
     }
     

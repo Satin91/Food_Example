@@ -9,21 +9,9 @@ import Combine
 
 struct RecipesRequestParams {
     private var query: String?
-    private var includeIngridients: String? {
-        didSet {
-            updateParams(key: "key")
-        }
-    }
-    private var number: Int? {
-        didSet {
-            updateParams(key: "key")
-        }
-    }
-    private var maxFat: Int? {
-        didSet {
-            updateParams(key: "key")
-        }
-    }
+    private var includeIngridients: String?
+    private var number: Int?
+    private var maxFat: Int?
     var URLParams = [
         "apiKey": Constants.API.apiKey,
         "number": "35"
@@ -39,13 +27,5 @@ struct RecipesRequestParams {
         self.includeIngridients = includeIngridients
         self.number = number
         self.maxFat = maxFat
-    }
-    mutating func updateParams(key: String) {
-        let mirror = Mirror(reflecting: self)
-        print("________________")
-        mirror.children.forEach { child in
-            let str = String.StringLiteralType(describing: child.value)
-            print(str)
-        }
     }
 }

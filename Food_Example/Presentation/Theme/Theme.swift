@@ -106,7 +106,7 @@ enum Colors {
     static let gray = Color("gray")
     static let green = Color("green")
     static let red = Color("red")
-    static let lightGray = Color("lightGray")
+    static let silver = Color("silver")
     static let weakDark = Color("weakDark")
     static let weakGray = Color("weakGray")
     static let yellow = Color("yellow")

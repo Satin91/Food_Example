@@ -26,7 +26,9 @@ struct MainScreen: View {
         content
             .toolbar(.hidden)
             .onAppear {
-                searchRecipes()
+                Task {
+                    await searchRecipes()
+                }
             }
     }
     
@@ -74,7 +76,9 @@ struct MainScreen: View {
                         .foregroundColor(Colors.dark)
                         .submitLabel(.search)
                         .onSubmit {
-                            searchRecipes()
+                            Task {
+                                await searchRecipes()
+                            }
                         }
                 }
             }
@@ -96,8 +100,8 @@ struct MainScreen: View {
         }
     }
     
-    private func searchRecipes() {
-        container
+    private func searchRecipes() async {
+        await container
             .interactors
             .recipesInteractor
             .searchRecipesBy(

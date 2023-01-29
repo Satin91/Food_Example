@@ -9,10 +9,10 @@ import SwiftUI
 
 struct NutrientView: View {
     enum NutrientType {
-        case carbs(Int)
-        case protein(Int)
-        case kcal(Int)
-        case fats(Int)
+        case carbs(String)
+        case protein(String)
+        case kcal(String)
+        case fats(String)
     }
     struct Nutrient {
         let imageName: String
@@ -27,22 +27,22 @@ struct NutrientView: View {
         case .carbs(let amount):
             return Nutrient(
                 imageName: Images.icnCarbs,
-                amount: "\(amount)g carbs "
+                amount: amount
             )
         case .protein(let amount):
             return Nutrient(
                 imageName: Images.icnProtein,
-                amount: "\(amount)g protein"
+                amount: amount
             )
         case .kcal(let amount):
             return Nutrient(
                 imageName: Images.icnKcal,
-                amount: "\(amount) Kcal"
+                amount: amount
             )
         case .fats(let amount):
             return Nutrient(
                 imageName: Images.icnFats,
-                amount: "\(amount)g fats"
+                amount: amount
             )
         }
     }
@@ -72,13 +72,13 @@ struct NutrientView: View {
     
     private var amountText: some View {
         Text(nutrient.amount)
-            .font(Fonts.makeFont(.regular, size: Constants.FontSizes.extraMedium))
+            .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
             .foregroundColor(Colors.weakDark)
     }
 }
 
 struct NutrientsView_Previews: PreviewProvider {
     static var previews: some View {
-        NutrientView(nutrientType: .fats(150))
+        NutrientView(nutrientType: .fats("150"))
     }
 }

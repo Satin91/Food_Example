@@ -23,7 +23,9 @@ struct RecipeScreen: View {
         } else {
             LoadingView()
                 .onAppear {
-                    getRecipeBy(id: recipe.id)
+                    Task {
+                        await self.getRecipeBy(id: recipe.id)
+                    }
                 }
         }
     }
@@ -61,7 +63,7 @@ struct RecipeScreen: View {
             Image(Images.icnClock)
                 .renderingMode(.template)
                 .foregroundColor(.white)
-            Text(String(recipe.readyInMinutes!) + " min")
+            Text(String(recipe.readyInMinutes ?? 0) + " min")
                 .font(Fonts.makeFont(.semiBold, size: Constants.FontSizes.small))
                 .foregroundColor(.white)
         }
@@ -73,6 +75,7 @@ struct RecipeScreen: View {
         .frame(maxWidth: .infinity, maxHeight: heightImageContainer, alignment: .bottomLeading)
         .background(
             LoadableImage(urlString: recipe.image)
+                .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.top)
         )
     }
@@ -80,12 +83,12 @@ struct RecipeScreen: View {
     private var nutrientsContainer: some View {
         VStack {
             HStack(spacing: .zero) {
-                NutrientView(nutrientType: .carbs(214))
-                NutrientView(nutrientType: .protein(244))
+                NutrientView(nutrientType: .carbs(recipe.nutrients!.carbs))
+                NutrientView(nutrientType: .protein(recipe.nutrients!.protein))
             }
             HStack(spacing: .zero) {
-                NutrientView(nutrientType: .kcal(125))
-                NutrientView(nutrientType: .fats(425))
+                NutrientView(nutrientType: .kcal(recipe.nutrients!.calories))
+                NutrientView(nutrientType: .fats(recipe.nutrients!.fat))
             }
         }
         .padding(.horizontal, Constants.Spacing.s)
@@ -108,11 +111,15 @@ struct RecipeScreen: View {
         .background(Color.white)
     }
     
-    private func getRecipeBy(id: Int) {
-        container.interactors.recipesInteractor.getRecipeInfoBy(id: id) { recipe in
-            self.recipe = recipe
-            isLoaded = true
-            print(parser.getExcerpt(text: recipe.summary ?? ""))
+    private func getRecipeBy(id: Int) async {
+        await container.interactors.recipesInteractor.getRecipeInfoBy(id: id) { result in
+            switch result {
+            case .success(let recipe):
+                self.recipe = recipe
+                self.isLoaded = true
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }
