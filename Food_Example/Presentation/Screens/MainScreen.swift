@@ -70,7 +70,7 @@ struct MainScreen: View {
                         .renderingMode(.template)
                         .foregroundColor(Colors.gray)
                         .padding(.leading, Constants.Spacing.s)
-                    TextField("Search by ingridients", text: $searchText)
+                    TextField("Search by ingredients", text: $searchText)
                         .frame(width: .infinity)
                         .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
                         .foregroundColor(Colors.dark)

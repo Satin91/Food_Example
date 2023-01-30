@@ -44,6 +44,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         
         semaphore.wait()
         getRecipeInfo(id: id) { result in
+            print("Thread \(Thread.current)")
             semaphore.signal()
             switch result {
             case .success(let receiveValue):
@@ -55,9 +56,21 @@ class RecipesInteractorImpl: RecipesInteractor {
         semaphore.wait()
         setRecipeNutritionsBy(id: id) { result in
             semaphore.signal()
+            print("Thread \(Thread.current)")
             switch result {
             case .success(let receiveValue):
                 recipe?.nutrients = receiveValue
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        semaphore.wait()
+        setRecipeIngridientsBy(id: id) { result in
+            print("Thread \(Thread.current)")
+            semaphore.signal()
+            switch result {
+            case .success(let receiveValue):
+                recipe?.ingridients = receiveValue
                 guard let recipe = recipe else {
                     completion(.failure(ApiServerError.statusError))
                     print("ERROR STATUS ERROR")
@@ -65,7 +78,7 @@ class RecipesInteractorImpl: RecipesInteractor {
                 }
                 completion(.success(recipe))
             case .failure(let error):
-                completion(.failure(error))
+                print(error)
             }
         }
     }
@@ -89,6 +102,16 @@ class RecipesInteractorImpl: RecipesInteractor {
                 completion(.failure(ApiServerError.requestError))
             } receiveValue: { nutritients in
                 completion(.success(nutritients))
+            }
+            .store(in: &cancelBag)
+    }
+    
+    private func setRecipeIngridientsBy(id: Int, completion: @escaping (Result<[Ingredient], Error>) -> Void) {
+        recipesWebRepository.searchRecipes(model: IngredientWrapper.self, params: RecipesRequestParams().URLParams, path: .ingridients(id))
+            .sink { error in
+                print("ingridient error \(error)")
+            } receiveValue: { ingridient in
+                completion(.success(ingridient.ingredients))
             }
             .store(in: &cancelBag)
     }

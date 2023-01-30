@@ -43,6 +43,7 @@
 		8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */; };
 		8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287836296EE1FB00AD8D25 /* MainScreen.swift */; };
 		8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E287838296EE1FD00AD8D25 /* Assets.xcassets */; };
+		8E2C291D2987976400793BF3 /* IngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2C291C2987976400793BF3 /* IngredientView.swift */; };
 		8E330987297F27D7006B2145 /* RecipesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E330986297F27D7006B2145 /* RecipesInteractor.swift */; };
 		8E330989297F3972006B2145 /* RecipesWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E330988297F3972006B2145 /* RecipesWebRepository.swift */; };
 		8E39E152297B7C8C0042A551 /* ResetPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */; };
@@ -115,6 +116,7 @@
 		8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food_ExampleApp.swift; sourceTree = "<group>"; };
 		8E287836296EE1FB00AD8D25 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		8E287838296EE1FD00AD8D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8E2C291C2987976400793BF3 /* IngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientView.swift; sourceTree = "<group>"; };
 		8E330986297F27D7006B2145 /* RecipesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesInteractor.swift; sourceTree = "<group>"; };
 		8E330988297F3972006B2145 /* RecipesWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesWebRepository.swift; sourceTree = "<group>"; };
 		8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordScreen.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				8E448F61297BAA8800F3C7D7 /* Popup.swift */,
+				8E2C291C2987976400793BF3 /* IngredientView.swift */,
 			);
 			path = PopUp;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */,
 				8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */,
 				8E129DDA29778F7B00D9C442 /* ButtonTappedModifier.swift in Sources */,
+				8E2C291D2987976400793BF3 /* IngredientView.swift in Sources */,
 				8E241F7429790CCF007E4025 /* UserInfo.swift in Sources */,
 				8EBB22A6297DF57F00A15692 /* AuthErrorLabel.swift in Sources */,
 				8E9A0909298243E40061058E /* ImageLoader.swift in Sources */,

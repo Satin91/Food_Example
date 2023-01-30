@@ -12,6 +12,7 @@ enum APIEndpoint {
     case searchByIngridient
     case recipeInfo(Int)
     case nutritions(Int)
+    case ingridients(Int)
     
     var path: String {
         switch self {
@@ -23,6 +24,8 @@ enum APIEndpoint {
             return "\(id)/" + "information"
         case .nutritions(let id):
             return "\(id)/" + "nutritionWidget.json"
+        case .ingridients(let id):
+            return "\(id)/" + "ingredientWidget.json"
         }
     }
 }

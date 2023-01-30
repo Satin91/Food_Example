@@ -32,6 +32,7 @@ struct Recipe: Identifiable {
     var pricePerServing: Double?
     var extendedIngredients: [ExtendedIngredient]?
     var nutrients: Nutritient?
+    var ingridients: [Ingredient]?
     var readyInMinutes: Int?
     var sourceUrl: String?
     var summary: String?
@@ -69,10 +70,10 @@ struct Nutritient: Decodable {
         case protein
     }
     
-    private var caloriesValue: String
-    private var carbsValue: String
-    private var fatValue: String
-    private var proteinValue: String
+    var caloriesValue: String
+    var carbsValue: String
+    var fatValue: String
+    var proteinValue: String
     
     var calories: String {
         caloriesValue + " calories"
@@ -99,6 +100,28 @@ struct Nutritient: Decodable {
     }
 }
 
+struct IngredientWrapper: Decodable {
+    var ingredients: [Ingredient]
+}
+
+struct Ingredient: Decodable {
+    let amount: IngredientAmount
+    let image: String
+    let name: String
+    var imageURL: String {
+        Constants.API.baseIngredientImageURL + image
+    }
+}
+
+struct IngredientAmount: Decodable {
+    struct Metric: Decodable {
+        var unit: String
+        var value: Double
+    }
+    
+    var metric: Metric
+}
+
 extension Recipe: Decodable {
     enum CodingKeys: String, CodingKey {
         case id
@@ -121,6 +144,7 @@ extension Recipe: Decodable {
         case pricePerServing
         case nutrients
         case extendedIngredients
+        case ingridients
         case readyInMinutes
         case sourceUrl
         case summary
@@ -148,8 +172,23 @@ extension Recipe: Decodable {
         self.pricePerServing = try container.decodeIfPresent(Double.self, forKey: .pricePerServing)
         self.extendedIngredients = try container.decodeIfPresent([ExtendedIngredient].self, forKey: .extendedIngredients)
         self.nutrients = try container.decodeIfPresent(Nutritient.self, forKey: .nutrients)
+        self.ingridients = try container.decodeIfPresent([Ingredient].self, forKey: .ingridients)
         self.readyInMinutes = try container.decodeIfPresent(Int.self, forKey: .readyInMinutes)
         self.sourceUrl = try container.decodeIfPresent(String.self, forKey: .sourceUrl)
         self.summary = try container.decodeIfPresent(String.self, forKey: .summary)
+    }
+}
+
+extension Ingredient: Hashable {
+    var identifier: String {
+        UUID().uuidString
+    }
+    
+    public static func == (lhs: Ingredient, rhs: Ingredient) -> Bool {
+        lhs.identifier == rhs.identifier
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
     }
 }

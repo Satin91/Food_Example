@@ -45,8 +45,9 @@ enum Constants {
     enum API {
         // first key "a053c68935284fc0b0041026bf79c509"
         // secondary key "67dbadc95b2244a2964aae01c89b3277"
-        static let apiKey = "a053c68935284fc0b0041026bf79c509"
-        static let baseURL: String = "https://api.spoonacular.com/recipes/"
+        static let apiKey = "67dbadc95b2244a2964aae01c89b3277"
+        static let baseURL = "https://api.spoonacular.com/recipes/"
+        static let baseIngredientImageURL = "https://spoonacular.com/cdn/ingredients_100x100/"
     }
     
     static let loaderLottieSize: CGFloat = 120
