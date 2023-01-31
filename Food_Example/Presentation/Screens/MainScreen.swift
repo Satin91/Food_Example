@@ -26,9 +26,7 @@ struct MainScreen: View {
         content
             .toolbar(.hidden)
             .onAppear {
-                Task {
-                    await searchRecipes()
-                }
+                searchRecipes()
             }
     }
     
@@ -100,8 +98,8 @@ struct MainScreen: View {
         }
     }
     
-    private func searchRecipes() async {
-        await container
+    private func searchRecipes() {
+        container
             .interactors
             .recipesInteractor
             .searchRecipesBy(

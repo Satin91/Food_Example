@@ -11,6 +11,7 @@ import SwiftUI
 
 @main
 struct FoodExampleApp: App {
+    let parser = HTMLParser()
     var body: some Scene {
         WindowGroup {
             AppCoordinator()
@@ -19,6 +20,7 @@ struct FoodExampleApp: App {
     
     init() {
         FirebaseApp.configure()
+        parser.getExcerpt(text: RecipeMock().summary)
         // For develop
 //        do {
 //            try Auth.auth().signOut()

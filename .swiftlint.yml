@@ -8,6 +8,7 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
 - file_header
 - accessibility_label_for_image
 - file_name
+- function_body_length
 - vertical_whitespace_between_cases
 - function_default_parameter_at_end
 - line_length
@@ -72,7 +73,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - flatmap_over_map_reduce
 - for_where
 - force_try
-- function_body_length
 - function_parameter_count
 - generic_type_name
 - ibinspectable_in_extension

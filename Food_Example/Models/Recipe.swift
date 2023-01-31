@@ -111,6 +111,13 @@ struct Ingredient: Decodable {
     var imageURL: String {
         Constants.API.baseIngredientImageURL + image
     }
+    var value: String {
+        if Int(exactly: amount.metric.value) != nil {
+            return String("\(Int(amount.metric.value)) " + amount.metric.unit)
+        } else {
+            return String("\(amount.metric.value) " + amount.metric.unit)
+        }
+    }
 }
 
 struct IngredientAmount: Decodable {

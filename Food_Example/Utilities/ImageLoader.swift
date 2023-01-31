@@ -39,8 +39,7 @@ class ImageLoader: ObservableObject {
                 }
                 return image
             }
-            .sink { error in
-                print("\(error)")
+            .sink { _ in
             } receiveValue: { image in
                 self.image = image
             }

@@ -24,7 +24,8 @@ struct SplashScreen: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                         switch container.appState.sessionService.state {
                         case .loggedIn:
-                            onMainScreen()
+                            //                            onMainScreen()
+                            onOnboardingScreen()
                         case .loggedOut:
                             onOnboardingScreen()
                         }

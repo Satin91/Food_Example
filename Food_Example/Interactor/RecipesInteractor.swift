@@ -24,12 +24,13 @@ protocol RecipesInteractor {
 class RecipesInteractorImpl: RecipesInteractor {
     var recipesWebRepository: RecipesWebRepository
     var cancelBag = Set<AnyCancellable>()
+    let dispatchGroup = DispatchGroup()
     
     init(recipesWebRepository: RecipesWebRepository) {
         self.recipesWebRepository = recipesWebRepository
     }
     func searchRecipesBy(params: RecipesRequestParams, completion: @escaping ([Recipe]) -> Void) {
-        recipesWebRepository.searchRecipes(model: SearchRecipesWrapper.self, params: params.URLParams, path: .searchByName)
+        recipesWebRepository.searchRequest(model: SearchRecipesWrapper.self, params: params.URLParams, path: .searchByName)
             .sink(receiveCompletion: { error in
                 print("Error parse request with params \(error)")
             }, receiveValue: { wrapper in
@@ -40,12 +41,15 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
         var recipe: Recipe?
-        let semaphore = DispatchSemaphore(value: 1)
+        var nutritients: Nutritient?
+        var ingridients: [Ingredient]?
         
-        semaphore.wait()
-        getRecipeInfo(id: id) { result in
-            print("Thread \(Thread.current)")
-            semaphore.signal()
+        getRecipeInfo(
+            model: Recipe.self,
+            params: RecipesRequestParams().URLParams,
+            path: .recipeInfo(id),
+            id: id
+        ) { result in
             switch result {
             case .success(let receiveValue):
                 recipe = receiveValue
@@ -53,67 +57,41 @@ class RecipesInteractorImpl: RecipesInteractor {
                 completion(.failure(error))
             }
         }
-        semaphore.wait()
-        setRecipeNutritionsBy(id: id) { result in
-            semaphore.signal()
-            print("Thread \(Thread.current)")
+        getRecipeInfo(
+            model: Nutritient.self,
+            params: RecipesRequestParams().URLParams,
+            path: .nutritions(id),
+            id: id
+        ) { result in
             switch result {
             case .success(let receiveValue):
-                recipe?.nutrients = receiveValue
+                nutritients = receiveValue
             case .failure(let error):
                 completion(.failure(error))
             }
         }
-        semaphore.wait()
-        setRecipeIngridientsBy(id: id) { result in
-            print("Thread \(Thread.current)")
-            semaphore.signal()
+        getRecipeInfo(
+            model: IngredientWrapper.self,
+            params: RecipesRequestParams().URLParams,
+            path: .ingridients(id),
+            id: id
+        ) { result in
             switch result {
             case .success(let receiveValue):
-                recipe?.ingridients = receiveValue
-                guard let recipe = recipe else {
-                    completion(.failure(ApiServerError.statusError))
-                    print("ERROR STATUS ERROR")
-                    return
-                }
-                completion(.success(recipe))
+                ingridients = receiveValue.ingredients
             case .failure(let error):
                 print(error)
             }
         }
-    }
-    
-    private func getRecipeInfo(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
-        print("getRecipeInfo on \(Thread.current)")
-        recipesWebRepository.searchRecipes(model: Recipe.self, params: RecipesRequestParams().URLParams, path: .recipeInfo(id))
-            .eraseToAnyPublisher()
-            .sink { error in
-                print("ERROR INFO \(error)")
-            } receiveValue: { recipe in
-                completion(.success(recipe))
+        dispatchGroup.notify(queue: .main) {
+            guard var recipe = recipe else {
+                completion(.failure(APIRequestError.unexpectedResponse))
+                return
             }
-            .store(in: &cancelBag)
-    }
-    
-    private func setRecipeNutritionsBy(id: Int, completion: @escaping (Result<Nutritient, Error>) -> Void) {
-        recipesWebRepository.searchRecipes(model: Nutritient.self, params: RecipesRequestParams().URLParams, path: .nutritions(id))
-            .sink { error in
-                print("ERROR NUTRITIONS \(error)")
-                completion(.failure(ApiServerError.requestError))
-            } receiveValue: { nutritients in
-                completion(.success(nutritients))
-            }
-            .store(in: &cancelBag)
-    }
-    
-    private func setRecipeIngridientsBy(id: Int, completion: @escaping (Result<[Ingredient], Error>) -> Void) {
-        recipesWebRepository.searchRecipes(model: IngredientWrapper.self, params: RecipesRequestParams().URLParams, path: .ingridients(id))
-            .sink { error in
-                print("ingridient error \(error)")
-            } receiveValue: { ingridient in
-                completion(.success(ingridient.ingredients))
-            }
-            .store(in: &cancelBag)
+            recipe.nutrients = nutritients
+            recipe.ingridients = ingridients
+            completion(.success(recipe))
+        }
     }
     
     func showRandomRecipes() {
@@ -128,5 +106,27 @@ struct StubRecipesInteractor: RecipesInteractor {
     }
     
     func searchRecipesBy(params: RecipesRequestParams, completion: @escaping ([Recipe]) -> Void) {
+    }
+}
+
+extension RecipesInteractorImpl {
+    private func getRecipeInfo<T: Decodable>(
+        model: T.Type,
+        params: [String: String],
+        path: APIEndpoint,
+        id: Int,
+        completion: @escaping (Result<T,
+        Error>) -> Void
+    ) {
+        dispatchGroup.enter()
+        recipesWebRepository.searchRequest(model: model.self, params: params, path: path)
+            .eraseToAnyPublisher()
+            .sink { error in
+                print(error)
+            } receiveValue: { value in
+                self.dispatchGroup.leave()
+                completion(.success(value))
+            }
+            .store(in: &cancelBag)
     }
 }

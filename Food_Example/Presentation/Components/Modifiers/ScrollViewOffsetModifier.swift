@@ -19,7 +19,7 @@ private struct ScrollOffsetKey: PreferenceKey {
     }
 }
 
-private struct OffsetInScrollView: View {
+struct OffsetInScrollView: View {
     let named: String
     
     var body: some View {
@@ -30,7 +30,7 @@ private struct OffsetInScrollView: View {
     }
 }
 
-private struct OffsetOutScrollModifier: ViewModifier {
+struct OffsetOutScrollModifier: ViewModifier {
     @Binding var offset: CGPoint
     
     let named: String
@@ -40,6 +40,7 @@ private struct OffsetOutScrollModifier: ViewModifier {
             .coordinateSpace(name: named)
             .onPreferenceChange(ScrollOffsetKey.self) { value in
                 offset = value
+                print(offset)
             }
     }
 }
