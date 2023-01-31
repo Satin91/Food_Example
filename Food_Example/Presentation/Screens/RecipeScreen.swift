@@ -146,13 +146,11 @@ struct RecipeScreen: View {
         }
     }
     
-    private var summaryView: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            Text(recipe.summary!)
-                .font(Fonts.makeFont(.medium, size: Constants.FontSizes.medium))
-                .foregroundColor(Colors.gray)
+    @ViewBuilder var summaryView: some View {
+        ScrollView(.vertical) {
+            HTMLTextView(text: recipe.summary ?? "Summary not available")
+            .padding(Constants.Spacing.s)
         }
-        .padding(.horizontal, Constants.Spacing.s)
     }
     
     @ViewBuilder private var instructionsView: some View {
@@ -190,5 +188,13 @@ struct RecipeScreen: View {
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), onClose: {})
+    }
+}
+
+extension Text {
+    init(_ string: String, configure: ((inout AttributedString) -> Void)) {
+        var attributedString = AttributedString(string)
+        configure(&attributedString)
+        self.init(attributedString)
     }
 }
