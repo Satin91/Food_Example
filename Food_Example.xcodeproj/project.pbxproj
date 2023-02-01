@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */; };
-		8E129DDA29778F7B00D9C442 /* ButtonTappedModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DD929778F7B00D9C442 /* ButtonTappedModifier.swift */; };
+		8E129DDA29778F7B00D9C442 /* AnimateButtonTapeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DD929778F7B00D9C442 /* AnimateButtonTapeModifier.swift */; };
 		8E140EF42984B62500757DE6 /* NutrientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E140EF32984B62500757DE6 /* NutrientView.swift */; };
 		8E15C3DE297A1FFD00BAF333 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3DD297A1FFD00BAF333 /* AppState.swift */; };
 		8E15C3E0297A245700BAF333 /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3DF297A245700BAF333 /* DependencyInjection.swift */; };
@@ -64,6 +64,8 @@
 		8E94D338298369050001AB69 /* RecipeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94D337298369050001AB69 /* RecipeMock.swift */; };
 		8E9A0909298243E40061058E /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9A0908298243E40061058E /* ImageLoader.swift */; };
 		8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB243222976E2BF00C1076C /* SignInScreen.swift */; };
+		8EB54D1A298A699B00B253C6 /* InstructionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54D19298A699B00B253C6 /* InstructionsScreen.swift */; };
+		8EB54D1C298A72D700B253C6 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54D1B298A72D700B253C6 /* WebView.swift */; };
 		8EBB22A6297DF57F00A15692 /* AuthErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB22A5297DF57F00A15692 /* AuthErrorLabel.swift */; };
 		8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */; };
 		8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC926E6297466490012B0D5 /* RecipeGrid.swift */; };
@@ -83,7 +85,7 @@
 
 /* Begin PBXFileReference section */
 		8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarTextModifiers.swift; sourceTree = "<group>"; };
-		8E129DD929778F7B00D9C442 /* ButtonTappedModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTappedModifier.swift; sourceTree = "<group>"; };
+		8E129DD929778F7B00D9C442 /* AnimateButtonTapeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateButtonTapeModifier.swift; sourceTree = "<group>"; };
 		8E140EF32984B62500757DE6 /* NutrientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientView.swift; sourceTree = "<group>"; };
 		8E15C3DD297A1FFD00BAF333 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		8E15C3DF297A245700BAF333 /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
@@ -140,6 +142,8 @@
 		8E94D337298369050001AB69 /* RecipeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMock.swift; sourceTree = "<group>"; };
 		8E9A0908298243E40061058E /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		8EB243222976E2BF00C1076C /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
+		8EB54D19298A699B00B253C6 /* InstructionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsScreen.swift; sourceTree = "<group>"; };
+		8EB54D1B298A72D700B253C6 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		8EBB22A5297DF57F00A15692 /* AuthErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorLabel.swift; sourceTree = "<group>"; };
 		8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
 		8EC926E6297466490012B0D5 /* RecipeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeGrid.swift; sourceTree = "<group>"; };
@@ -372,6 +376,7 @@
 				8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */,
 				8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */,
 				8EDA41432980BB2B003C76E9 /* RecipeScreen.swift */,
+				8EB54D19298A699B00B253C6 /* InstructionsScreen.swift */,
 				8ECB36372971FED40015646D /* SignUpScreen.swift */,
 				8EB243222976E2BF00C1076C /* SignInScreen.swift */,
 				8E1E3EC62970635F00990D9D /* SplashScreen.swift */,
@@ -410,6 +415,7 @@
 				8E36011B2989035B0032304B /* LoadingView.swift */,
 				8E88ECCB297B920A00ACF1C7 /* LottieView.swift */,
 				8E7DDECB2981DB3B00D60038 /* LoadableImage.swift */,
+				8EB54D1B298A72D700B253C6 /* WebView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -419,7 +425,7 @@
 			children = (
 				8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */,
 				8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */,
-				8E129DD929778F7B00D9C442 /* ButtonTappedModifier.swift */,
+				8E129DD929778F7B00D9C442 /* AnimateButtonTapeModifier.swift */,
 				8E8515BE29852E9600BFCF11 /* ScrollViewOffsetModifier.swift */,
 			);
 			path = Modifiers;
@@ -601,6 +607,7 @@
 				8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */,
 				8E1E11A52978E56C00CD62DF /* AuthWebRepository.swift in Sources */,
 				8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */,
+				8EB54D1A298A699B00B253C6 /* InstructionsScreen.swift in Sources */,
 				8E1E3EEE297077B400990D9D /* Theme.swift in Sources */,
 				8E8515BF29852E9600BFCF11 /* ScrollViewOffsetModifier.swift in Sources */,
 				8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */,
@@ -615,6 +622,7 @@
 				8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */,
 				8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */,
 				8E75642F297FB24800767FB8 /* RequestParameters.swift in Sources */,
+				8EB54D1C298A72D700B253C6 /* WebView.swift in Sources */,
 				8E1A98922975BF93007555A8 /* URL+QueryParams.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* MainScreen.swift in Sources */,
 				8ECB36362971FBFE0015646D /* NavigationBarView.swift in Sources */,
@@ -628,7 +636,7 @@
 				8E330989297F3972006B2145 /* RecipesWebRepository.swift in Sources */,
 				8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */,
 				8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */,
-				8E129DDA29778F7B00D9C442 /* ButtonTappedModifier.swift in Sources */,
+				8E129DDA29778F7B00D9C442 /* AnimateButtonTapeModifier.swift in Sources */,
 				8E2C291D2987976400793BF3 /* IngredientView.swift in Sources */,
 				8E241F7429790CCF007E4025 /* UserInfo.swift in Sources */,
 				8E36011A2989030A0032304B /* SegmentedView.swift in Sources */,

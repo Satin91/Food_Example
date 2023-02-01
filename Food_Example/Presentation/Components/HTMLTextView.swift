@@ -20,11 +20,11 @@ struct HTMLTextView: View {
         let replacedText = parser.removeMarkups(text: text)
         Text(replacedText) { string in
             string.foregroundColor = Colors.gray
-            string.font = Fonts.makeFont(.medium, size: Constants.FontSizes.medium)
+            string.font = Fonts.makeFont(.regular, size: Constants.FontSizes.medium)
             for phrase in textForAttribute {
                 if let range = string.range(of: phrase) {
                     string[range].foregroundColor = Colors.weakDark
-                    string[range].font = Fonts.makeFont(.bold, size: Constants.FontSizes.medium)
+                    string[range].font = Fonts.makeFont(.medium, size: Constants.FontSizes.medium)
                 }
             }
         }

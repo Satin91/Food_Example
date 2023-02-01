@@ -74,9 +74,7 @@ struct MainScreen: View {
                         .foregroundColor(Colors.dark)
                         .submitLabel(.search)
                         .onSubmit {
-                            Task {
-                                await searchRecipes()
-                            }
+                            searchRecipes()
                         }
                 }
             }

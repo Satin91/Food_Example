@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ButtonTappedModifier: ViewModifier {
+struct AnimateButtonTapeModifier: ViewModifier {
     @State var currentScaleFactor: CGFloat = 1
     @State var isAnimate = false
     let tappedScaleFactor: CGFloat = 0.9

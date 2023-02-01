@@ -14,6 +14,7 @@ enum Screen {
     case onboardingScreen
     case mainScreen
     case recipeScreen(Recipe)
+    case instructionsScreen(URL)
     case signUpScreen
     case signInScreen
     case resetPasswordScreen
@@ -29,7 +30,11 @@ struct AppCoordinator: View {
                 MainScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .recipeScreen(let recipe):
                 //                RecipeScreen(recipe: recipe, onClose: back)
-                RecipeScreen(recipe: recipe, onClose: back)
+                RecipeScreen(
+                    recipe: recipe,
+                    onClose: back,
+                    onShowInstructions: presentInstructions(url:)
+                )
             case .splashScreen:
                 SplashScreen(
                     onOnboardingScreen: pushOnboardingScreen,
@@ -50,11 +55,14 @@ struct AppCoordinator: View {
                 )
             case .resetPasswordScreen:
                 ResetPasswordScreen(onClose: back)
+            case .instructionsScreen(let url):
+                InstructionsScreen(url: url)
             }
         }
         .inject(AppEnvironment.bootstrap().container)
     }
     
+    // MARK: Push
     private func pushToSignInScreen() {
         routes.push(.signInScreen)
     }
@@ -75,6 +83,10 @@ struct AppCoordinator: View {
         routes.push(.mainScreen)
     }
     
+    // MARK: Present modaly
+    private func presentInstructions(url: URL) {
+        routes.presentSheet(.instructionsScreen(url))
+    }
     private func onMainScreen() {
         routes = [.root(.mainScreen, embedInNavigationView: true)]
     }

@@ -15,6 +15,7 @@ struct RecipeScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var scrollViewOffest = CGPoint()
     let onClose: () -> Void
+    let onShowInstructions: (URL) -> Void
     let parser = HTMLParser()
     
     var body: some View {
@@ -149,24 +150,38 @@ struct RecipeScreen: View {
     @ViewBuilder var summaryView: some View {
         ScrollView(.vertical) {
             HTMLTextView(text: recipe.summary ?? "Summary not available")
-            .padding(Constants.Spacing.s)
+                .padding(Constants.Spacing.s)
         }
     }
     
     @ViewBuilder private var instructionsView: some View {
-        Group {
-            if let url = recipe.sourceUrl {
-                Text("Read the detailed instructions on \n")
-                +
-                Text(url)
-                    .foregroundColor(.blue)
-                    .font(Fonts.makeFont(.medium, size: Constants.FontSizes.medium))
-            } else {
-                Text("Failed to load URL :(")
+        GeometryReader { proxy in
+            ZStack {
+                Image(Images.foodBackground)
+                    .resizable()
+                    .scaledToFill()
+                VStack {
+                    Spacer()
+                    HStack {
+                        Button {
+                            if let url = URL(string: recipe.sourceUrl ?? "") {
+                                DispatchQueue.main.async {
+                                    self.onShowInstructions(url)
+                                }
+                            }
+                        } label: {
+                            Text("Read the detailed instructions")
+                            Image(systemName: "link")
+                        }
+                    }
+                    .foregroundColor(Colors.blue)
+                    .padding(.bottom, Constants.Spacing.xxxl)
+                }
             }
+            .ignoresSafeArea()
+            .frame(width: proxy.size.width)
+            .frame(height: proxy.size.height)
         }
-        .font(Fonts.makeFont(.semiBold, size: Constants.FontSizes.extraMedium))
-        .foregroundColor(Colors.dark)
     }
     
     private func getRecipeBy(id: Int) {
@@ -187,7 +202,7 @@ struct RecipeScreen: View {
 
 struct RecipeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), onClose: {})
+        RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), onClose: {}, onShowInstructions: { _ in })
     }
 }
 
