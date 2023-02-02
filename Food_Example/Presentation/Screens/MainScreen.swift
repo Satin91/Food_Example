@@ -12,6 +12,9 @@ struct MainScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var recipes: [Recipe] = []
     @State var searchText: String = ""
+    @State var isPresentPopup = false
+    @State var selectedFindCategory: Int = 0
+    let searchCategories = ["Search By all", "Search By Ingridients", "Search By Nutritients"]
     let searchViewHeight: CGFloat = 56
     let searchButtonBackground = Colors.neutralGray
     let onShowRecipeScreen: (_ id: Recipe) -> Void
@@ -26,7 +29,7 @@ struct MainScreen: View {
         content
             .toolbar(.hidden)
             .onAppear {
-                searchRecipes()
+                //                searchRecipes()
             }
     }
     
@@ -37,6 +40,7 @@ struct MainScreen: View {
                     navBarLeftContainer
                 }
             Divider()
+                .zIndex(-1)
             ScrollView(.vertical) {
                 recipesList
             }
@@ -68,13 +72,25 @@ struct MainScreen: View {
                         .renderingMode(.template)
                         .foregroundColor(Colors.gray)
                         .padding(.leading, Constants.Spacing.s)
-                    TextField("Search by ingredients", text: $searchText)
+                    TextField(searchCategories[selectedFindCategory], text: $searchText)
                         .frame(width: .infinity)
                         .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
                         .foregroundColor(Colors.dark)
                         .submitLabel(.search)
                         .onSubmit {
                             searchRecipes()
+                        }
+                    Image(systemName: "slider.vertical.3")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .padding(.trailing, Constants.Spacing.s)
+                        .foregroundColor(Colors.gray)
+                        .popup(isPresented: $isPresentPopup, type: .list) {
+                            ListPopupView(selectedIndex: $selectedFindCategory, isPresent: $isPresentPopup, listItems: searchCategories)
+                                .zIndex(10)
+                        }
+                        .onTapGesture {
+                            isPresentPopup.toggle()
                         }
                 }
             }

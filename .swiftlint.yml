@@ -132,7 +132,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - prefer_nimble
 - prefer_self_in_static_references
 - prefer_self_type_over_type_of_self
-- prefer_zero_over_explicit_init
 - prefixed_toplevel_constant
 - private_action
 - private_outlet

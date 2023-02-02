@@ -25,7 +25,7 @@ struct OnboardingScreen: View {
     let pages: [OnboardingPageView] = [
         OnboardingPageView(
             image: Images.icnBurger,
-            title: "Burgets and other fastfood",
+            title: "Burgers and other fastfood",
             subTitle: "Discover our best burger, kebab, hot dog recipes."
         ),
         OnboardingPageView(

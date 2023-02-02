@@ -50,31 +50,3 @@ struct CentralPopupView<Content: View>: View {
         }
     }
 }
-
-struct OverlayModifier<OverlayView: View>: ViewModifier {
-    @Binding var isPresented: Bool
-    let overlayView: OverlayView
-    
-    init(isPresented: Binding<Bool>, @ViewBuilder overlayView: @escaping () -> OverlayView) {
-        self._isPresented = isPresented
-        self.overlayView = overlayView()
-    }
-    
-    func body(content: Content) -> some View {
-        content.overlay(overlayView)
-    }
-}
-
-extension View {
-    func popup<OverlayView: View>(
-        isPresented: Binding<Bool>,
-        blurRadius: CGFloat = 3,
-        blurAnimation: Animation? = .linear,
-        @ViewBuilder overlayView: @escaping () -> OverlayView
-    ) -> some View {
-        blur(radius: isPresented.wrappedValue ? blurRadius : 0)
-            .animation(.easeInOut, value: isPresented.wrappedValue)
-            .allowsHitTesting(!isPresented.wrappedValue)
-            .modifier(OverlayModifier(isPresented: isPresented, overlayView: overlayView))
-    }
-}
