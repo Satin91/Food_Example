@@ -9,6 +9,9 @@ import Foundation
 
 struct SearchRecipesWrapper: Decodable {
     var results: [Recipe]
+    var value: Int {
+        2
+    }
 }
 
 struct Recipe: Identifiable {

@@ -17,7 +17,7 @@ enum ApiServerError: Error {
 
 protocol RecipesInteractor {
     func showRandomRecipes()
-    func searchRecipesBy(params: RecipesRequestParams, completion: @escaping ([Recipe]) -> Void)
+    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void)
     func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void)
 }
 
@@ -29,11 +29,12 @@ class RecipesInteractorImpl: RecipesInteractor {
     init(recipesWebRepository: RecipesWebRepository) {
         self.recipesWebRepository = recipesWebRepository
     }
-    func searchRecipesBy(params: RecipesRequestParams, completion: @escaping ([Recipe]) -> Void) {
-        recipesWebRepository.searchRequest(model: SearchRecipesWrapper.self, params: params.URLParams, path: .searchByName)
+    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
+        recipesWebRepository.searchRequest(model: SearchRecipesWrapper.self, params: params.URLParams, path: path)
             .sink(receiveCompletion: { error in
                 print("Error parse request with params \(error)")
             }, receiveValue: { wrapper in
+                print("read wrapperValue \(wrapper.value)")
                 completion(wrapper.results)
             })
             .store(in: &cancelBag)
@@ -46,7 +47,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         
         getRecipeInfo(
             model: Recipe.self,
-            params: RecipesRequestParams().URLParams,
+            params: [:],
             path: .recipeInfo(id),
             id: id
         ) { result in
@@ -59,7 +60,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         }
         getRecipeInfo(
             model: Nutritient.self,
-            params: RecipesRequestParams().URLParams,
+            params: [:],
             path: .nutritions(id),
             id: id
         ) { result in
@@ -72,7 +73,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         }
         getRecipeInfo(
             model: IngredientWrapper.self,
-            params: RecipesRequestParams().URLParams,
+            params: [:],
             path: .ingridients(id),
             id: id
         ) { result in
@@ -99,13 +100,13 @@ class RecipesInteractorImpl: RecipesInteractor {
 }
 
 struct StubRecipesInteractor: RecipesInteractor {
+    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
+    }
+    
     func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
     }
     
     func showRandomRecipes() {
-    }
-    
-    func searchRecipesBy(params: RecipesRequestParams, completion: @escaping ([Recipe]) -> Void) {
     }
 }
 

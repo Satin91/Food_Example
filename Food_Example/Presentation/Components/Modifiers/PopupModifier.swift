@@ -23,13 +23,12 @@ struct OverlayModifier<OverlayView: View>: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        readSizes(content: content)
-        content.overlay(
-            overlayView.offset(
-                x: offset.width,
-                y: offset.height
+        ZStack {
+            readSizes(content: content)
+            content.overlay(
+                overlayView.offset(x: offset.width, y: offset.height)
             )
-        )
+        }
     }
     
     func calculateOffset(type: PopupType) -> some View {

@@ -5,16 +5,18 @@
 //  Created by Артур Кулик on 11.01.2023.
 //
 
+import Combine
 import FirebaseAuth
 import SwiftUI
 
 struct MainScreen: View {
     @Environment(\.injected) var container: DIContainer
-    @State var recipes: [Recipe] = []
-    @State var searchText: String = ""
-    @State var isPresentPopup = false
-    @State var selectedFindCategory: Int = 0
-    let searchCategories = ["Search By all", "Search By Ingridients", "Search By Nutritients"]
+    @State private var searchTextPublisher = CurrentValueSubject<String, Never>("")
+    @State private var currentSearchCategory: APIEndpoint = .searchInAll
+    @State private var searchParams: [String: String] = [:]
+    @State private var cancelBag = Set<AnyCancellable>()
+    @State private var recipes: [Recipe] = []
+    @State private var isPresentPopup = false
     let searchViewHeight: CGFloat = 56
     let searchButtonBackground = Colors.neutralGray
     let onShowRecipeScreen: (_ id: Recipe) -> Void
@@ -72,7 +74,7 @@ struct MainScreen: View {
                         .renderingMode(.template)
                         .foregroundColor(Colors.gray)
                         .padding(.leading, Constants.Spacing.s)
-                    TextField(searchCategories[selectedFindCategory], text: $searchText)
+                    TextField(currentSearchCategory.text, text: $searchTextPublisher.value)
                         .frame(width: .infinity)
                         .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
                         .foregroundColor(Colors.dark)
@@ -80,20 +82,37 @@ struct MainScreen: View {
                         .onSubmit {
                             searchRecipes()
                         }
-                    Image(systemName: "slider.vertical.3")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .padding(.trailing, Constants.Spacing.s)
-                        .foregroundColor(Colors.gray)
-                        .popup(isPresented: $isPresentPopup, type: .list) {
-                            ListPopupView(selectedIndex: $selectedFindCategory, isPresent: $isPresentPopup, listItems: searchCategories)
-                                .zIndex(10)
-                        }
-                        .onTapGesture {
-                            isPresentPopup.toggle()
-                        }
+                    searchMenu
                 }
             }
+    }
+    
+    private var searchMenu: some View {
+        Menu {
+            Button("Search in all categories") {
+                currentSearchCategory = .searchInAll
+            }
+            Button("Search by igredients") {
+                currentSearchCategory = .searchByIngridient
+                searchTextPublisher.sink { str in
+                    searchParams["ingredients"] = str
+                }
+                .store(in: &cancelBag)
+            }
+            Button("Search by nutritients") {
+                currentSearchCategory = .searchByNutritients
+                searchTextPublisher.sink { str in
+                    searchParams["nutritients"] = str
+                }
+                .store(in: &cancelBag)
+            }
+        } label: {
+            Image(systemName: "slider.vertical.3")
+                .resizable()
+                .frame(width: 20, height: 20)
+                .padding(.trailing, Constants.Spacing.s)
+                .foregroundColor(Colors.gray)
+        }
     }
     
     private var recipesList: some View {
@@ -117,21 +136,11 @@ struct MainScreen: View {
             .interactors
             .recipesInteractor
             .searchRecipesBy(
-                params: RecipesRequestParams(
-                    query: searchText,
-                    includeIngridients: "",
-                    number: 15,
-                    maxFat: 600
-                ), completion: { recipes in
+                params: RecipesRequestParams(urlParams: searchParams),
+                path: currentSearchCategory,
+                completion: { recipes in
                     self.recipes = recipes
                 }
             )
-    }
-}
-
-struct MainScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        MainScreen { _ in
-        }
     }
 }
