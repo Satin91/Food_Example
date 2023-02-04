@@ -31,7 +31,7 @@ struct ResetPasswordScreen: View {
             resetPaswordButton
             Spacer()
         }
-        .popup(isPresented: $showPopUp, overlayView: {
+        .popup(isPresented: $showPopUp, type: .center, overlayView: {
             CentralPopupView(isPresented: $showPopUp, title: "Password has been sended!") {
                 VStack {
                     LottieView(name: Lottie.send, loopMode: .playOnce, speed: 1.8, isStopped: !showPopUp)

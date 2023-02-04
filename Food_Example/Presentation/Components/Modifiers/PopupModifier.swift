@@ -72,7 +72,7 @@ extension View {
         blurAnimation: Animation? = .linear,
         @ViewBuilder overlayView: @escaping () -> OverlayView
     ) -> some View {
-        let blurradius = type != .list && !isPresented.wrappedValue ? blurRadius : 0
+        let blurradius = type != .list && isPresented.wrappedValue ? blurRadius : 0
         return blur(radius: blurradius)
             .animation(.easeInOut, value: isPresented.wrappedValue)
             .allowsHitTesting(!isPresented.wrappedValue)
