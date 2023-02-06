@@ -22,10 +22,10 @@ struct FoodExampleApp: App {
         FirebaseApp.configure()
         parser.getExcerpt(text: RecipeMock().summary)
         // For develop
-        do {
-            try Auth.auth().signOut()
-        } catch let error {
-            print(error.localizedDescription)
-        }
+//        do {
+//            try Auth.auth().signOut()
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
     }
 }

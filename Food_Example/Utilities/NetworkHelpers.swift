@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum APIEndpoint {
+enum APIEndpoint: Equatable {
     case searchInAll
     case searchByIngridient
     case searchByNutritients

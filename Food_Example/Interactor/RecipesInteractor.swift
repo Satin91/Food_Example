@@ -29,15 +29,27 @@ class RecipesInteractorImpl: RecipesInteractor {
     init(recipesWebRepository: RecipesWebRepository) {
         self.recipesWebRepository = recipesWebRepository
     }
+    
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
-        recipesWebRepository.searchRequest(model: SearchRecipesWrapper.self, params: params.URLParams, path: path)
-            .sink(receiveCompletion: { error in
-                print("Error parse request with params \(error)")
-            }, receiveValue: { wrapper in
-                print("read wrapperValue \(wrapper.value)")
-                completion(wrapper.results)
-            })
-            .store(in: &cancelBag)
+        if path == .searchInAll {
+            getRecipeInfo(model: SearchRecipesWrapper.self, params: params.URLParams, path: .searchInAll, id: 0) { result in
+                switch result {
+                case .success(let success):
+                    completion(success.results)
+                case .failure(let failure):
+                    print(failure)
+                }
+            }
+        } else {
+            getRecipeInfo(model: [Recipe].self, params: params.URLParams, path: path, id: 0) { result in
+                switch result {
+                case .success(let success):
+                    completion(success)
+                case .failure(let failure):
+                    print(failure)
+                }
+            }
+        }
     }
     
     func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
@@ -116,8 +128,7 @@ extension RecipesInteractorImpl {
         params: [String: String],
         path: APIEndpoint,
         id: Int,
-        completion: @escaping (Result<T,
-        Error>) -> Void
+        completion: @escaping (Result<T, Error>) -> Void
     ) {
         dispatchGroup.enter()
         recipesWebRepository.searchRequest(model: model.self, params: params, path: path)

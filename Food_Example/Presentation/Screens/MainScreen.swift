@@ -15,6 +15,7 @@ struct MainScreen: View {
     @State private var currentSearchCategory: APIEndpoint = .searchInAll
     @State private var searchParams: [String: String] = [:]
     @State private var cancelBag = Set<AnyCancellable>()
+    @State private var navigationBarHeight: CGFloat = 0
     @State private var recipes: [Recipe] = []
     @State private var isPresentPopup = false
     let searchViewHeight: CGFloat = 56
@@ -51,8 +52,12 @@ struct MainScreen: View {
     
     private var navBarLeftContainer: some View {
         VStack(alignment: .leading, spacing: .zero) {
-            Text("Hello!")
-                .font(Fonts.makeFont(.bold, size: 48))
+            HStack(spacing: .zero) {
+                Text("Hello!")
+                    .font(Fonts.makeFont(.bold, size: 48))
+                Spacer()
+                searchMenu
+            }
             Text("What do you want to cook?")
                 .font(Fonts.makeFont(.regular, size: Constants.FontSizes.extraMedium))
                 .foregroundColor(.gray)
@@ -61,36 +66,39 @@ struct MainScreen: View {
         }
     }
     
-    private var searchView: some View {
-        RoundedRectangle(cornerRadius: Constants.cornerRadius)
-            .foregroundColor(.white)
-            .background(Colors.backgroundWhite)
-            .cornerRadius(Constants.cornerRadius)
-            .frame(width: .infinity, height: searchViewHeight)
-            .modifier(LightShadowModifier())
-            .overlay {
-                HStack(spacing: Constants.Spacing.xs) {
-                    Image(Images.icnSearch)
-                        .renderingMode(.template)
-                        .foregroundColor(Colors.gray)
-                        .padding(.leading, Constants.Spacing.s)
-                    TextField(currentSearchCategory.text, text: $searchTextPublisher.value)
-                        .frame(width: .infinity)
-                        .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
-                        .foregroundColor(Colors.dark)
-                        .submitLabel(.search)
-                        .onSubmit {
-                            searchRecipes()
-                        }
-                    searchMenu
+    @ViewBuilder private var searchView: some View {
+        if currentSearchCategory == .searchByNutritients {
+            nutritientsSearchViewContainer
+        } else {
+            roundedBackground(content: defaultSearchView)
+        }
+    }
+    
+    private var defaultSearchView: some View {
+        HStack(spacing: Constants.Spacing.xs) {
+            Image(Images.icnSearch)
+                .renderingMode(.template)
+                .foregroundColor(Colors.gray)
+                .padding(.leading, Constants.Spacing.s)
+            TextField(currentSearchCategory.text, text: $searchTextPublisher.value)
+                .frame(width: .infinity)
+                .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
+                .foregroundColor(Colors.dark)
+                .submitLabel(.search)
+                .onSubmit {
+                    searchRecipes()
                 }
-            }
+        }
     }
     
     private var searchMenu: some View {
         Menu {
             Button("Search in all categories") {
                 currentSearchCategory = .searchInAll
+                searchTextPublisher.sink { str in
+                    searchParams["query"] = str
+                }
+                .store(in: &cancelBag)
             }
             Button("Search by igredients") {
                 currentSearchCategory = .searchByIngridient
@@ -102,7 +110,7 @@ struct MainScreen: View {
             Button("Search by nutritients") {
                 currentSearchCategory = .searchByNutritients
                 searchTextPublisher.sink { str in
-                    searchParams["nutritients"] = str
+                    searchParams["minCalories"] = str
                 }
                 .store(in: &cancelBag)
             }
@@ -110,7 +118,6 @@ struct MainScreen: View {
             Image(systemName: "slider.vertical.3")
                 .resizable()
                 .frame(width: 20, height: 20)
-                .padding(.trailing, Constants.Spacing.s)
                 .foregroundColor(Colors.gray)
         }
     }
@@ -131,16 +138,58 @@ struct MainScreen: View {
         }
     }
     
-    private func searchRecipes() {
-        container
-            .interactors
-            .recipesInteractor
-            .searchRecipesBy(
-                params: RecipesRequestParams(urlParams: searchParams),
-                path: currentSearchCategory,
-                completion: { recipes in
-                    self.recipes = recipes
+    private var nutritientsSearchViewContainer: some View {
+        VStack(spacing: Constants.Spacing.s) {
+            Group {
+                HStack {
+                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Fat"))
+                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Protein"))
                 }
-            )
+                HStack {
+                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Colories"))
+                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Carbs"))
+                }
+            }
+            .lineSpacing(140)
+        }
+    }
+    
+    private func nutritientsSearchView(text: Binding<String>, placeholder: String) -> some View {
+        TextField(placeholder, text: text)
+            .frame(width: .infinity)
+            .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
+            .foregroundColor(Colors.dark)
+            .submitLabel(.search)
+            .onSubmit {
+                searchRecipes()
+            }
+            .padding(.horizontal)
+    }
+    
+    private func roundedBackground(content: some View) -> some View {
+        RoundedRectangle(cornerRadius: Constants.cornerRadius)
+            .foregroundColor(.white)
+            .background(Colors.backgroundWhite)
+            .cornerRadius(Constants.cornerRadius)
+            .frame(width: .infinity, height: searchViewHeight)
+            .modifier(LightShadowModifier())
+            .overlay {
+                content
+            }
+    }
+    
+    private func searchRecipes() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.container
+                .interactors
+                .recipesInteractor
+                .searchRecipesBy(
+                    params: RecipesRequestParams(urlParams: searchParams),
+                    path: currentSearchCategory,
+                    completion: { recipes in
+                        self.recipes = recipes
+                    }
+                )
+        }
     }
 }
