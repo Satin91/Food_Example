@@ -20,6 +20,7 @@ class RecipesWebRepositoryImpl: RecipesWebRepository {
             return Fail(outputType: model, failure: APIRequestError.invalidURL).eraseToAnyPublisher()
         }
         url = url.appendingQueryParameters(params)
+        print(url.absoluteString)
         return URLSession.shared
             .dataTaskPublisher(for: url)
             .map { $0.data }

@@ -59,7 +59,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         
         getRecipeInfo(
             model: Recipe.self,
-            params: [:],
+            params: RecipesRequestParams(urlParams: [:]).URLParams,
             path: .recipeInfo(id),
             id: id
         ) { result in
@@ -72,7 +72,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         }
         getRecipeInfo(
             model: Nutritient.self,
-            params: [:],
+            params: RecipesRequestParams(urlParams: [:]).URLParams,
             path: .nutritions(id),
             id: id
         ) { result in
@@ -85,7 +85,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         }
         getRecipeInfo(
             model: IngredientWrapper.self,
-            params: [:],
+            params: RecipesRequestParams(urlParams: [:]).URLParams,
             path: .ingridients(id),
             id: id
         ) { result in

@@ -12,12 +12,18 @@ import SwiftUI
 struct MainScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State private var searchTextPublisher = CurrentValueSubject<String, Never>("")
+    // Nutritient text
+    @State private var fatTextPublisher = CurrentValueSubject<String, Never>("")
+    @State private var proteinTextPublisher = CurrentValueSubject<String, Never>("")
+    @State private var caloriesTextPublisher = CurrentValueSubject<String, Never>("")
+    @State private var carbsTextPublisher = CurrentValueSubject<String, Never>("")
     @State private var currentSearchCategory: APIEndpoint = .searchInAll
     @State private var searchParams: [String: String] = [:]
     @State private var cancelBag = Set<AnyCancellable>()
     @State private var navigationBarHeight: CGFloat = 0
     @State private var recipes: [Recipe] = []
     @State private var isPresentPopup = false
+    
     let searchViewHeight: CGFloat = 56
     let searchButtonBackground = Colors.neutralGray
     let onShowRecipeScreen: (_ id: Recipe) -> Void
@@ -109,10 +115,14 @@ struct MainScreen: View {
             }
             Button("Search by nutritients") {
                 currentSearchCategory = .searchByNutritients
-                searchTextPublisher.sink { str in
-                    searchParams["minCalories"] = str
-                }
-                .store(in: &cancelBag)
+                caloriesTextPublisher.sink { str in searchParams["minCalories"] = str }
+                    .store(in: &cancelBag)
+                proteinTextPublisher.sink { str in searchParams["minProtein"] = str }
+                    .store(in: &cancelBag)
+                fatTextPublisher.sink { str in searchParams["minFat"] = str }
+                    .store(in: &cancelBag)
+                carbsTextPublisher.sink { str in searchParams["minCarbs"] = str }
+                    .store(in: &cancelBag)
             }
         } label: {
             Image(systemName: "slider.vertical.3")
@@ -142,15 +152,14 @@ struct MainScreen: View {
         VStack(spacing: Constants.Spacing.s) {
             Group {
                 HStack {
-                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Fat"))
-                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Protein"))
+                    roundedBackground(content: nutritientsSearchView(text: $fatTextPublisher.value, placeholder: "Min Fat"))
+                    roundedBackground(content: nutritientsSearchView(text: $proteinTextPublisher.value, placeholder: "Min Protein"))
                 }
                 HStack {
-                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Colories"))
-                    roundedBackground(content: nutritientsSearchView(text: $searchTextPublisher.value, placeholder: "Min Carbs"))
+                    roundedBackground(content: nutritientsSearchView(text: $caloriesTextPublisher.value, placeholder: "Min Calories"))
+                    roundedBackground(content: nutritientsSearchView(text: $carbsTextPublisher.value, placeholder: "Min Carbs"))
                 }
             }
-            .lineSpacing(140)
         }
     }
     
