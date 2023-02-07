@@ -87,6 +87,8 @@ enum Images {
     static let icnChevronLeft = "icnChevronLeft"
     static let icnChevronRight = "icnChevronRight"
     static let icnClock = "icnClock"
+    static let icnFilter = "icnFilter"
+    static let icnClose = "icnClose"
     
     static let icnFats = "icnFats"
     static let icnProtein = "icnProtein"

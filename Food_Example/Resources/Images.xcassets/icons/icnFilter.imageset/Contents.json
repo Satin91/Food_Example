@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icnFilter.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

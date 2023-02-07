@@ -20,9 +20,7 @@ struct MainScreen: View {
     @State private var currentSearchCategory: APIEndpoint = .searchInAll
     @State private var searchParams: [String: String] = [:]
     @State private var cancelBag = Set<AnyCancellable>()
-    @State private var navigationBarHeight: CGFloat = 0
     @State private var recipes: [Recipe] = []
-    @State private var isPresentPopup = false
     
     let searchViewHeight: CGFloat = 56
     let searchButtonBackground = Colors.neutralGray
@@ -38,6 +36,8 @@ struct MainScreen: View {
         content
             .toolbar(.hidden)
             .onAppear {
+                addDefaultObservers()
+                addNutritientObservers()
                 //                searchRecipes()
             }
     }
@@ -101,34 +101,28 @@ struct MainScreen: View {
         Menu {
             Button("Search in all categories") {
                 currentSearchCategory = .searchInAll
-                searchTextPublisher.sink { str in
-                    searchParams["query"] = str
-                }
-                .store(in: &cancelBag)
             }
             Button("Search by igredients") {
                 currentSearchCategory = .searchByIngridient
-                searchTextPublisher.sink { str in
-                    searchParams["ingredients"] = str
-                }
-                .store(in: &cancelBag)
             }
             Button("Search by nutritients") {
                 currentSearchCategory = .searchByNutritients
-                caloriesTextPublisher.sink { str in searchParams["minCalories"] = str }
-                    .store(in: &cancelBag)
-                proteinTextPublisher.sink { str in searchParams["minProtein"] = str }
-                    .store(in: &cancelBag)
-                fatTextPublisher.sink { str in searchParams["minFat"] = str }
-                    .store(in: &cancelBag)
-                carbsTextPublisher.sink { str in searchParams["minCarbs"] = str }
-                    .store(in: &cancelBag)
             }
         } label: {
-            Image(systemName: "slider.vertical.3")
-                .resizable()
-                .frame(width: 20, height: 20)
-                .foregroundColor(Colors.gray)
+            HStack {
+                Group {
+                    Image(Images.icnClose)
+                        .renderingMode(.template)
+                        .resizable()
+                        .foregroundColor(Colors.red)
+                        .opacity(searchParams.isEmpty ? 0 : 1)
+                    Image(Images.icnFilter)
+                        .renderingMode(.template)
+                        .resizable()
+                        .foregroundColor(Colors.gray)
+                }
+                .frame(width: 30, height: 30)
+            }
         }
     }
     
@@ -161,6 +155,45 @@ struct MainScreen: View {
                 }
             }
         }
+    }
+    
+    private func addDefaultObservers() {
+        currentSearchCategory = .searchInAll
+        searchTextPublisher
+            .filter { !$0.isEmpty }
+            .sink { str in
+                searchParams["query"] = str
+            }
+            .store(in: &cancelBag)
+        searchTextPublisher
+            .filter { !$0.isEmpty }
+            .sink { str in
+                searchParams["ingredients"] = str
+            }
+        .store(in: &cancelBag)
+    }
+    
+    private func addNutritientObservers() {
+        carbsTextPublisher
+            .filter { !$0.isEmpty }
+            .compactMap { String(Int($0)?.containsRange(min: 10, max: 100) ?? 0) }
+            .sink { str in searchParams["minCarbs"] = str }
+            .store(in: &cancelBag)
+        proteinTextPublisher
+            .filter { !$0.isEmpty }
+            .compactMap { String(Int($0)?.containsRange(min: 10, max: 100) ?? 0) }
+            .sink { str in searchParams["minProtein"] = str }
+            .store(in: &cancelBag)
+        caloriesTextPublisher
+            .filter { !$0.isEmpty }
+            .compactMap { String(Int($0)?.containsRange(min: 50, max: 800) ?? 0) }
+            .sink { str in searchParams["minCalories"] = str }
+            .store(in: &cancelBag)
+        fatTextPublisher
+            .filter { !$0.isEmpty }
+            .compactMap { String(Int($0)?.containsRange(min: 1, max: 100) ?? 0) }
+            .sink { str in searchParams["minFat"] = str }
+            .store(in: &cancelBag)
     }
     
     private func nutritientsSearchView(text: Binding<String>, placeholder: String) -> some View {
