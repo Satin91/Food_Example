@@ -24,27 +24,27 @@ struct OnboardingScreen: View {
     
     let pages: [OnboardingPageView] = [
         OnboardingPageView(
-            image: Images.icnBurger,
+            image: Images.imgBurger,
             title: "Burgers and other fastfood",
             subTitle: "Discover our best burger, kebab, hot dog recipes."
         ),
         OnboardingPageView(
-            image: Images.icnCoffee,
+            image: Images.imgCoffee,
             title: "Coffee and shake drink",
             subTitle: "Brew delicious coffee or tea, recipes for every taste!"
         ),
         OnboardingPageView(
-            image: Images.icnMuffin,
+            image: Images.imgMuffin,
             title: "Are you a sweet tooth?",
             subTitle: "Lots of recipes for you, just don't overeat!"
         ),
         OnboardingPageView(
-            image: Images.icnPizza,
+            image: Images.imgPizza,
             title: "Well, how about without pizza!",
             subTitle: "Huge selection of pizza, salad and long cooking recipes."
         ),
         OnboardingPageView(
-            image: Images.icnSandwich,
+            image: Images.imgSandwich,
             title: "Let's cooking!",
             subTitle: ""
         )

@@ -9,7 +9,10 @@ import Combine
 import FirebaseAuth
 import SwiftUI
 
-struct MainScreen: View {
+struct SearchRecipesScreen: View, TabBarScreen {
+    var tabImage: String = Images.icnSearch
+    var tabSelectedColor: Color = Colors.red
+    
     @Environment(\.injected) var container: DIContainer
     @State private var allCategoriesTextPublisher = CurrentValueSubject<String, Never>("")
     @State private var ingridientsTextPublisher = CurrentValueSubject<String, Never>("")

@@ -10,6 +10,7 @@ import FlowStacks
 import SwiftUI
 
 enum Screen {
+    case rootScreen
     case splashScreen
     case onboardingScreen
     case mainScreen
@@ -21,13 +22,18 @@ enum Screen {
 }
 
 struct AppCoordinator: View {
-    @State var routes: Routes<Screen> = [.root(.splashScreen, embedInNavigationView: true)]
+    @State var routes: Routes<Screen> = [.root(.rootScreen, embedInNavigationView: true)]
     
     var body: some View {
         Router($routes) { screen, _ in
             switch screen {
+            case .rootScreen:
+                RootScreen(
+                    currentScreen: SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:)),
+                    onShowRecipeScreen: pushToRecipeScreen(recipe:)
+                )
             case .mainScreen:
-                MainScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
+                SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .recipeScreen(let recipe):
                 //                RecipeScreen(recipe: recipe, onClose: back)
                 RecipeScreen(
