@@ -11,8 +11,8 @@ import SwiftUI
 
 struct MainScreen: View {
     @Environment(\.injected) var container: DIContainer
-    @State private var searchTextPublisher = CurrentValueSubject<String, Never>("")
-    // Nutritient text
+    @State private var allCategoriesTextPublisher = CurrentValueSubject<String, Never>("")
+    @State private var ingridientsTextPublisher = CurrentValueSubject<String, Never>("")
     @State private var fatTextPublisher = CurrentValueSubject<String, Never>("")
     @State private var proteinTextPublisher = CurrentValueSubject<String, Never>("")
     @State private var caloriesTextPublisher = CurrentValueSubject<String, Never>("")
@@ -27,8 +27,8 @@ struct MainScreen: View {
     let onShowRecipeScreen: (_ id: Recipe) -> Void
     
     let columns = [
-        GridItem(.flexible(), spacing: 0),
-        GridItem(.flexible(), spacing: 0)
+        GridItem(.flexible(), spacing: .zero),
+        GridItem(.flexible(), spacing: .zero)
     ]
     @State var gridWidth: CGFloat = 0
     
@@ -36,8 +36,7 @@ struct MainScreen: View {
         content
             .toolbar(.hidden)
             .onAppear {
-                addDefaultObservers()
-                addNutritientObservers()
+                addFilterObservers()
                 //                searchRecipes()
             }
     }
@@ -61,12 +60,16 @@ struct MainScreen: View {
             HStack(spacing: .zero) {
                 Text("Hello!")
                     .font(Fonts.makeFont(.bold, size: 48))
+                    .foregroundColor(Colors.dark)
                 Spacer()
-                searchMenu
+                HStack {
+                    clearFilterButton
+                    filterMenu
+                }
             }
             Text("What do you want to cook?")
                 .font(Fonts.makeFont(.regular, size: Constants.FontSizes.extraMedium))
-                .foregroundColor(.gray)
+                .foregroundColor(Colors.gray)
             searchView
                 .padding(.vertical)
         }
@@ -74,7 +77,7 @@ struct MainScreen: View {
     
     @ViewBuilder private var searchView: some View {
         if currentSearchCategory == .searchByNutritients {
-            nutritientsSearchViewContainer
+            nutritientsFilterContainer
         } else {
             roundedBackground(content: defaultSearchView)
         }
@@ -86,7 +89,7 @@ struct MainScreen: View {
                 .renderingMode(.template)
                 .foregroundColor(Colors.gray)
                 .padding(.leading, Constants.Spacing.s)
-            TextField(currentSearchCategory.text, text: $searchTextPublisher.value)
+            TextField(currentSearchCategory.text, text: currentSearchCategory == .searchInAll ? $allCategoriesTextPublisher.value : $ingridientsTextPublisher.value)
                 .frame(width: .infinity)
                 .font(Fonts.makeFont(.regular, size: Constants.FontSizes.medium))
                 .foregroundColor(Colors.dark)
@@ -97,7 +100,7 @@ struct MainScreen: View {
         }
     }
     
-    private var searchMenu: some View {
+    private var filterMenu: some View {
         Menu {
             Button("Search in all categories") {
                 currentSearchCategory = .searchInAll
@@ -109,21 +112,24 @@ struct MainScreen: View {
                 currentSearchCategory = .searchByNutritients
             }
         } label: {
-            HStack {
-                Group {
-                    Image(Images.icnClose)
-                        .renderingMode(.template)
-                        .resizable()
-                        .foregroundColor(Colors.red)
-                        .opacity(searchParams.isEmpty ? 0 : 1)
-                    Image(Images.icnFilter)
-                        .renderingMode(.template)
-                        .resizable()
-                        .foregroundColor(Colors.gray)
-                }
+            Image(Images.icnFilter)
+                .renderingMode(.template)
+                .resizable()
+                .foregroundColor(Colors.gray)
                 .frame(width: 30, height: 30)
-            }
         }
+    }
+    
+    private var clearFilterButton: some View {
+        Image(Images.icnClose)
+            .renderingMode(.template)
+            .resizable()
+            .foregroundColor(Colors.red)
+            .opacity(searchParams.isEmpty ? 0 : 1)
+            .frame(width: 30, height: 30)
+            .onTapGesture {
+                clearFilter()
+            }
     }
     
     private var recipesList: some View {
@@ -137,12 +143,11 @@ struct MainScreen: View {
                         print("Settings Action")
                     }
                 )
-                .padding(Constants.Spacing.xs)
             }
         }
     }
     
-    private var nutritientsSearchViewContainer: some View {
+    private var nutritientsFilterContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
             Group {
                 HStack {
@@ -155,45 +160,6 @@ struct MainScreen: View {
                 }
             }
         }
-    }
-    
-    private func addDefaultObservers() {
-        currentSearchCategory = .searchInAll
-        searchTextPublisher
-            .filter { !$0.isEmpty }
-            .sink { str in
-                searchParams["query"] = str
-            }
-            .store(in: &cancelBag)
-        searchTextPublisher
-            .filter { !$0.isEmpty }
-            .sink { str in
-                searchParams["ingredients"] = str
-            }
-        .store(in: &cancelBag)
-    }
-    
-    private func addNutritientObservers() {
-        carbsTextPublisher
-            .filter { !$0.isEmpty }
-            .compactMap { String(Int($0)?.containsRange(min: 10, max: 100) ?? 0) }
-            .sink { str in searchParams["minCarbs"] = str }
-            .store(in: &cancelBag)
-        proteinTextPublisher
-            .filter { !$0.isEmpty }
-            .compactMap { String(Int($0)?.containsRange(min: 10, max: 100) ?? 0) }
-            .sink { str in searchParams["minProtein"] = str }
-            .store(in: &cancelBag)
-        caloriesTextPublisher
-            .filter { !$0.isEmpty }
-            .compactMap { String(Int($0)?.containsRange(min: 50, max: 800) ?? 0) }
-            .sink { str in searchParams["minCalories"] = str }
-            .store(in: &cancelBag)
-        fatTextPublisher
-            .filter { !$0.isEmpty }
-            .compactMap { String(Int($0)?.containsRange(min: 1, max: 100) ?? 0) }
-            .sink { str in searchParams["minFat"] = str }
-            .store(in: &cancelBag)
     }
     
     private func nutritientsSearchView(text: Binding<String>, placeholder: String) -> some View {
@@ -220,6 +186,36 @@ struct MainScreen: View {
             }
     }
     
+    private func addFilterObservers() {
+        allCategoriesTextPublisher
+            .sink { searchParams.safely(key: "query", value: $0) }
+            .store(in: &cancelBag)
+        ingridientsTextPublisher
+            .sink { searchParams.safely(key: "ingredients", value: $0) }
+            .store(in: &cancelBag)
+        carbsTextPublisher
+            .sink { searchParams.safely(key: "minCarbs", value: $0.containsRange(min: 1, max: 100)) }
+            .store(in: &cancelBag)
+        proteinTextPublisher
+            .sink { searchParams.safely(key: "minProtein", value: $0.containsRange(min: 10, max: 100)) }
+            .store(in: &cancelBag)
+        caloriesTextPublisher
+            .sink { searchParams.safely(key: "minCalories", value: $0.containsRange(min: 50, max: 800)) }
+            .store(in: &cancelBag)
+        fatTextPublisher
+            .sink { searchParams.safely(key: "minFat", value: $0.containsRange(min: 1, max: 100)) }
+            .store(in: &cancelBag)
+    }
+    
+    private func clearFilter() {
+        allCategoriesTextPublisher.send("")
+        ingridientsTextPublisher.send("")
+        fatTextPublisher.send("")
+        proteinTextPublisher.send("")
+        caloriesTextPublisher.send("")
+        carbsTextPublisher.send("")
+    }
+    
     private func searchRecipes() {
         DispatchQueue.global(qos: .userInteractive).async {
             self.container
@@ -229,7 +225,9 @@ struct MainScreen: View {
                     params: RecipesRequestParams(urlParams: searchParams),
                     path: currentSearchCategory,
                     completion: { recipes in
-                        self.recipes = recipes
+                        DispatchQueue.main.async {
+                            self.recipes = recipes
+                        }
                     }
                 )
         }

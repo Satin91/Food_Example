@@ -34,6 +34,7 @@ struct RecipeGrid: View {
         .cornerRadius(gridCornerRadius)
         .modifier(LightShadowModifier())
         .frame(alignment: .top)
+        .padding(Constants.Spacing.s)
         .onAppear {
             imageLoader.loadImage(urlString: recipe.image)
         }

@@ -15,9 +15,9 @@ class ImageLoader: ObservableObject {
     let imageCache = ImageCache.shared
     
     func loadImage(urlString: String) {
-        if loadImageFromCache(urlString: urlString) {
+        if self.loadImageFromCache(urlString: urlString) {
         } else {
-            loadImageFromURL(urlString: urlString)
+            self.loadImageFromURL(urlString: urlString)
         }
     }
     
@@ -41,6 +41,7 @@ class ImageLoader: ObservableObject {
             }
             .sink { _ in
             } receiveValue: { image in
+                self.imageCache.set(forKey: urlString, image: image)
                 self.image = image
             }
             .store(in: &cancelBag)

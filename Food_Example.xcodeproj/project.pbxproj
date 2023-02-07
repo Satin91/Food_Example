@@ -60,7 +60,8 @@
 		8E8079EA2982B0B200969B75 /* NoInternet.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E8079E92982B0B200969B75 /* NoInternet.json */; };
 		8E8515BD29850CF000BFCF11 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8515BC29850CF000BFCF11 /* HTMLParser.swift */; };
 		8E8515BF29852E9600BFCF11 /* ScrollViewOffsetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8515BE29852E9600BFCF11 /* ScrollViewOffsetModifier.swift */; };
-		8E8755962992607400DFF1B5 /* IntContainsRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8755952992607400DFF1B5 /* IntContainsRange.swift */; };
+		8E8755962992607400DFF1B5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8755952992607400DFF1B5 /* String.swift */; };
+		8E87559829929CD100DFF1B5 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87559729929CD100DFF1B5 /* Dictionary.swift */; };
 		8E88ECCC297B920A00ACF1C7 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88ECCB297B920A00ACF1C7 /* LottieView.swift */; };
 		8E88ECDA297BA03700ACF1C7 /* Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E88ECD9297BA03700ACF1C7 /* Loader.json */; };
 		8E94D338298369050001AB69 /* RecipeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94D337298369050001AB69 /* RecipeMock.swift */; };
@@ -141,7 +142,8 @@
 		8E8079E92982B0B200969B75 /* NoInternet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoInternet.json; sourceTree = "<group>"; };
 		8E8515BC29850CF000BFCF11 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		8E8515BE29852E9600BFCF11 /* ScrollViewOffsetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewOffsetModifier.swift; sourceTree = "<group>"; };
-		8E8755952992607400DFF1B5 /* IntContainsRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntContainsRange.swift; sourceTree = "<group>"; };
+		8E8755952992607400DFF1B5 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		8E87559729929CD100DFF1B5 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		8E88ECCB297B920A00ACF1C7 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		8E88ECD9297BA03700ACF1C7 /* Loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loader.json; sourceTree = "<group>"; };
 		8E94D337298369050001AB69 /* RecipeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMock.swift; sourceTree = "<group>"; };
@@ -443,10 +445,11 @@
 			isa = PBXGroup;
 			children = (
 				8ECB36332971F7040015646D /* ReadSize.swift */,
-				8E8755952992607400DFF1B5 /* IntContainsRange.swift */,
 				8ECB36352971FBFE0015646D /* NavigationBarView.swift */,
 				8E1A98912975BF93007555A8 /* URL+QueryParams.swift */,
 				8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */,
+				8E8755952992607400DFF1B5 /* String.swift */,
+				8E87559729929CD100DFF1B5 /* Dictionary.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				8E32C89A298AB84300FEFE3A /* ListPopupView.swift in Sources */,
 				8E36011E29896B4B0032304B /* HTMLTextView.swift in Sources */,
 				8ECB36342971F7040015646D /* ReadSize.swift in Sources */,
+				8E87559829929CD100DFF1B5 /* Dictionary.swift in Sources */,
 				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,
 				8ECB36382971FED40015646D /* SignUpScreen.swift in Sources */,
 				8E140EF42984B62500757DE6 /* NutrientView.swift in Sources */,
@@ -656,7 +660,7 @@
 				8E9A0909298243E40061058E /* ImageLoader.swift in Sources */,
 				8E7DDED02981E59300D60038 /* NetworkHelpers.swift in Sources */,
 				8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */,
-				8E8755962992607400DFF1B5 /* IntContainsRange.swift in Sources */,
+				8E8755962992607400DFF1B5 /* String.swift in Sources */,
 				8E15C3EB297A3EA500BAF333 /* AppEnvironment.swift in Sources */,
 				8E1E11A12978E3CA00CD62DF /* RegistrationInfo.swift in Sources */,
 				8E7DDECC2981DB3B00D60038 /* LoadableImage.swift in Sources */,
