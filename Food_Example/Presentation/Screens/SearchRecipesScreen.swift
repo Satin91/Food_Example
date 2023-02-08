@@ -30,8 +30,8 @@ struct SearchRecipesScreen: View, TabBarScreen {
     let onShowRecipeScreen: (_ id: Recipe) -> Void
     
     let columns = [
-        GridItem(.flexible(), spacing: .zero),
-        GridItem(.flexible(), spacing: .zero)
+        GridItem(.flexible(), spacing: Constants.Spacing.xs),
+        GridItem(.flexible(), spacing: Constants.Spacing.xs)
     ]
     @State var gridWidth: CGFloat = 0
     
@@ -40,7 +40,7 @@ struct SearchRecipesScreen: View, TabBarScreen {
             .toolbar(.hidden)
             .onAppear {
                 addFilterObservers()
-                //                searchRecipes()
+                searchRecipes()
             }
     }
     
@@ -137,7 +137,7 @@ struct SearchRecipesScreen: View, TabBarScreen {
     }
     
     private var recipesList: some View {
-        LazyVGrid(columns: columns, spacing: 0) {
+        LazyVGrid(columns: columns, spacing: Constants.Spacing.s) {
             ForEach(recipes) { recipe in
                 RecipeGrid(
                     recipe: recipe,
@@ -149,6 +149,7 @@ struct SearchRecipesScreen: View, TabBarScreen {
                 )
             }
         }
+        .padding(Constants.Spacing.s)
     }
     
     private var nutritientsFilterContainer: some View {
@@ -230,7 +231,10 @@ struct SearchRecipesScreen: View, TabBarScreen {
                     path: currentSearchCategory,
                     completion: { recipes in
                         DispatchQueue.main.async {
-                            self.recipes = recipes
+                            recipes.forEach { recipe in
+                                ImageLoader().loadImage(urlString: recipe.image)
+                                self.recipes = recipes
+                            }
                         }
                     }
                 )

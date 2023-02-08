@@ -7,6 +7,7 @@
 
 import Combine
 import FirebaseAuth
+import GoogleSignIn
 
 protocol AuthInteractor {
     func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)

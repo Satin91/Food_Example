@@ -7,6 +7,7 @@
 
 import Combine
 import FirebaseAuth
+import GoogleSignIn
 import SwiftUI
 
 struct SignInScreen: View {
@@ -109,6 +110,12 @@ struct SignInScreen: View {
     
     private var googleButton: some View {
         GoogleButton {
+            GIDSignIn.sharedInstance.signIn(withPresenting: ApplicationUtility.rootViewController) { result, error in
+                print(error)
+                guard let user = result?.user else { return }
+                print(user.accessToken)
+            }
+            onMainScreen()
             print("Sign UP!")
         }
     }

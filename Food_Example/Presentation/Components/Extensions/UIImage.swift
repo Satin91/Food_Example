@@ -17,7 +17,6 @@ extension UIImage {
         let green = CGFloat(data[pixelInfo + 1]) / CGFloat(255.0)
         let blue = CGFloat(data[pixelInfo + 2]) / CGFloat(255.0)
         let alpha = CGFloat(data[pixelInfo + 3]) / CGFloat(255.0)
-        print(red, green, blue, alpha)
         if red == 1.0, green == 1.0, blue == 1.0, alpha == 1.0 {
             return true
         }

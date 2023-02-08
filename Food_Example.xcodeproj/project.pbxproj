@@ -68,6 +68,7 @@
 		8E8755A32992D9BE00DFF1B5 /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8755A22992D9BE00DFF1B5 /* RootScreen.swift */; };
 		8E8755A52992E51300DFF1B5 /* FavoriteRecipesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8755A42992E51300DFF1B5 /* FavoriteRecipesScreen.swift */; };
 		8E87FCB729941B3600F36F1A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87FCB629941B3600F36F1A /* UIImage.swift */; };
+		8E87FCB92994314800F36F1A /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87FCB82994314800F36F1A /* Application.swift */; };
 		8E88ECCC297B920A00ACF1C7 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E88ECCB297B920A00ACF1C7 /* LottieView.swift */; };
 		8E88ECDA297BA03700ACF1C7 /* Loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E88ECD9297BA03700ACF1C7 /* Loader.json */; };
 		8E94D338298369050001AB69 /* RecipeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94D337298369050001AB69 /* RecipeMock.swift */; };
@@ -156,6 +157,7 @@
 		8E8755A22992D9BE00DFF1B5 /* RootScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootScreen.swift; sourceTree = "<group>"; };
 		8E8755A42992E51300DFF1B5 /* FavoriteRecipesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipesScreen.swift; sourceTree = "<group>"; };
 		8E87FCB629941B3600F36F1A /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		8E87FCB82994314800F36F1A /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		8E88ECCB297B920A00ACF1C7 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		8E88ECD9297BA03700ACF1C7 /* Loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loader.json; sourceTree = "<group>"; };
 		8E94D337298369050001AB69 /* RecipeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeMock.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				8E7DDECF2981E59300D60038 /* NetworkHelpers.swift */,
 				8E9A0908298243E40061058E /* ImageLoader.swift */,
 				8E8515BC29850CF000BFCF11 /* HTMLParser.swift */,
+				8E87FCB82994314800F36F1A /* Application.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */,
 				8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */,
 				8E75642F297FB24800767FB8 /* RequestParameters.swift in Sources */,
+				8E87FCB92994314800F36F1A /* Application.swift in Sources */,
 				8EB54D1C298A72D700B253C6 /* WebView.swift in Sources */,
 				8E1A98922975BF93007555A8 /* URL+QueryParams.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* SearchRecipesScreen.swift in Sources */,

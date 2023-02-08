@@ -45,7 +45,9 @@ class ImageLoader: ObservableObject {
                 guard let self else { return }
                 let croppedImage = self.cropImageIfNeed(imageToCrop: image)
                 self.imageCache.set(forKey: urlString, image: croppedImage)
-                self.image = croppedImage
+                DispatchQueue.main.async {
+                    self.image = croppedImage
+                }
             }
             .store(in: &cancelBag)
     }

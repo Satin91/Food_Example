@@ -33,7 +33,6 @@ struct RecipeGrid: View {
         .background(Color.white)
         .cornerRadius(gridCornerRadius)
         .frame(alignment: .top)
-        .padding(Constants.Spacing.s)
         .modifier(LightShadowModifier(color: Colors.neutralGray))
         .onAppear {
             imageLoader.loadImage(urlString: recipe.image)
@@ -61,7 +60,6 @@ struct RecipeGrid: View {
         Image(uiImage: imageLoader.image)
             .resizable()
             .scaledToFill()
-            .frame(maxHeight: .infinity)
             .cornerRadius(12)
             .padding(Constants.Spacing.xs)
     }
