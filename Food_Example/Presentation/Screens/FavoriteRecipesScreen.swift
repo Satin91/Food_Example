@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FavoriteRecipesScreen: View, TabBarScreen {
-    var tabImage: String = Images.icnEye
+    var tabImage: String = Images.icnHomeFilled
     var tabSelectedColor: Color = Colors.green
     
     var body: some View {

@@ -22,7 +22,7 @@ enum Screen {
 }
 
 struct AppCoordinator: View {
-    @State var routes: Routes<Screen> = [.root(.rootScreen, embedInNavigationView: true)]
+    @State var routes: Routes<Screen> = [.root(.splashScreen, embedInNavigationView: true)]
     
     var body: some View {
         Router($routes) { screen, _ in
@@ -43,8 +43,8 @@ struct AppCoordinator: View {
                 )
             case .splashScreen:
                 SplashScreen(
-                    onOnboardingScreen: pushOnboardingScreen,
-                    onMainScreen: onMainScreen
+                    onOnboardingScreen: rootOnboardingScreen,
+                    onRootScreen: rootRootScreen
                 )
             case .onboardingScreen:
                 OnboardingScreen(onSignUpScreen: pushToSignInScreen)
@@ -81,12 +81,17 @@ struct AppCoordinator: View {
         routes.push(.resetPasswordScreen)
     }
     
-    private func pushOnboardingScreen() {
-        routes = [.root(.onboardingScreen, embedInNavigationView: true)]
-    }
-    
     private func pushToMainScreen() {
         routes.push(.mainScreen)
+    }
+    
+    // MARK: Root
+    private func rootOnboardingScreen() {
+        routes = [.root(.onboardingScreen, embedInNavigationView: true)]
+    }
+
+    private func rootRootScreen() {
+        routes = [.root(.rootScreen, embedInNavigationView: true)]
     }
     
     // MARK: Present modaly

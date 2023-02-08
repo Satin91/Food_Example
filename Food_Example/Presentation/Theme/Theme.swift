@@ -96,6 +96,10 @@ enum Images {
     static let icnKcal = "icnKcal"
     
     static let icnGoogle = "icnGoogle"
+    
+    static let icnHomeFilled = "icnHomeFilled"
+    static let icnSearchFilled = "icnSearchFilled"
+    static let icnUserFilled = "icnUserFilled"
 }
 
 enum Lottie {

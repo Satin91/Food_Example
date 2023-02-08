@@ -10,7 +10,7 @@ import FirebaseAuth
 import SwiftUI
 
 struct SearchRecipesScreen: View, TabBarScreen {
-    var tabImage: String = Images.icnSearch
+    var tabImage: String = Images.icnSearchFilled
     var tabSelectedColor: Color = Colors.red
     
     @Environment(\.injected) var container: DIContainer
@@ -56,6 +56,7 @@ struct SearchRecipesScreen: View, TabBarScreen {
                 recipesList
             }
         }
+        .background(Colors.backgroundWhite)
     }
     
     private var navBarLeftContainer: some View {
@@ -72,7 +73,7 @@ struct SearchRecipesScreen: View, TabBarScreen {
             }
             Text("What do you want to cook?")
                 .font(Fonts.makeFont(.regular, size: Constants.FontSizes.extraMedium))
-                .foregroundColor(Colors.gray)
+                .foregroundColor(Colors.weakDark)
             searchView
                 .padding(.vertical)
         }

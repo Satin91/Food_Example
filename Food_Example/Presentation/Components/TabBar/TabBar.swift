@@ -9,10 +9,13 @@
 import SwiftUI
 
 struct TabBar: View {
-    @Binding var currentElement: any TabBarScreen
+    @Binding var currentScreen: any TabBarScreen
     @State var currentIndex: Int = 0
+    @State var isAnimate = false
+    @State var normalScaleFactor: CGFloat = 1.0
+    //    @State var enlargedScaleFactor = CGSize
     var tabItems: [any TabBarScreen]
-    let topPadding: CGFloat = 14
+    let topPadding: CGFloat = 12
     let tabBarHeight: CGFloat = 100
     
     var body: some View {
@@ -35,16 +38,21 @@ struct TabBar: View {
                         selectedColor: tabItems[index].tabSelectedColor,
                         isSelected: currentIndex == index
                     )
+                    .animation(.easeInOut(duration: 0.15), value: currentIndex)
                     .onTapGesture {
                         currentIndex = index
+                        isAnimate.toggle()
                     }
-                    .frame(height: tabBarHeight - topPadding * 2, alignment: .top)
                     .frame(maxWidth: .infinity)
                     .onChange(of: currentIndex) { index in
-                        currentElement = tabItems[index]
+                        currentScreen = tabItems[index]
                     }
                 }
             }
+            .padding(.bottom, Constants.Spacing.l)
+            .padding(.top, Constants.Spacing.s)
         }
+        .background(Color.white)
+        .modifier(LargeShadowModifier())
     }
 }

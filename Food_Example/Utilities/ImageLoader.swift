@@ -13,6 +13,7 @@ class ImageLoader: ObservableObject {
     @Published var image = UIImage()
     var cancelBag = Set<AnyCancellable>()
     let imageCache = ImageCache.shared
+    let ingredientImageSize: CGFloat = 100
     
     func loadImage(urlString: String) {
         if self.loadImageFromCache(urlString: urlString) {
@@ -40,11 +41,21 @@ class ImageLoader: ObservableObject {
                 return image
             }
             .sink { _ in
-            } receiveValue: { image in
-                self.imageCache.set(forKey: urlString, image: image)
-                self.image = image
+            } receiveValue: { [weak self] image in
+                guard let self else { return }
+                let croppedImage = self.cropImageIfNeed(imageToCrop: image)
+                self.imageCache.set(forKey: urlString, image: croppedImage)
+                self.image = croppedImage
             }
             .store(in: &cancelBag)
+    }
+    func cropImageIfNeed(imageToCrop: UIImage) -> UIImage {
+        // ingredient images don't need to crop
+        guard imageToCrop.size.width > ingredientImageSize else { return imageToCrop }
+        guard imageToCrop.hasWhiteBorder() else { return imageToCrop }
+        let imageRef = imageToCrop.cgImage!.cropping(to: CGRect(x: 50, y: 50, width: imageToCrop.size.width - 100, height: imageToCrop.size.height - 100))!
+        let cropped = UIImage(cgImage: imageRef)
+        return cropped
     }
 }
 

@@ -17,7 +17,7 @@ struct RootScreen: View {
         ZStack {
             currentScreen.content
             TabBar(
-                currentElement: $currentScreen,
+                currentScreen: $currentScreen,
                 tabItems: [
                     SearchRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
                     FavoriteRecipesScreen()

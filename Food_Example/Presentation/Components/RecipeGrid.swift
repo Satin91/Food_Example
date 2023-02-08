@@ -10,11 +10,11 @@ import SwiftUI
 import Vision
 
 struct RecipeGrid: View {
+    @StateObject var imageLoader = ImageLoader()
     let recipe: Recipe
     let imageHeight: CGFloat = 100
     let gridCornerRadius: CGFloat = 12
     let settingsButtonSize: CGFloat = 24
-    @StateObject var imageLoader = ImageLoader()
     let action: () -> Void
     let settingsAction: () -> Void
     
@@ -32,9 +32,9 @@ struct RecipeGrid: View {
         }
         .background(Color.white)
         .cornerRadius(gridCornerRadius)
-        .modifier(LightShadowModifier())
         .frame(alignment: .top)
         .padding(Constants.Spacing.s)
+        .modifier(LightShadowModifier(color: Colors.neutralGray))
         .onAppear {
             imageLoader.loadImage(urlString: recipe.image)
         }
@@ -42,10 +42,11 @@ struct RecipeGrid: View {
     
     var title: some View {
         Text(recipe.title)
-            .font(Fonts.makeFont(.bold, size: Constants.FontSizes.small))
-            .foregroundColor(Colors.dark)
-            .frame(height: 52)
-            .padding(Constants.Spacing.xs)
+            .font(Fonts.makeFont(.semiBold, size: Constants.FontSizes.small))
+            .foregroundColor(Colors.weakDark)
+            .frame(height: 45)
+            .padding(.horizontal, Constants.Spacing.xs)
+            .padding(.bottom, Constants.Spacing.xs)
             .lineLimit(2)
     }
     
@@ -61,6 +62,8 @@ struct RecipeGrid: View {
             .resizable()
             .scaledToFill()
             .frame(maxHeight: .infinity)
+            .cornerRadius(12)
+            .padding(Constants.Spacing.xs)
     }
     
     var settingsButton: some View {
@@ -84,6 +87,12 @@ struct RecipeGrid: View {
             }
             Spacer()
         }
-        .padding(Constants.Spacing.s)
+        .padding(Constants.Spacing.m)
+    }
+}
+
+struct RecipeGrid_Previews: PreviewProvider {
+    static var previews: some View {
+        RecipeGrid(recipe: Recipe(id: 250, title: "Some new Recipe", image: Images.mockFood), action: { }, settingsAction: { })
     }
 }

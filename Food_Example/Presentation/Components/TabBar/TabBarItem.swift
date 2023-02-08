@@ -14,13 +14,15 @@ struct TabBarItem: View {
     let selectedColor: Color
     let placeHolderColor = Colors.placeholder
     var isSelected: Bool
+    let iconSize: CGFloat = 30
     var body: some View {
         Image(itemImage)
+            .resizable()
             .renderingMode(.template)
             .foregroundColor(
                 isSelected ? selectedColor : placeHolderColor
             )
-            .frame(width: 65, height: 58)
+            .frame(width: iconSize, height: iconSize, alignment: .top)
     }
 }
 

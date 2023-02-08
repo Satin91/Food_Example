@@ -11,7 +11,7 @@ import SwiftUI
 struct SplashScreen: View {
     @Environment(\.injected) var container: DIContainer
     let onOnboardingScreen: () -> Void
-    let onMainScreen: () -> Void
+    let onRootScreen: () -> Void
     
     var body: some View {
         VStack {
@@ -24,7 +24,7 @@ struct SplashScreen: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                         switch container.appState.sessionService.state {
                         case .loggedIn:
-                            onMainScreen()
+                            onRootScreen()
                         case .loggedOut:
                             onOnboardingScreen()
                         }
