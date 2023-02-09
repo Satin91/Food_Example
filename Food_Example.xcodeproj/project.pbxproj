@@ -50,6 +50,7 @@
 		8E36011A2989030A0032304B /* SegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3601192989030A0032304B /* SegmentedView.swift */; };
 		8E36011C2989035B0032304B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36011B2989035B0032304B /* LoadingView.swift */; };
 		8E36011E29896B4B0032304B /* HTMLTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E36011D29896B4B0032304B /* HTMLTextView.swift */; };
+		8E375A61299534A700481727 /* AccountScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E375A60299534A700481727 /* AccountScreen.swift */; };
 		8E39E152297B7C8C0042A551 /* ResetPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */; };
 		8E448F5F297BA6EC00F3C7D7 /* Send.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E448F5E297BA6EC00F3C7D7 /* Send.json */; };
 		8E448F62297BAA8800F3C7D7 /* CentralPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E448F61297BAA8800F3C7D7 /* CentralPopupView.swift */; };
@@ -139,6 +140,7 @@
 		8E3601192989030A0032304B /* SegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedView.swift; sourceTree = "<group>"; };
 		8E36011B2989035B0032304B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8E36011D29896B4B0032304B /* HTMLTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTextView.swift; sourceTree = "<group>"; };
+		8E375A60299534A700481727 /* AccountScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountScreen.swift; sourceTree = "<group>"; };
 		8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordScreen.swift; sourceTree = "<group>"; };
 		8E448F5E297BA6EC00F3C7D7 /* Send.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Send.json; sourceTree = "<group>"; };
 		8E448F61297BAA8800F3C7D7 /* CentralPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralPopupView.swift; sourceTree = "<group>"; };
@@ -298,7 +300,6 @@
 		8E1E3ECB297065E300990D9D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				8E39E153297B917D0042A551 /* Lottie */,
 				8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */,
 				8E1E3ED0297065FD00990D9D /* Poppins-Black.ttf */,
 				8E1E3ECC297065FD00990D9D /* Poppins-Bold.ttf */,
@@ -360,13 +361,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		8E39E153297B917D0042A551 /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Lottie;
-			sourceTree = "<group>";
-		};
 		8E41786D297A19290065731A /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +392,7 @@
 			children = (
 				8E8755A22992D9BE00DFF1B5 /* RootScreen.swift */,
 				8E287836296EE1FB00AD8D25 /* SearchRecipesScreen.swift */,
+				8E375A60299534A700481727 /* AccountScreen.swift */,
 				8E8755A42992E51300DFF1B5 /* FavoriteRecipesScreen.swift */,
 				8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */,
 				8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */,
@@ -673,6 +668,7 @@
 				8ECB36362971FBFE0015646D /* NavigationBarView.swift in Sources */,
 				8E32C89A298AB84300FEFE3A /* ListPopupView.swift in Sources */,
 				8E36011E29896B4B0032304B /* HTMLTextView.swift in Sources */,
+				8E375A61299534A700481727 /* AccountScreen.swift in Sources */,
 				8ECB36342971F7040015646D /* ReadSize.swift in Sources */,
 				8E87559829929CD100DFF1B5 /* Dictionary.swift in Sources */,
 				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,

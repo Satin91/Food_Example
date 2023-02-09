@@ -28,7 +28,6 @@ struct OnboardingNavigationButton: View {
             .overlay(
                 HStack {
                     Image(Images.icnArrowLeft)
-                        .renderingMode(.template)
                         .foregroundColor(currentStep == 0 ? Colors.placeholder : Colors.dark)
                         .onTapGesture {
                             previousStep()
@@ -37,6 +36,7 @@ struct OnboardingNavigationButton: View {
                     verticalSeparator
                     Spacer()
                     Image(Images.icnArrowRight)
+                        .foregroundColor(Colors.dark)
                         .onTapGesture {
                             nextStep()
                         }

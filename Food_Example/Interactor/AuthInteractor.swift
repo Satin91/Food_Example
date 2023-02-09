@@ -14,7 +14,7 @@ protocol AuthInteractor {
     func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
     func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
     func logout()
-    func signUpWithGoogle()
+    func signUpWithGoogle(completion: @escaping (Result<Void, GoogleSignUpError>) -> Void)
 }
 
 class AuthInteractorImpl: AuthInteractor {
@@ -74,7 +74,14 @@ class AuthInteractorImpl: AuthInteractor {
     func logout() {
     }
     
-    func signUpWithGoogle() {
+    func signUpWithGoogle(completion: @escaping (Result<Void, GoogleSignUpError>) -> Void) {
+        authRepository.signUpWithGoogle()
+            .sink { _ in
+                completion(.failure(GoogleSignUpError.userCancel))
+            } receiveValue: { _ in
+                completion(.success(Void()))
+            }
+            .store(in: &cancelBag)
     }
 }
 
@@ -91,6 +98,6 @@ struct StubAuthInteractor: AuthInteractor {
     func logout() {
     }
     
-    func signUpWithGoogle() {
+    func signUpWithGoogle(completion: @escaping (Result<Void, GoogleSignUpError>) -> Void) {
     }
 }

@@ -56,7 +56,6 @@ struct SearchRecipesScreen: View, TabBarScreen {
                 recipesList
             }
         }
-        .background(Colors.backgroundWhite)
     }
     
     private var navBarLeftContainer: some View {

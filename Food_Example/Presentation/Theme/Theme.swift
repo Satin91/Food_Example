@@ -57,6 +57,7 @@ enum Constants {
 }
 
 enum Images {
+    // Images
     static let imgBurger = "imgBurger"
     static let imgCoffee = "imgCoffee"
     static let imgDorayaki = "imgDorayaki"
@@ -72,7 +73,9 @@ enum Images {
     static let imgTacos = "imgTacos"
     static let foodBackground = "foodBackground"
     static let mockFood = "mockFood"
+    static let imgUserBackground = "imgUserBackground"
     
+    // Default icons
     static let icnArrowLeft = "icnArrowLeft"
     static let icnArrowRight = "icnArrowRight"
     static let icnEye = "icnEye"
@@ -90,16 +93,25 @@ enum Images {
     static let icnFilter = "icnFilter"
     static let icnClose = "icnClose"
     
+    // Nutritients icons
     static let icnFats = "icnFats"
     static let icnProtein = "icnProtein"
     static let icnCarbs = "icnCarbs"
     static let icnKcal = "icnKcal"
     
+    // Coogle icon
     static let icnGoogle = "icnGoogle"
     
+    // Tab Bar icons
     static let icnHomeFilled = "icnHomeFilled"
     static let icnSearchFilled = "icnSearchFilled"
     static let icnUserFilled = "icnUserFilled"
+    static let icnLogout = "icnLogout"
+    
+    // Settings icons
+    static let icnUserSettings = "icnUserSettings"
+    static let icnShield = "icnShield"
+    static let icnMoon = "icnMoon"
 }
 
 enum Lottie {
@@ -120,5 +132,6 @@ enum Colors {
     static let yellow = Color("yellow")
     static let placeholder = Color("placeholder")
     static let neutralGray = Color("neutralGray")
+    static let weakBlue = Color("weakBlue")
     static let blue = Color("blue")
 }

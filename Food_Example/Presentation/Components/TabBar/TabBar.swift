@@ -11,12 +11,7 @@ import SwiftUI
 struct TabBar: View {
     @Binding var currentScreen: any TabBarScreen
     @State var currentIndex: Int = 0
-    @State var isAnimate = false
-    @State var normalScaleFactor: CGFloat = 1.0
-    //    @State var enlargedScaleFactor = CGSize
     var tabItems: [any TabBarScreen]
-    let topPadding: CGFloat = 12
-    let tabBarHeight: CGFloat = 100
     
     var body: some View {
         VStack {
@@ -41,7 +36,6 @@ struct TabBar: View {
                     .animation(.easeInOut(duration: 0.15), value: currentIndex)
                     .onTapGesture {
                         currentIndex = index
-                        isAnimate.toggle()
                     }
                     .frame(maxWidth: .infinity)
                     .onChange(of: currentIndex) { index in

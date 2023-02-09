@@ -52,3 +52,9 @@ enum APIRequestError: Error {
     case unexpectedResponse
     case imageDeserialization
 }
+
+enum GoogleSignUpError: Error {
+    case userCancel
+    case mailError
+    case unexpectedResponse
+}

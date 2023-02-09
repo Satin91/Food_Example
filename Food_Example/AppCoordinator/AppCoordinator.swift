@@ -50,12 +50,12 @@ struct AppCoordinator: View {
                 OnboardingScreen(onSignUpScreen: pushToSignInScreen)
             case .signUpScreen:
                 SignUpScreen(
-                    onMainScreen: pushToMainScreen,
+                    onMainScreen: pushToRootScreen,
                     onClose: back
                 )
             case .signInScreen:
                 SignInScreen(
-                    onMainScreen: pushToMainScreen,
+                    onRootScreen: pushToRootScreen,
                     onSignUpScreen: pushToSignUpScreen,
                     onResetPasswordScreen: pushToResetPaswordScreen
                 )
@@ -83,6 +83,10 @@ struct AppCoordinator: View {
     
     private func pushToMainScreen() {
         routes.push(.mainScreen)
+    }
+    
+    private func pushToRootScreen() {
+        routes.push(.rootScreen)
     }
     
     // MARK: Root

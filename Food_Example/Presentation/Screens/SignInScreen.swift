@@ -14,8 +14,7 @@ struct SignInScreen: View {
     @Environment(\.injected) var container: DIContainer
     @State var registrationInfo = RegistrationInfo()
     @State var authError: AuthErrorCode.Code?
-    @State var bag = Set<AnyCancellable>()
-    let onMainScreen: () -> Void
+    let onRootScreen: () -> Void
     let onSignUpScreen: () -> Void
     let onResetPasswordScreen: () -> Void
     
@@ -81,7 +80,7 @@ struct SignInScreen: View {
             container.interactors.authInteractor.logIn(registrationInfo: registrationInfo) { result in
                 switch result {
                 case .success:
-                    onMainScreen()
+                    onRootScreen()
                 case .failure(let error):
                     authError = error.code
                 }
@@ -109,15 +108,16 @@ struct SignInScreen: View {
     }
     
     private var googleButton: some View {
-        GoogleButton {
-            GIDSignIn.sharedInstance.signIn(withPresenting: ApplicationUtility.rootViewController) { result, error in
-                print(error)
-                guard let user = result?.user else { return }
-                print(user.accessToken)
+        GoogleButton(action: {
+            container.interactors.authInteractor.signUpWithGoogle { result in
+                switch result {
+                case .success:
+                    onRootScreen()
+                case .failure(let error):
+                    print(error)
+                }
             }
-            onMainScreen()
-            print("Sign UP!")
-        }
+        })
     }
     
     private var bottomText: some View {
@@ -139,7 +139,7 @@ struct SignInScreen: View {
 struct SignInScreen_Previews: PreviewProvider {
     static var previews: some View {
         SignInScreen(
-            onMainScreen: {},
+            onRootScreen: {},
             onSignUpScreen: {},
             onResetPasswordScreen: {}
         )

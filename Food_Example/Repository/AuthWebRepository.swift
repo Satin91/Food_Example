@@ -9,13 +9,14 @@ import Combine
 import FirebaseAuth
 import FirebaseDatabase
 import Foundation
+import GoogleSignIn
 
 protocol AuthWebRepository {
     func signUp(info: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
     func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
     func resetPassword(to email: String) -> AnyPublisher<Void, AuthErrorCode>
+    func signUpWithGoogle() -> Future<Void, Error>
     func logout()
-    func signUpWithGoogle()
 }
 
 struct AuthWebRepositoryImpl: AuthWebRepository {
@@ -83,9 +84,18 @@ struct AuthWebRepositoryImpl: AuthWebRepository {
         .eraseToAnyPublisher()
     }
     
-    func logout() {
+    func signUpWithGoogle() -> Future<Void, Error> {
+        Future<Void, Error> { promise in
+            GIDSignIn.sharedInstance.signIn(withPresenting: ApplicationUtility.rootViewController) { _, error in
+                guard error == nil else {
+                    promise(.failure(error!))
+                    return
+                }
+                promise(.success(Void()))
+            }
+        }
     }
     
-    func signUpWithGoogle() {
+    func logout() {
     }
 }

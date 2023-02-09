@@ -34,7 +34,6 @@ struct RecipeScreen: View {
         VStack(spacing: .zero) {
             imageContainer
             titleLabel
-            //            nutrutientsMockContainer
             nutrientsContainer
             SegmentedView(selectedIndex: $selectedPagingIndex)
             Divider()
@@ -94,12 +93,12 @@ struct RecipeScreen: View {
     private var nutrientsContainer: some View {
         VStack {
             HStack(spacing: .zero) {
-                NutrientView(nutrientType: .carbs(recipe.nutrients!.carbs))
-                NutrientView(nutrientType: .protein(recipe.nutrients!.protein))
+                NutrientView(nutrientType: .carbs(recipe.nutrients?.carbs ?? ""))
+                NutrientView(nutrientType: .protein(recipe.nutrients?.protein ?? ""))
             }
             HStack(spacing: .zero) {
-                NutrientView(nutrientType: .kcal(recipe.nutrients!.calories))
-                NutrientView(nutrientType: .fats(recipe.nutrients!.fat))
+                NutrientView(nutrientType: .kcal(recipe.nutrients?.calories ?? ""))
+                NutrientView(nutrientType: .fats(recipe.nutrients?.fat ?? ""))
             }
         }
         .padding(.horizontal, Constants.Spacing.s)
