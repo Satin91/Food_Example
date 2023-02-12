@@ -3,9 +3,11 @@
 # pod 'ViewInspector'
 
 target 'Food_Example' do
+	pod 'Realm', :modular_headers => true
+	pod 'RealmSwift', :modular_headers => true
 	pod 'SwiftLint'
-	pod 'FlowStacks'	
-	pod 'FirebaseAnalytics'
+	pod 'FlowStacks'
+	pod 'FirebaseAnalytics',:modular_headers => true
 	pod 'GoogleSignIn'
 	pod 'FirebaseAuth', :modular_headers => true
 	pod ‘FirebaseDatabase’, :modular_headers => true
