@@ -38,6 +38,7 @@ struct AppCoordinator: View {
                 //                RecipeScreen(recipe: recipe, onClose: back)
                 RecipeScreen(
                     recipe: recipe,
+                    favoriteObjects: Storage(),
                     onClose: back,
                     onShowInstructions: presentInstructions(url:)
                 )

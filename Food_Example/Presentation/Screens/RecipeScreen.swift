@@ -5,10 +5,12 @@
 //  Created by Артур Кулик on 25.01.2023.
 //
 
+import RealmSwift
 import SwiftUI
 
 struct RecipeScreen: View {
     @State var recipe: Recipe
+    @ObservedRealmObject var favoriteObjects: Storage
     @State var recipeRealm = RecipeRealm()
     @State var isLoaded = false
     @State var heightImageContainer: CGFloat = 180
@@ -17,7 +19,6 @@ struct RecipeScreen: View {
     @State var scrollViewOffest = CGPoint()
     let onClose: () -> Void
     let onShowInstructions: (URL) -> Void
-    let parser = HTMLParser()
     
     var body: some View {
         if isLoaded {
@@ -58,6 +59,17 @@ struct RecipeScreen: View {
                     .onTapGesture {
                         onClose()
                     }
+            }
+            .addRightContainer {
+                Image(Images.icnChevronRight)
+                    .padding(Constants.Spacing.xxs)
+                    .onTapGesture {
+                        favoriteObjects.objects.append(RecipeRealm(recipe: self.recipe))
+                    }
+                    .background(
+                        Circle()
+                            .foregroundColor(Colors.silver)
+                    )
             }
     }
     
@@ -120,20 +132,6 @@ struct RecipeScreen: View {
         .transition(.slide)
     }
     
-    //    private var nutrutientsMockContainer: some View {
-    //        VStack {
-    //            HStack(spacing: .zero) {
-    //                NutrientView(nutrientType: .carbs("126g carbs"))
-    //                NutrientView(nutrientType: .protein("450g protein"))
-    //            }
-    //            HStack(spacing: .zero) {
-    //                NutrientView(nutrientType: .kcal("624k colories"))
-    //                NutrientView(nutrientType: .fats("160g fat"))
-    //            }
-    //        }
-    //        .padding(.horizontal, Constants.Spacing.s)
-    //    }
-    
     private var ingredientView: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
@@ -191,7 +189,6 @@ struct RecipeScreen: View {
                 switch result {
                 case .success(let recipe):
                     self.recipeRealm = .init(recipe: recipe)
-                    print(recipeRealm.extendedIngredients)
                     self.recipe = recipe
                     self.isLoaded = true
                 case .failure(let error):
@@ -201,17 +198,9 @@ struct RecipeScreen: View {
         }
     }
 }
-
-struct RecipeDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), onClose: {}, onShowInstructions: { _ in })
-    }
-}
-
-extension Text {
-    init(_ string: String, configure: ((inout AttributedString) -> Void)) {
-        var attributedString = AttributedString(string)
-        configure(&attributedString)
-        self.init(attributedString)
-    }
-}
+//
+//struct RecipeDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), favoriteObjects: <#Storage#>, onClose: { }, onShowInstructions: { _ in })
+//    }
+//}

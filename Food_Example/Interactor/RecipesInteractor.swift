@@ -31,7 +31,8 @@ class RecipesInteractorImpl: RecipesInteractor {
     }
     
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
-        if path == .searchInAll {
+        switch path {
+        case .searchInAll:
             getRecipeInfo(model: SearchRecipesWrapper.self, params: params.URLParams, path: .searchInAll, id: 0) { result in
                 switch result {
                 case .success(let success):
@@ -40,7 +41,7 @@ class RecipesInteractorImpl: RecipesInteractor {
                     print(failure)
                 }
             }
-        } else {
+        default:
             getRecipeInfo(model: [Recipe].self, params: params.URLParams, path: path, id: 0) { result in
                 switch result {
                 case .success(let success):

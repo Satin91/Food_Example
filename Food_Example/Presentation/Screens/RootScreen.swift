@@ -5,6 +5,7 @@
 //  Created by Артур Кулик on 07.02.2023.
 //
 
+import RealmSwift
 import SwiftUI
 
 struct RootScreen: View {
@@ -12,6 +13,7 @@ struct RootScreen: View {
     @State var currentScreen: any TabBarScreen
     // Screens actions
     @State var onShowRecipeScreen: (Recipe) -> Void
+    @ObservedResults(Storage.self) var storage
     
     var body: some View {
         ZStack {
@@ -20,10 +22,15 @@ struct RootScreen: View {
                 currentScreen: $currentScreen,
                 tabItems: [
                     SearchRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
-                    FavoriteRecipesScreen(),
+                    FavoriteRecipesScreen(favoriteObjects: storage.first!),
                     AccountScreen()
                 ]
             )
+            .onAppear {
+                if storage.isEmpty {
+                    $storage.append(Storage())
+                }
+            }
         }
     }
 }

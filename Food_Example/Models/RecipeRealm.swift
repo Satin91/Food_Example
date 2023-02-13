@@ -8,8 +8,14 @@
 import Foundation
 import RealmSwift
 
-final class RecipeRealm: Object, Identifiable {
+final class Storage: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var objects = RealmSwift.List<RecipeRealm>()
+}
+
+final class RecipeRealm: Object, ObjectKeyIdentifiable, Identifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted(originProperty: "objects") var storage: LinkingObjects<Storage>
     @Persisted var recipeId = Int()
     @Persisted var title = String()
     @Persisted var image = String()
@@ -32,13 +38,8 @@ final class RecipeRealm: Object, Identifiable {
         readyInMinutes = recipe.readyInMinutes!
         sourceUrl = recipe.sourceUrl!
         summary = recipe.summary!
-        let extendedIngredientsArray = List<ExtendedIngredientRealm>()
-        for keks in recipe.extendedIngredients! {
-            let extItem = ExtendedIngredientRealm(extendedIngredients: keks)
-            extendedIngredientsArray.append(extItem)
-        }
-        extendedIngredients = extendedIngredientsArray
-        ingredients = .init()
+        recipe.extendedIngredients?.forEach { extendedIngredients.append(ExtendedIngredientRealm(extendedIngredients: $0 )) }
+        recipe.ingridients?.forEach { ingredients.append(IngredientRealm(ingredient: $0)) }
     }
 }
 
@@ -74,9 +75,9 @@ final class IngredientRealm: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var value = String()
     
-    convenience init(value: String) {
+    convenience init(ingredient: Ingredient) {
         self.init()
-        self.value = value
+        self.value = ingredient.value
     }
 }
 
