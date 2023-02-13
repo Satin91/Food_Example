@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RecipeScreen: View {
     @State var recipe: Recipe
+    @State var recipeRealm = RecipeRealm()
     @State var isLoaded = false
     @State var heightImageContainer: CGFloat = 180
     @State var selectedPagingIndex = 0
@@ -83,7 +84,7 @@ struct RecipeScreen: View {
     }
     
     private var titleLabel: some View {
-        Text(recipe.title)
+        Text(recipeRealm.title)
             .modifier(LargeNavBarTextModifier())
             .padding(Constants.Spacing.s)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -189,6 +190,8 @@ struct RecipeScreen: View {
             container.interactors.recipesInteractor.getRecipeInfoBy(id: id) { result in
                 switch result {
                 case .success(let recipe):
+                    self.recipeRealm = .init(recipe: recipe)
+                    print(recipeRealm.extendedIngredients)
                     self.recipe = recipe
                     self.isLoaded = true
                 case .failure(let error):

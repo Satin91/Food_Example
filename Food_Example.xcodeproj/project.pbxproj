@@ -55,6 +55,7 @@
 		8E448F5F297BA6EC00F3C7D7 /* Send.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E448F5E297BA6EC00F3C7D7 /* Send.json */; };
 		8E448F62297BAA8800F3C7D7 /* CentralPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E448F61297BAA8800F3C7D7 /* CentralPopupView.swift */; };
 		8E4E31802974CE5E00C05818 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */; };
+		8E623D96299A7BFD006E29A2 /* RecipeRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E623D95299A7BFD006E29A2 /* RecipeRealm.swift */; };
 		8E75642F297FB24800767FB8 /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75642E297FB24800767FB8 /* RequestParameters.swift */; };
 		8E7DDECC2981DB3B00D60038 /* LoadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7DDECB2981DB3B00D60038 /* LoadableImage.swift */; };
 		8E7DDED02981E59300D60038 /* NetworkHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7DDECF2981E59300D60038 /* NetworkHelpers.swift */; };
@@ -145,6 +146,7 @@
 		8E448F5E297BA6EC00F3C7D7 /* Send.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Send.json; sourceTree = "<group>"; };
 		8E448F61297BAA8800F3C7D7 /* CentralPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CentralPopupView.swift; sourceTree = "<group>"; };
 		8E4E317F2974CE5E00C05818 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E623D95299A7BFD006E29A2 /* RecipeRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRealm.swift; sourceTree = "<group>"; };
 		8E75642E297FB24800767FB8 /* RequestParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
 		8E7DDECB2981DB3B00D60038 /* LoadableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableImage.swift; sourceTree = "<group>"; };
 		8E7DDECF2981E59300D60038 /* NetworkHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelpers.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF6378D29736D2800AAD62E /* Recipe.swift */,
+				8E623D95299A7BFD006E29A2 /* RecipeRealm.swift */,
 				8E94D337298369050001AB69 /* RecipeMock.swift */,
 				8E1E11A02978E3CA00CD62DF /* RegistrationInfo.swift */,
 				8E241F7329790CCF007E4025 /* UserInfo.swift */,
@@ -666,6 +669,7 @@
 				8E1A98922975BF93007555A8 /* URL+QueryParams.swift in Sources */,
 				8E287837296EE1FB00AD8D25 /* SearchRecipesScreen.swift in Sources */,
 				8ECB36362971FBFE0015646D /* NavigationBarView.swift in Sources */,
+				8E623D96299A7BFD006E29A2 /* RecipeRealm.swift in Sources */,
 				8E32C89A298AB84300FEFE3A /* ListPopupView.swift in Sources */,
 				8E36011E29896B4B0032304B /* HTMLTextView.swift in Sources */,
 				8E375A61299534A700481727 /* AccountScreen.swift in Sources */,

@@ -16,6 +16,7 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
 - trailing_closure
 - discouraged_optional_boolean
 - force_cast
+- identifier_name
 
 opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - anonymous_argument_in_multiline_closure
@@ -77,7 +78,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - generic_type_name
 - ibinspectable_in_extension
 - identical_operands
-- identifier_name
 - implicit_getter
 - implicit_return
 - implicitly_unwrapped_optional

@@ -9,9 +9,6 @@ import Foundation
 
 struct SearchRecipesWrapper: Decodable {
     var results: [Recipe]
-    var value: Int {
-        2
-    }
 }
 
 struct Recipe: Identifiable {
@@ -128,7 +125,6 @@ extension Recipe: Decodable {
         case sourceUrl
         case summary
     }
-    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
