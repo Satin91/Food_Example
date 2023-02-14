@@ -11,23 +11,10 @@ import SwiftUI
 struct FavoriteRecipesScreen: View, TabBarScreen {
     var tabImage: String = Images.icnHomeFilled
     var tabSelectedColor: Color = Colors.green
-    @ObservedRealmObject var favoriteObjects: Storage
+    @Environment(\.injected) var container: DIContainer
     
     var body: some View {
-        VStack {
-            if let firstGroup = favoriteObjects.objects.first {
-                Text(firstGroup.title)
-                    .foregroundColor(Colors.dark)
-                    .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraLarge))
-            } else {
-                Text("Empty")
-                    .foregroundColor(Colors.dark)
-                    .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraLarge))
-                    .onAppear {
-                        $favoriteObjects.objects.append(RecipeRealm())
-                    }
-            }
-        }
+        Text(String(container.interactors.recipesInteractor.storage.objects.count))
     }
 }
 

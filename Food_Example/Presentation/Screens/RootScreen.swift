@@ -13,7 +13,6 @@ struct RootScreen: View {
     @State var currentScreen: any TabBarScreen
     // Screens actions
     @State var onShowRecipeScreen: (Recipe) -> Void
-    @ObservedResults(Storage.self) var storage
     
     var body: some View {
         ZStack {
@@ -22,15 +21,10 @@ struct RootScreen: View {
                 currentScreen: $currentScreen,
                 tabItems: [
                     SearchRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
-                    FavoriteRecipesScreen(favoriteObjects: storage.first!),
+                    FavoriteRecipesScreen(),
                     AccountScreen()
                 ]
             )
-            .onAppear {
-                if storage.isEmpty {
-                    $storage.append(Storage())
-                }
-            }
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import RealmSwift
 import SwiftUI
 
 enum ApiServerError: Error {
@@ -16,20 +17,28 @@ enum ApiServerError: Error {
 }
 
 protocol RecipesInteractor {
+    var storage: Storage { get set }
+    
     func showRandomRecipes()
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void)
     func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void)
+    func saveFavorite(recipe: RecipeRealm)
 }
 
 class RecipesInteractorImpl: RecipesInteractor {
     var recipesWebRepository: RecipesWebRepository
+    var recipesDBRepository: RecipesDBRepository
     var cancelBag = Set<AnyCancellable>()
     let dispatchGroup = DispatchGroup()
+    @ObservedRealmObject var storage: Storage
     
-    init(recipesWebRepository: RecipesWebRepository) {
+    init(recipesWebRepository: RecipesWebRepository, recipesDBRepository: RecipesDBRepository) {
         self.recipesWebRepository = recipesWebRepository
+        self.recipesDBRepository = recipesDBRepository
+        self.storage = recipesDBRepository.storage.first!
     }
     
+    // MARK: WEB
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
         switch path {
         case .searchInAll:
@@ -110,9 +119,16 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     func showRandomRecipes() {
     }
+    
+    // MARK: DataBase
+    func saveFavorite(recipe: RecipeRealm) {
+        $storage.objects.append(recipe)
+    }
 }
 
 struct StubRecipesInteractor: RecipesInteractor {
+    var storage = Storage()
+    
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
     }
     
@@ -120,6 +136,9 @@ struct StubRecipesInteractor: RecipesInteractor {
     }
     
     func showRandomRecipes() {
+    }
+    
+    func saveFavorite(recipe: RecipeRealm) {
     }
 }
 

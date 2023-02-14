@@ -10,7 +10,6 @@ import SwiftUI
 
 struct RecipeScreen: View {
     @State var recipe: Recipe
-    @ObservedRealmObject var favoriteObjects: Storage
     @State var recipeRealm = RecipeRealm()
     @State var isLoaded = false
     @State var heightImageContainer: CGFloat = 180
@@ -64,7 +63,7 @@ struct RecipeScreen: View {
                 Image(Images.icnChevronRight)
                     .padding(Constants.Spacing.xxs)
                     .onTapGesture {
-                        favoriteObjects.objects.append(RecipeRealm(recipe: self.recipe))
+                        container.interactors.recipesInteractor.saveFavorite(recipe: recipeRealm)
                     }
                     .background(
                         Circle()
@@ -96,7 +95,7 @@ struct RecipeScreen: View {
     }
     
     private var titleLabel: some View {
-        Text(recipeRealm.title)
+        Text(recipe.title)
             .modifier(LargeNavBarTextModifier())
             .padding(Constants.Spacing.s)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -199,8 +198,8 @@ struct RecipeScreen: View {
     }
 }
 //
-//struct RecipeDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), favoriteObjects: <#Storage#>, onClose: { }, onShowInstructions: { _ in })
-//    }
-//}
+// struct RecipeDetailView_Previews: PreviewProvider {
+//     static var previews: some View {
+//         RecipeScreen(recipe: Recipe(id: 0, title: "", image: ""), favoriteObjects: <#Storage#>, onClose: { }, onShowInstructions: { _ in })
+//     }
+// }

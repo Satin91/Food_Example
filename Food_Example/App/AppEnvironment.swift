@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct AppEnvironment {
     let appState: AppState
@@ -26,7 +27,7 @@ struct AppEnvironment {
     private static func configureInteractors() -> DIContainer.Interactors {
         .init(
             authInteractor: AuthInteractorImpl(authRepository: AuthWebRepositoryImpl()),
-            recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl())
+            recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl(), recipesDBRepository: RecipesDBRepositoryImpl())
         )
     }
 }

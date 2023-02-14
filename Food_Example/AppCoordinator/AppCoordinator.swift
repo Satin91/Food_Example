@@ -14,6 +14,7 @@ enum Screen {
     case splashScreen
     case onboardingScreen
     case mainScreen
+    case favoriteRecipeScreen
     case recipeScreen(Recipe)
     case instructionsScreen(URL)
     case signUpScreen
@@ -34,11 +35,11 @@ struct AppCoordinator: View {
                 )
             case .mainScreen:
                 SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
+            case .favoriteRecipeScreen:
+                FavoriteRecipesScreen()
             case .recipeScreen(let recipe):
-                //                RecipeScreen(recipe: recipe, onClose: back)
                 RecipeScreen(
                     recipe: recipe,
-                    favoriteObjects: Storage(),
                     onClose: back,
                     onShowInstructions: presentInstructions(url:)
                 )
