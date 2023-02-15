@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct TabBar: View {
-    @Binding var currentScreen: any TabBarScreen
+    @Binding var currentScreen: any TabBarActor
     @State var currentIndex: Int = 0
-    var tabItems: [any TabBarScreen]
+    var tabItems: [any TabBarActor]
     
     var body: some View {
         VStack {

@@ -9,7 +9,7 @@ import Combine
 import FirebaseAuth
 import SwiftUI
 
-struct SearchRecipesScreen: View, TabBarScreen {
+struct SearchRecipesScreen: View, TabBarActor {
     var tabImage: String = Images.icnSearchFilled
     var tabSelectedColor: Color = Colors.red
     
@@ -26,7 +26,7 @@ struct SearchRecipesScreen: View, TabBarScreen {
     @State private var recipes: [Recipe] = []
     
     let searchViewHeight: CGFloat = 56
-    let searchButtonBackground = Colors.neutralGray
+    let imageLoader = ImageLoader()
     let onShowRecipeScreen: (_ id: Recipe) -> Void
     
     let columns = [
@@ -40,7 +40,6 @@ struct SearchRecipesScreen: View, TabBarScreen {
             .toolbar(.hidden)
             .onAppear {
                 addFilterObservers()
-                searchRecipes()
             }
     }
     
@@ -220,6 +219,17 @@ struct SearchRecipesScreen: View, TabBarScreen {
         carbsTextPublisher.send("")
     }
     
+    private func showRandomRecipes() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.container.interactors.recipesInteractor.showRandomRecipes { recipes in
+                DispatchQueue.main.async {
+                    recipes.forEach { imageLoader.downloadImage(urlString: $0.image) }
+                    self.recipes = recipes
+                }
+            }
+        }
+    }
+    
     private func searchRecipes() {
         DispatchQueue.global(qos: .userInteractive).async {
             self.container
@@ -230,10 +240,8 @@ struct SearchRecipesScreen: View, TabBarScreen {
                     path: currentSearchCategory,
                     completion: { recipes in
                         DispatchQueue.main.async {
-                            recipes.forEach { recipe in
-                                ImageLoader().loadImage(urlString: recipe.image)
-                                self.recipes = recipes
-                            }
+                            recipes.forEach { imageLoader.downloadImage(urlString: $0.image) }
+                            self.recipes = recipes
                         }
                     }
                 )

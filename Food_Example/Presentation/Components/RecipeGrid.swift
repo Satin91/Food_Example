@@ -35,7 +35,7 @@ struct RecipeGrid: View {
         .frame(alignment: .top)
         .modifier(LightShadowModifier(color: Colors.neutralGray))
         .onAppear {
-            imageLoader.loadImage(urlString: recipe.image)
+            imageLoader.downloadImage(urlString: recipe.image)
         }
     }
     

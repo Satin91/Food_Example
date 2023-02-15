@@ -14,7 +14,7 @@ struct LoadableImage: View {
     var body: some View {
         content
             .onAppear {
-                imageLoader.loadImage(urlString: urlString)
+                imageLoader.downloadImage(urlString: urlString)
             }
     }
     

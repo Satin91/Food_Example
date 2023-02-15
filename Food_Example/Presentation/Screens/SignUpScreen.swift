@@ -64,7 +64,6 @@ struct SignUpScreen: View {
         RoundedFilledButton(
             text: "Sign Up", action: {
                 container.interactors.authInteractor.signUp(registrationInfo: registrationInfo) { result in
-                    print("RESULT \(result)")
                     switch result {
                     case .success:
                         onMainScreen()

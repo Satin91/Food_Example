@@ -10,9 +10,10 @@ import SwiftUI
 
 struct RootScreen: View {
     // Initialized in AppCoordinator, assigned here
-    @State var currentScreen: any TabBarScreen
+    @State var currentScreen: any TabBarActor
     // Screens actions
     @State var onShowRecipeScreen: (Recipe) -> Void
+    @State var backToSignInScreen: () -> Void
     
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct RootScreen: View {
                 tabItems: [
                     SearchRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
                     FavoriteRecipesScreen(),
-                    AccountScreen()
+                    AccountScreen(backToSignInScreen: backToSignInScreen)
                 ]
             )
         }
@@ -31,6 +32,6 @@ struct RootScreen: View {
 
 struct RootScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RootScreen(currentScreen: SearchRecipesScreen(onShowRecipeScreen: { _ in }), onShowRecipeScreen: { _ in })
+        RootScreen(currentScreen: SearchRecipesScreen(onShowRecipeScreen: { _ in }), onShowRecipeScreen: { _ in }, backToSignInScreen: {})
     }
 }

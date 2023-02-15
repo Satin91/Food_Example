@@ -11,6 +11,7 @@ enum APIEndpoint: Equatable {
     case searchInAll
     case searchByIngridient
     case searchByNutritients
+    case randomRecipes
     case recipeInfo(Int)
     case nutritions(Int)
     case ingridients(Int)
@@ -23,6 +24,8 @@ enum APIEndpoint: Equatable {
             return "findByIngredients"
         case .searchByNutritients:
             return "findByNutrients"
+        case .randomRecipes:
+            return "random"
         case .recipeInfo(let id):
             return "\(id)/" + "information"
         case .nutritions(let id):
@@ -53,8 +56,16 @@ enum APIRequestError: Error {
     case imageDeserialization
 }
 
+enum ApiServerError: Error {
+    case badURL
+    case badConnection
+    case requestError
+    case statusError
+}
+
 enum GoogleSignUpError: Error {
     case userCancel
+    case userError
     case mailError
     case unexpectedResponse
 }

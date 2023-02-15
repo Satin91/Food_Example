@@ -8,13 +8,13 @@
 
 import SwiftUI
 
-protocol TabBarScreen: View {
+protocol TabBarActor: View {
     var tabImage: String { get }
     var tabSelectedColor: Color { get }
     var content: AnyView { get }
 }
 
-extension TabBarScreen {
+extension TabBarActor {
     var content: AnyView {
         AnyView(self)
     }

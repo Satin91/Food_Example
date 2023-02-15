@@ -10,5 +10,5 @@ import Foundation
 struct UserInfo {
     var username: String = ""
     var email: String = ""
-    var recipes: [Recipe] = []
+    var favoriteRecipesIDs: [Int] = []
 }

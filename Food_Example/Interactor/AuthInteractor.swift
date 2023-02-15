@@ -8,12 +8,13 @@
 import Combine
 import FirebaseAuth
 import GoogleSignIn
+import RealmSwift
 
 protocol AuthInteractor {
     func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<UserInfo, AuthErrorCode>) -> Void)
     func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
-    func logout()
+    func logout(completion: @escaping () -> Void)
     func signUpWithGoogle(completion: @escaping (Result<Void, GoogleSignUpError>) -> Void)
 }
 
@@ -40,18 +41,17 @@ class AuthInteractorImpl: AuthInteractor {
             .store(in: &cancelBag)
     }
     
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<UserInfo, AuthErrorCode>) -> Void) {
         authRepository.logIn(registrationInfo: registrationInfo)
             .sink { result in
                 switch result {
                 case .failure(let error):
-                    print("Registration error \(error) ")
                     completion(.failure(error))
                 case .finished:
                     break
                 }
-            } receiveValue: {
-                completion(.success(()))
+            } receiveValue: { user in
+                completion(.success(user))
             }
             .store(in: &cancelBag)
     }
@@ -71,9 +71,6 @@ class AuthInteractorImpl: AuthInteractor {
             .store(in: &cancelBag)
     }
     
-    func logout() {
-    }
-    
     func signUpWithGoogle(completion: @escaping (Result<Void, GoogleSignUpError>) -> Void) {
         authRepository.signUpWithGoogle()
             .sink { _ in
@@ -82,6 +79,17 @@ class AuthInteractorImpl: AuthInteractor {
                 completion(.success(Void()))
             }
             .store(in: &cancelBag)
+    }
+    
+    func logout(completion: @escaping () -> Void) {
+        authRepository.logout()
+            .sink { _ in
+                completion()
+            }
+            .store(in: &cancelBag)
+    }
+    
+    func getUserFavoritesPresets() {
     }
 }
 
@@ -92,10 +100,10 @@ struct StubAuthInteractor: AuthInteractor {
     func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
     }
     
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<UserInfo, AuthErrorCode>) -> Void) {
     }
     
-    func logout() {
+    func logout(completion: @escaping () -> Void) {
     }
     
     func signUpWithGoogle(completion: @escaping (Result<Void, GoogleSignUpError>) -> Void) {

@@ -13,21 +13,35 @@ import GoogleSignIn
 
 protocol AuthWebRepository {
     func signUp(info: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
-    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
+    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<UserInfo, AuthErrorCode>
     func resetPassword(to email: String) -> AnyPublisher<Void, AuthErrorCode>
-    func signUpWithGoogle() -> Future<Void, Error>
-    func logout()
+    func signUpWithGoogle() -> Future<UserInfo, GoogleSignUpError>
+    func logout() -> Future<Void, Never>
 }
 
-struct AuthWebRepositoryImpl: AuthWebRepository {
-    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode> {
+struct UserInfoConfig {
+    let email = "email"
+    let username = "username"
+    let favoriteRecipes = "favoriteRecipes"
+}
+
+class AuthWebRepositoryImpl: AuthWebRepository {
+    let userInfoConfig = UserInfoConfig()
+    var cancelBag = Set<AnyCancellable>()
+    
+    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<UserInfo, AuthErrorCode> {
         Deferred {
             Future { promise in
-                Auth.auth().signIn(withEmail: registrationInfo.email, password: registrationInfo.password) { _, error in
+                Auth.auth().signIn(withEmail: registrationInfo.email, password: registrationInfo.password) { user, error in
                     if error != nil {
                         promise(.failure(error as! AuthErrorCode))
                     } else {
-                        promise(.success(()))
+                        guard let uid = user?.user.uid else { return }
+                        self.getUserFromDatabase(uid: uid)
+                            .sink { userInfo in
+                                promise(.success(userInfo))
+                            }
+                            .store(in: &self.cancelBag)
                     }
                 }
             }
@@ -43,9 +57,10 @@ struct AuthWebRepositoryImpl: AuthWebRepository {
                 Auth.auth().createUser(withEmail: info.email, password: info.password) { result, error in
                     guard error == nil else { return promise(.failure(error as! AuthErrorCode)) }
                     guard let uid = result?.user.uid else { return promise(.failure(AuthErrorCode(.userMismatch))) }
-                    let values = [
+                    let values: [String: Any] = [
                         "username": info.name,
-                        "email": info.email
+                        "email": info.email,
+                        "favoriteRecipes": Array([""])
                     ]
                     // Upload registration data to remote database
                     if let user = result?.user {
@@ -84,18 +99,51 @@ struct AuthWebRepositoryImpl: AuthWebRepository {
         .eraseToAnyPublisher()
     }
     
-    func signUpWithGoogle() -> Future<Void, Error> {
-        Future<Void, Error> { promise in
-            GIDSignIn.sharedInstance.signIn(withPresenting: ApplicationUtility.rootViewController) { _, error in
+    func signUpWithGoogle() -> Future<UserInfo, GoogleSignUpError> {
+        Future<UserInfo, GoogleSignUpError> { promise in
+            GIDSignIn.sharedInstance.signIn(withPresenting: ApplicationUtility.rootViewController) { result, error in
                 guard error == nil else {
-                    promise(.failure(error!))
+                    promise(.failure(.userCancel))
                     return
                 }
-                promise(.success(Void()))
+                guard let profile = result?.user.profile else {
+                    promise(.failure(.userError))
+                    return
+                }
+                let userInfo = UserInfo(username: profile.name, email: profile.email)
+                promise(.success(userInfo))
             }
         }
     }
     
-    func logout() {
+    func logout() -> Future<Void, Never> {
+        Future<Void, Never> { promise in
+            do {
+                try Auth.auth().signOut()
+                promise(.success(()))
+            } catch {
+                fatalError("Sudden error when User logging out")
+            }
+        }
+    }
+    
+    private func createUserInDatabase(uid: String) {
+    }
+}
+
+extension AuthWebRepositoryImpl {
+    private func getUserFromDatabase(uid: String) -> Future<UserInfo, Never> {
+        Future { promise in
+            Database.userReferenceFrom(uid: uid).getData(completion: { [weak self] error, snapshot in
+                guard let self else { return }
+                guard error == nil else { return }
+                guard let value = snapshot?.value as? [String: Any] else { return }
+                var user = UserInfo()
+                user.email = value[self.userInfoConfig.email] as! String
+                user.username = value[self.userInfoConfig.username] as! String
+                user.favoriteRecipesIDs = value[self.userInfoConfig.favoriteRecipes] as! [Int]
+                promise(.success(user))
+            })
+        }
     }
 }

@@ -8,7 +8,8 @@
 import Foundation
 
 struct SearchRecipesWrapper: Decodable {
-    var results: [Recipe]
+    var results: [Recipe]?
+    var recipes: [Recipe]?
 }
 
 struct Recipe: Identifiable {

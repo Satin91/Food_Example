@@ -79,7 +79,14 @@ struct SignInScreen: View {
         RoundedFilledButton(text: "Sign In", action: {
             container.interactors.authInteractor.logIn(registrationInfo: registrationInfo) { result in
                 switch result {
-                case .success:
+                case .success(let user):
+                    print("Success login in to user \(user)")
+                    container
+                        .interactors
+                        .recipesInteractor
+                        .getRecipesInfoBy(ids: user.favoriteRecipesIDs, completion: { recipes in
+                            container.interactors.recipesInteractor.saveUserToStorage(userInfo: user, favoriteRecipes: recipes)
+                        })
                     onRootScreen()
                 case .failure(let error):
                     authError = error.code

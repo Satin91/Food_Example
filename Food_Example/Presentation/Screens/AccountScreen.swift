@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct AccountScreen: View, TabBarScreen {
+struct AccountScreen: View, TabBarActor {
     var tabImage: String = Images.icnUserFilled
     var tabSelectedColor: Color = Colors.blue
+    @Environment(\.injected) var container: DIContainer
+    var backToSignInScreen: () -> Void
     
     var body: some View {
         content
@@ -61,7 +63,12 @@ struct AccountScreen: View, TabBarScreen {
             settingRow(image: Images.icnShield, text: "Change Password", action: {})
             sectionDivider(text: "PREFERENCES")
             settingRow(image: Images.icnMoon, text: "Night Mode", action: {})
-            settingRow(image: Images.icnLogout, text: "Log Out", action: {})
+            settingRow(image: Images.icnLogout, text: "Log Out", action: {
+                container.interactors.authInteractor.logout {
+                    print("Back to sign in screen")
+                    backToSignInScreen()
+                }
+            })
         }
     }
     
@@ -81,7 +88,7 @@ struct AccountScreen: View, TabBarScreen {
             }
     }
     
-    private func settingRow(image: String, text: String, action: () -> Void) -> some View {
+    private func settingRow(image: String, text: String, action: @escaping () -> Void) -> some View {
         HStack(spacing: Constants.Spacing.s) {
             Image(image)
                 .renderingMode(.template)
@@ -103,11 +110,14 @@ struct AccountScreen: View, TabBarScreen {
                 .foregroundColor(Colors.silver)
         }
         .padding(Constants.Spacing.s)
+        .onTapGesture {
+            action()
+        }
     }
 }
 
 struct AccountScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AccountScreen()
+        AccountScreen(backToSignInScreen: {})
     }
 }

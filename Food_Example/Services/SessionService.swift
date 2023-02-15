@@ -38,26 +38,26 @@ final class SessionServiceImpl: ObservableObject, SessionService {
         }
     }
     
-    private func handleRefresh(uid: String) {
-        Database.userReferenceFrom(uid: uid)
-            .observe(.value) { [weak self] snapshot in
-                guard
-                    let self = self,
-                    let value = snapshot.value as? NSDictionary,
-                    let username = value["username"] as? String,
-                    let email = value["email"] as? String else {
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self.userInfo = UserInfo(
-                        username: username,
-                        email: email,
-                        recipes: []
-                    )
-                }
-            }
-    }
+    //    private func handleRefresh(email: String) {
+    //        Database.userReferenceFrom(uid: email)
+    //            .observe(.value) { [weak self] snapshot in
+    //                guard
+    //                    let self = self,
+    //                    let value = snapshot.value as? NSDictionary,
+    //                    let username = value["username"] as? String,
+    //                    let email = value["email"] as? String else {
+    //                    return
+    //                }
+    //
+    //                DispatchQueue.main.async {
+    //                    self.userInfo = UserInfo(
+    //                        username: username,
+    //                        email: email,
+    //                        recipes: []
+    //                    )
+    //                }
+    //            }
+    //    }
     
     private func signUpWithGoogle() {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }

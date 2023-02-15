@@ -8,14 +8,16 @@
 import Foundation
 import RealmSwift
 
-final class Storage: Object, ObjectKeyIdentifiable {
+final class UserRealm: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var objects = RealmSwift.List<RecipeRealm>()
+    @Persisted var name = String()
+    @Persisted var email = ""
+    @Persisted var favoriteRecipes = RealmSwift.List<RecipeRealm>()
 }
 
 final class RecipeRealm: Object, ObjectKeyIdentifiable, Identifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted(originProperty: "objects") var storage: LinkingObjects<Storage>
+    @Persisted(originProperty: "favoriteRecipes") var storage: LinkingObjects<UserRealm>
     @Persisted var recipeId = Int()
     @Persisted var title = String()
     @Persisted var image = String()
@@ -59,7 +61,7 @@ final class ExtendedIngredientRealm: Object, ObjectKeyIdentifiable {
     convenience init(extendedIngredients: ExtendedIngredient) {
         self.init()
         recipeId = extendedIngredients.id
-        aisle = extendedIngredients.aisle!
+        aisle = extendedIngredients.aisle ?? ""
         image = extendedIngredients.image!
         name = extendedIngredients.name!
         nameClean = extendedIngredients.nameClean!

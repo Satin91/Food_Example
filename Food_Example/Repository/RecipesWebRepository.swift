@@ -13,8 +13,6 @@ protocol RecipesWebRepository {
 }
 
 class RecipesWebRepositoryImpl: RecipesWebRepository {
-    var cancelBag = Set<AnyCancellable>()
-    
     func searchRequest<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error> {
         guard var url = URL(string: Constants.API.baseURL + path.path) else {
             return Fail(outputType: model, failure: APIRequestError.invalidURL).eraseToAnyPublisher()

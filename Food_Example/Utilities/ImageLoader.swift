@@ -15,7 +15,7 @@ class ImageLoader: ObservableObject {
     let imageCache = ImageCache.shared
     let ingredientImageSize: CGFloat = 100
     
-    func loadImage(urlString: String) {
+    func downloadImage(urlString: String) {
         if self.loadImageFromCache(urlString: urlString) {
         } else {
             self.loadImageFromURL(urlString: urlString)
@@ -51,6 +51,7 @@ class ImageLoader: ObservableObject {
             }
             .store(in: &cancelBag)
     }
+    
     func cropImageIfNeed(imageToCrop: UIImage) -> UIImage {
         // ingredient images don't need to crop
         guard imageToCrop.size.width > ingredientImageSize else { return imageToCrop }

@@ -31,7 +31,10 @@ struct AppCoordinator: View {
             case .rootScreen:
                 RootScreen(
                     currentScreen: SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:)),
-                    onShowRecipeScreen: pushToRecipeScreen(recipe:)
+                    onShowRecipeScreen: pushToRecipeScreen(recipe:),
+                    backToSignInScreen: {
+                        backToSignInScreen()
+                    }
                 )
             case .mainScreen:
                 SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
@@ -95,7 +98,7 @@ struct AppCoordinator: View {
     private func rootOnboardingScreen() {
         routes = [.root(.onboardingScreen, embedInNavigationView: true)]
     }
-
+    
     private func rootRootScreen() {
         routes = [.root(.rootScreen, embedInNavigationView: true)]
     }
@@ -114,5 +117,9 @@ struct AppCoordinator: View {
     
     private func back() {
         routes.goBack()
+    }
+    
+    private func backToSignInScreen() {
+        routes = [.cover(.signInScreen, embedInNavigationView: true)]
     }
 }
