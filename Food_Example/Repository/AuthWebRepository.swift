@@ -13,9 +13,9 @@ import GoogleSignIn
 
 protocol AuthWebRepository {
     func signUp(info: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
-    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<UserInfo, AuthErrorCode>
+    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<RemoteUserInfo, AuthErrorCode>
     func resetPassword(to email: String) -> AnyPublisher<Void, AuthErrorCode>
-    func signUpWithGoogle() -> Future<UserInfo, GoogleSignUpError>
+    func signUpWithGoogle() -> Future<RemoteUserInfo, GoogleSignUpError>
     func logout() -> Future<Void, Never>
 }
 
@@ -29,7 +29,7 @@ class AuthWebRepositoryImpl: AuthWebRepository {
     let userInfoConfig = UserInfoConfig()
     var cancelBag = Set<AnyCancellable>()
     
-    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<UserInfo, AuthErrorCode> {
+    func logIn(registrationInfo: RegistrationInfo) -> AnyPublisher<RemoteUserInfo, AuthErrorCode> {
         Deferred {
             Future { promise in
                 Auth.auth().signIn(withEmail: registrationInfo.email, password: registrationInfo.password) { user, error in
@@ -99,8 +99,8 @@ class AuthWebRepositoryImpl: AuthWebRepository {
         .eraseToAnyPublisher()
     }
     
-    func signUpWithGoogle() -> Future<UserInfo, GoogleSignUpError> {
-        Future<UserInfo, GoogleSignUpError> { promise in
+    func signUpWithGoogle() -> Future<RemoteUserInfo, GoogleSignUpError> {
+        Future<RemoteUserInfo, GoogleSignUpError> { promise in
             GIDSignIn.sharedInstance.signIn(withPresenting: ApplicationUtility.rootViewController) { result, error in
                 guard error == nil else {
                     promise(.failure(.userCancel))
@@ -110,7 +110,7 @@ class AuthWebRepositoryImpl: AuthWebRepository {
                     promise(.failure(.userError))
                     return
                 }
-                let userInfo = UserInfo(username: profile.name, email: profile.email)
+                let userInfo = RemoteUserInfo(username: profile.name, email: profile.email)
                 promise(.success(userInfo))
             }
         }
@@ -132,13 +132,13 @@ class AuthWebRepositoryImpl: AuthWebRepository {
 }
 
 extension AuthWebRepositoryImpl {
-    private func getUserFromDatabase(uid: String) -> Future<UserInfo, Never> {
+    private func getUserFromDatabase(uid: String) -> Future<RemoteUserInfo, Never> {
         Future { promise in
             Database.userReferenceFrom(uid: uid).getData(completion: { [weak self] error, snapshot in
                 guard let self else { return }
                 guard error == nil else { return }
                 guard let value = snapshot?.value as? [String: Any] else { return }
-                var user = UserInfo()
+                var user = RemoteUserInfo()
                 user.email = value[self.userInfoConfig.email] as! String
                 user.username = value[self.userInfoConfig.username] as! String
                 user.favoriteRecipesIDs = value[self.userInfoConfig.favoriteRecipes] as! [Int]

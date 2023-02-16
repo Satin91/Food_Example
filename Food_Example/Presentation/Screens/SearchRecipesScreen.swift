@@ -38,6 +38,7 @@ struct SearchRecipesScreen: View, TabBarActor {
     var body: some View {
         content
             .toolbar(.hidden)
+            .onReceive(container.appState.eraseToAnyPublisher()) { self.recipes = $0.searchableRecipes }
             .onAppear {
                 addFilterObservers()
             }
@@ -221,30 +222,16 @@ struct SearchRecipesScreen: View, TabBarActor {
     
     private func showRandomRecipes() {
         DispatchQueue.global(qos: .userInteractive).async {
-            self.container.interactors.recipesInteractor.showRandomRecipes { recipes in
-                DispatchQueue.main.async {
-                    recipes.forEach { imageLoader.downloadImage(urlString: $0.image) }
-                    self.recipes = recipes
-                }
-            }
+            self.container.interactors.recipesInteractor.showRandomRecipes()
         }
     }
     
     private func searchRecipes() {
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.main.async {
             self.container
                 .interactors
                 .recipesInteractor
-                .searchRecipesBy(
-                    params: RecipesRequestParams(urlParams: searchParams),
-                    path: currentSearchCategory,
-                    completion: { recipes in
-                        DispatchQueue.main.async {
-                            recipes.forEach { imageLoader.downloadImage(urlString: $0.image) }
-                            self.recipes = recipes
-                        }
-                    }
-                )
+                .searchRecipesBy(params: RecipesRequestParams(urlParams: searchParams), path: currentSearchCategory)
         }
     }
 }

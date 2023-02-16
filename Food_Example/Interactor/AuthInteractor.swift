@@ -12,7 +12,7 @@ import RealmSwift
 
 protocol AuthInteractor {
     func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<UserInfo, AuthErrorCode>) -> Void)
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<RemoteUserInfo, AuthErrorCode>) -> Void)
     func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void)
     func logout(completion: @escaping () -> Void)
     func signUpWithGoogle(completion: @escaping (Result<Void, GoogleSignUpError>) -> Void)
@@ -41,7 +41,7 @@ class AuthInteractorImpl: AuthInteractor {
             .store(in: &cancelBag)
     }
     
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<UserInfo, AuthErrorCode>) -> Void) {
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<RemoteUserInfo, AuthErrorCode>) -> Void) {
         authRepository.logIn(registrationInfo: registrationInfo)
             .sink { result in
                 switch result {
@@ -100,7 +100,7 @@ struct StubAuthInteractor: AuthInteractor {
     func resetPassword(to email: String, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
     }
     
-    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<UserInfo, AuthErrorCode>) -> Void) {
+    func logIn(registrationInfo: RegistrationInfo, completion: @escaping (Result<RemoteUserInfo, AuthErrorCode>) -> Void) {
     }
     
     func logout(completion: @escaping () -> Void) {

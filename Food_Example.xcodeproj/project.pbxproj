@@ -39,7 +39,7 @@
 		8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */; };
 		8E1E3EF92970878700990D9D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EF82970878700990D9D /* Colors.xcassets */; };
 		8E241F7229790233007E4025 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E241F7129790233007E4025 /* SessionService.swift */; };
-		8E241F7429790CCF007E4025 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E241F7329790CCF007E4025 /* UserInfo.swift */; };
+		8E241F7429790CCF007E4025 /* RemoteUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E241F7329790CCF007E4025 /* RemoteUserInfo.swift */; };
 		8E287835296EE1FB00AD8D25 /* Food_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */; };
 		8E287837296EE1FB00AD8D25 /* SearchRecipesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E287836296EE1FB00AD8D25 /* SearchRecipesScreen.swift */; };
 		8E287839296EE1FD00AD8D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E287838296EE1FD00AD8D25 /* Assets.xcassets */; };
@@ -81,6 +81,8 @@
 		8EB54D1A298A699B00B253C6 /* InstructionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54D19298A699B00B253C6 /* InstructionsScreen.swift */; };
 		8EB54D1C298A72D700B253C6 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB54D1B298A72D700B253C6 /* WebView.swift */; };
 		8EBB22A6297DF57F00A15692 /* AuthErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB22A5297DF57F00A15692 /* AuthErrorLabel.swift */; };
+		8EBD2BCB299EA07F00411C0E /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBD2BCA299EA07F00411C0E /* Store.swift */; };
+		8EBD2BCD299EDC9F00411C0E /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBD2BCC299EDC9F00411C0E /* Loadable.swift */; };
 		8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */; };
 		8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC926E6297466490012B0D5 /* RecipeGrid.swift */; };
 		8ECB36282971A5B30015646D /* OnboardingNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36272971A5B30015646D /* OnboardingNavigationButton.swift */; };
@@ -130,7 +132,7 @@
 		8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
 		8E1E3EF82970878700990D9D /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8E241F7129790233007E4025 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
-		8E241F7329790CCF007E4025 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		8E241F7329790CCF007E4025 /* RemoteUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteUserInfo.swift; sourceTree = "<group>"; };
 		8E287831296EE1FB00AD8D25 /* Food_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E287834296EE1FB00AD8D25 /* Food_ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food_ExampleApp.swift; sourceTree = "<group>"; };
 		8E287836296EE1FB00AD8D25 /* SearchRecipesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecipesScreen.swift; sourceTree = "<group>"; };
@@ -173,6 +175,8 @@
 		8EB54D19298A699B00B253C6 /* InstructionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsScreen.swift; sourceTree = "<group>"; };
 		8EB54D1B298A72D700B253C6 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		8EBB22A5297DF57F00A15692 /* AuthErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorLabel.swift; sourceTree = "<group>"; };
+		8EBD2BCA299EA07F00411C0E /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		8EBD2BCC299EDC9F00411C0E /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
 		8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
 		8EC926E6297466490012B0D5 /* RecipeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeGrid.swift; sourceTree = "<group>"; };
 		8ECB36272971A5B30015646D /* OnboardingNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationButton.swift; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 				8E9A0908298243E40061058E /* ImageLoader.swift */,
 				8E8515BC29850CF000BFCF11 /* HTMLParser.swift */,
 				8E87FCB82994314800F36F1A /* Application.swift */,
+				8EBD2BCA299EA07F00411C0E /* Store.swift */,
+				8EBD2BCC299EDC9F00411C0E /* Loadable.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -361,7 +367,7 @@
 				8E623D95299A7BFD006E29A2 /* RecipeRealm.swift */,
 				8E94D337298369050001AB69 /* RecipeMock.swift */,
 				8E1E11A02978E3CA00CD62DF /* RegistrationInfo.swift */,
-				8E241F7329790CCF007E4025 /* UserInfo.swift */,
+				8E241F7329790CCF007E4025 /* RemoteUserInfo.swift */,
 				8E75642E297FB24800767FB8 /* RequestParameters.swift */,
 			);
 			path = Models;
@@ -652,6 +658,7 @@
 				8EABA762298BF6D7003A5514 /* PopupModifier.swift in Sources */,
 				8EB54D1A298A699B00B253C6 /* InstructionsScreen.swift in Sources */,
 				8E1E3EEE297077B400990D9D /* Theme.swift in Sources */,
+				8EBD2BCD299EDC9F00411C0E /* Loadable.swift in Sources */,
 				8E8515BF29852E9600BFCF11 /* ScrollViewOffsetModifier.swift in Sources */,
 				8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */,
 				8E87FCB729941B3600F36F1A /* UIImage.swift in Sources */,
@@ -678,6 +685,7 @@
 				8E375A61299534A700481727 /* AccountScreen.swift in Sources */,
 				8ECB36342971F7040015646D /* ReadSize.swift in Sources */,
 				8E87559829929CD100DFF1B5 /* Dictionary.swift in Sources */,
+				8EBD2BCB299EA07F00411C0E /* Store.swift in Sources */,
 				8E1E3EF72970823D00990D9D /* OnboardingPageView.swift in Sources */,
 				8ECB36382971FED40015646D /* SignUpScreen.swift in Sources */,
 				8E8755A12992D88200DFF1B5 /* TabBarItem.swift in Sources */,
@@ -691,7 +699,7 @@
 				8E2C291D2987976400793BF3 /* IngredientView.swift in Sources */,
 				8E623D98299AC6FF006E29A2 /* RecipesDBRepository.swift in Sources */,
 				8E87559F2992D88200DFF1B5 /* TabBarActor.swift in Sources */,
-				8E241F7429790CCF007E4025 /* UserInfo.swift in Sources */,
+				8E241F7429790CCF007E4025 /* RemoteUserInfo.swift in Sources */,
 				8E36011A2989030A0032304B /* SegmentedView.swift in Sources */,
 				8EBB22A6297DF57F00A15692 /* AuthErrorLabel.swift in Sources */,
 				8E36011C2989035B0032304B /* LoadingView.swift in Sources */,

@@ -18,12 +18,12 @@ enum SessionState {
 
 protocol SessionService {
     var state: SessionState { get }
-    var userInfo: UserInfo? { get }
+    var userInfo: RemoteUserInfo? { get }
 }
 
 final class SessionServiceImpl: ObservableObject, SessionService {
     @Published var state: SessionState = .loggedOut
-    @Published var userInfo: UserInfo?
+    @Published var userInfo: RemoteUserInfo?
     private var handle: AuthStateDidChangeListenerHandle?
     
     init() {

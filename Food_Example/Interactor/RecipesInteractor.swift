@@ -12,11 +12,11 @@ import SwiftUI
 protocol RecipesInteractor {
     var storage: UserRealm { get set }
     
-    func showRandomRecipes(completion: @escaping ([Recipe]) -> Void)
-    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void)
-    func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void)
-    func getRecipesInfoBy(ids: [Int], completion: @escaping ([Recipe]) -> Void)
-    func saveUserToStorage(userInfo: UserInfo, favoriteRecipes: [Recipe])
+    func showRandomRecipes()
+    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint)
+    func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
+    func getRecipesInfoBy(ids: [Int])
+    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe])
     func saveFavorite(recipe: RecipeRealm)
     func removeFavorite(index: Int)
 }
@@ -27,31 +27,37 @@ class RecipesInteractorImpl: RecipesInteractor {
     var cancelBag = Set<AnyCancellable>()
     let dispatchGroup = DispatchGroup()
     let searchRecipesDispatchGroup = DispatchGroup()
+    var appState: Store<AppState>
     @ObservedRealmObject var storage: UserRealm
+    let imageLoader = ImageLoader()
     
-    init(recipesWebRepository: RecipesWebRepository, recipesDBRepository: RecipesDBRepository) {
+    init(recipesWebRepository: RecipesWebRepository, recipesDBRepository: RecipesDBRepository, appState: Store<AppState>) {
         self.recipesWebRepository = recipesWebRepository
         self.recipesDBRepository = recipesDBRepository
+        self.appState = appState
         self.storage = recipesDBRepository.storage[2]
     }
     
     // MARK: WEB
-    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
+    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint) {
         switch path {
         case .searchInAll:
             getRecipeInfo(model: SearchRecipesWrapper.self, params: params.URLParams, path: .searchInAll, id: 0) { result in
                 switch result {
-                case .success(let success):
-                    completion(success.results!)
+                case .success(let wrapper):
+                    wrapper.results?.forEach { self.imageLoader.downloadImage(urlString: $0.image) }
+                    self.appState.value.searchableRecipes = wrapper.results ?? []
                 case .failure(let failure):
                     print(failure)
                 }
             }
         default:
-            getRecipeInfo(model: [Recipe].self, params: params.URLParams, path: path, id: 0) { result in
+            getRecipeInfo(model: [Recipe].self, params: params.URLParams, path: path, id: 0) { [weak self] result in
+                guard let self else { return }
                 switch result {
-                case .success(let success):
-                    completion(success)
+                case .success(let recipes):
+                    recipes.forEach { self.imageLoader.downloadImage(urlString: $0.image) }
+                    self.appState.value.searchableRecipes = recipes
                 case .failure(let failure):
                     print(failure)
                 }
@@ -59,72 +65,74 @@ class RecipesInteractorImpl: RecipesInteractor {
         }
     }
     
-    func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
+    func getRecipeInfoBy(id: Int) -> Future<Recipe, Never> {
         var recipe: Recipe?
         var nutritients: Nutritient?
         var ingridients: [Ingredient]?
-        
-        getRecipeInfo(
-            model: Recipe.self,
-            params: RecipesRequestParams(urlParams: [:]).URLParams,
-            path: .recipeInfo(id),
-            id: id
-        ) { result in
-            switch result {
-            case .success(let receiveValue):
-                recipe = receiveValue
-            case .failure(let error):
-                completion(.failure(error))
+        return Future { [weak self] promise in
+            guard let self else { return }
+            self.getRecipeInfo(
+                model: Recipe.self,
+                params: RecipesRequestParams(urlParams: [:]).URLParams,
+                path: .recipeInfo(id),
+                id: id
+            ) { result in
+                switch result {
+                case .success(let receiveValue):
+                    recipe = receiveValue
+                case .failure:
+                    fatalError("Failed to get info 1")
+                }
             }
-        }
-        getRecipeInfo(
-            model: Nutritient.self,
-            params: RecipesRequestParams(urlParams: [:]).URLParams,
-            path: .nutritions(id),
-            id: id
-        ) { result in
-            switch result {
-            case .success(let receiveValue):
-                nutritients = receiveValue
-            case .failure(let error):
-                completion(.failure(error))
+            self.getRecipeInfo(
+                model: Nutritient.self,
+                params: RecipesRequestParams(urlParams: [:]).URLParams,
+                path: .nutritions(id),
+                id: id
+            ) { result in
+                switch result {
+                case .success(let receiveValue):
+                    nutritients = receiveValue
+                case .failure:
+                    fatalError("Failed to get info 2")
+                }
             }
-        }
-        getRecipeInfo(
-            model: IngredientWrapper.self,
-            params: RecipesRequestParams(urlParams: [:]).URLParams,
-            path: .ingridients(id),
-            id: id
-        ) { result in
-            switch result {
-            case .success(let receiveValue):
-                ingridients = receiveValue.ingredients
-            case .failure(let error):
-                print(error)
+            self.getRecipeInfo(
+                model: IngredientWrapper.self,
+                params: RecipesRequestParams(urlParams: [:]).URLParams,
+                path: .ingridients(id),
+                id: id
+            ) { result in
+                switch result {
+                case .success(let receiveValue):
+                    ingridients = receiveValue.ingredients
+                case .failure(let error):
+                    print(error)
+                }
             }
-        }
-        dispatchGroup.notify(queue: .main) {
-            guard var recipe = recipe else {
-                completion(.failure(APIRequestError.unexpectedResponse))
-                return
+            self.dispatchGroup.notify(queue: .main) {
+                guard var recipe = recipe else {
+                    fatalError("Failed to get info 3")
+                }
+                recipe.nutrients = nutritients
+                recipe.ingridients = ingridients
+                promise(.success(recipe))
             }
-            recipe.nutrients = nutritients
-            recipe.ingridients = ingridients
-            completion(.success(recipe))
         }
     }
     
-    func showRandomRecipes(completion: @escaping ([Recipe]) -> Void) {
+    func showRandomRecipes() {
         let urlParams = RecipesRequestParams(urlParams: [:]).URLParams
         getRecipeInfo(
             model: SearchRecipesWrapper.self,
             params: urlParams,
             path: .randomRecipes,
             id: 0
-        ) { result in
+        ) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let success):
-                completion(success.recipes!)
+                self.appState.value.searchableRecipes = success.recipes ?? []
             case .failure(let failure):
                 print("Failure getting random recipes \(failure.localizedDescription)")
             }
@@ -140,30 +148,25 @@ class RecipesInteractorImpl: RecipesInteractor {
         $storage.favoriteRecipes.remove(at: index)
     }
     
-    func getRecipesInfoBy(ids: [Int], completion: @escaping ([Recipe]) -> Void) {
+    func getRecipesInfoBy(ids: [Int]) {
         var recipes: [Recipe] = []
         ids.forEach { id in
             searchRecipesDispatchGroup.enter()
             print("enter dispatchgroup")
-            getRecipeInfoBy(id: id) { result in
-                switch result {
-                case .success(let recipe):
-                    self.searchRecipesDispatchGroup.leave()
-                    print("leave dispatchGroup")
+            getRecipeInfoBy(id: id)
+                .sink { recipe in
                     recipes.append(recipe)
-                case .failure(let failure):
                     self.searchRecipesDispatchGroup.leave()
-                    print("failure \(failure)")
                 }
-            }
+                .store(in: &cancelBag)
         }
         searchRecipesDispatchGroup.notify(queue: .main) {
             print("notify")
-            completion(recipes)
+            self.appState.value.userRecipes.append(objectsIn: recipes.map { RecipeRealm(recipe: $0) })
         }
     }
     
-    func saveUserToStorage(userInfo: UserInfo, favoriteRecipes: [Recipe]) {
+    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe]) {
         recipesDBRepository.saveUserToStorage(userInfo: userInfo, favoriteRecipes: favoriteRecipes)
     }
 }
@@ -171,16 +174,19 @@ class RecipesInteractorImpl: RecipesInteractor {
 struct StubRecipesInteractor: RecipesInteractor {
     var storage = UserRealm()
     
-    func saveUserToStorage(userInfo: UserInfo, favoriteRecipes: [Recipe]) {
+    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe]) {
     }
     
-    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint, completion: @escaping ([Recipe]) -> Void) {
+    func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint) {
     }
     
-    func getRecipeInfoBy(id: Int, completion: @escaping (Result<Recipe, Error>) -> Void) {
+    func getRecipeInfoBy(id: Int) -> Future<Recipe, Never> {
+        Future { promise in
+            promise(.success(Recipe(id: 0, title: "", image: "")))
+        }
     }
     
-    func showRandomRecipes(completion: @escaping ([Recipe]) -> Void) {
+    func showRandomRecipes() {
     }
     
     func saveFavorite(recipe: RecipeRealm) {
@@ -189,7 +195,7 @@ struct StubRecipesInteractor: RecipesInteractor {
     func removeFavorite(index: Int) {
     }
     
-    func getRecipesInfoBy(ids: [Int], completion: @escaping ([Recipe]) -> Void) {
+    func getRecipesInfoBy(ids: [Int]) {
     }
 }
 

@@ -5,29 +5,30 @@
 //  Created by Артур Кулик on 20.01.2023.
 //
 
+import Combine
 import Foundation
 import RealmSwift
 
 struct AppEnvironment {
-    let appState: AppState
+    let appState: Store<AppState>
     let container: DIContainer
     
     static func bootstrap() -> AppEnvironment {
         let sessionService = SessionServiceImpl()
-        let interactors = configureInteractors()
         let appState = configureAppState(sessionService: sessionService)
+        let interactors = configureInteractors(appstate: appState)
         let container = DIContainer(appState: appState, interactors: interactors)
         return AppEnvironment(appState: appState, container: container)
     }
     
-    private static func configureAppState(sessionService: SessionService) -> AppState {
-        AppState(sessionService: sessionService)
+    private static func configureAppState(sessionService: SessionService) -> Store<AppState> {
+        Store<AppState>(AppState(sessionService: sessionService))
     }
     
-    private static func configureInteractors() -> DIContainer.Interactors {
+    private static func configureInteractors(appstate: Store<AppState>) -> DIContainer.Interactors {
         .init(
             authInteractor: AuthInteractorImpl(authRepository: AuthWebRepositoryImpl()),
-            recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl(), recipesDBRepository: RecipesDBRepositoryImpl())
+            recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl(), recipesDBRepository: RecipesDBRepositoryImpl(), appState: appstate)
         )
     }
 }

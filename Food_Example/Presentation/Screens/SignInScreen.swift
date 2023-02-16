@@ -84,9 +84,7 @@ struct SignInScreen: View {
                     container
                         .interactors
                         .recipesInteractor
-                        .getRecipesInfoBy(ids: user.favoriteRecipesIDs, completion: { recipes in
-                            container.interactors.recipesInteractor.saveUserToStorage(userInfo: user, favoriteRecipes: recipes)
-                        })
+                        .getRecipesInfoBy(ids: user.favoriteRecipesIDs)
                     onRootScreen()
                 case .failure(let error):
                     authError = error.code

@@ -5,6 +5,7 @@
 //  Created by Артур Кулик on 25.01.2023.
 //
 
+import Combine
 import RealmSwift
 import SwiftUI
 
@@ -14,6 +15,7 @@ struct RecipeScreen: View {
     @State var isLoaded = false
     @State var heightImageContainer: CGFloat = 180
     @State var selectedPagingIndex = 0
+    @State var cancelBag = Set<AnyCancellable>()
     @Environment(\.injected) var container: DIContainer
     @State var scrollViewOffest = CGPoint()
     let onClose: () -> Void
@@ -184,18 +186,12 @@ struct RecipeScreen: View {
     
     private func getRecipeBy(id: Int) {
         guard isLoaded == false else { return }
-        DispatchQueue.global(qos: .unspecified).async {
-            container.interactors.recipesInteractor.getRecipeInfoBy(id: id) { result in
-                switch result {
-                case .success(let recipe):
-                    self.recipeRealm = .init(recipe: recipe)
-                    self.recipe = recipe
-                    self.isLoaded = true
-                case .failure(let error):
-                    print(error)
-                }
+        container.interactors.recipesInteractor.getRecipeInfoBy(id: id)
+            .sink { recipe in
+                self.recipe = recipe
+                self.isLoaded = true
             }
-        }
+            .store(in: &cancelBag)
     }
 }
 //

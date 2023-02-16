@@ -13,7 +13,7 @@ protocol RecipesDBRepository {
     var storage: Results<UserRealm> { get }
     
     func saveFavoriteRecipeForCurrentUser(recipe: RecipeRealm)
-    func saveUserToStorage(userInfo: UserInfo, favoriteRecipes: [Recipe])
+    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe])
 }
 
 final class RecipesDBRepositoryImpl: RecipesDBRepository {
@@ -23,7 +23,7 @@ final class RecipesDBRepositoryImpl: RecipesDBRepository {
         createStorageIfNeed()
     }
     
-    func saveUserToStorage(userInfo: UserInfo, favoriteRecipes: [Recipe]) {
+    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe]) {
         let userRealm = UserRealm()
         userRealm.name = userInfo.username
         userRealm.email = userInfo.email
@@ -34,7 +34,7 @@ final class RecipesDBRepositoryImpl: RecipesDBRepository {
     func saveFavoriteRecipeForCurrentUser(recipe: RecipeRealm) {
     }
     
-    func createNewUser(userInfo: UserInfo) {
+    func createNewUser(userInfo: RemoteUserInfo) {
         let userRealm = UserRealm()
         userRealm.name = userInfo.username
         userRealm.email = userInfo.email

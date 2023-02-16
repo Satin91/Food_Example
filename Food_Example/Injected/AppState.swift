@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct AppState {
     static var stub: AppState {
         AppState(sessionService: SessionServiceImpl())
     }
-    var user = UserInfo()
+    var userRecipes = List<RecipeRealm>()
+    var user = RemoteUserInfo()
+    var searchableRecipes = [Recipe]()
     var sessionService: SessionService
 }

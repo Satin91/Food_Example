@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserInfo {
+struct RemoteUserInfo {
     var username: String = ""
     var email: String = ""
     var favoriteRecipesIDs: [Int] = []
