@@ -24,7 +24,7 @@ struct OnboardingNavigationButton: View {
     var content: some View {
         RoundedRectangle(cornerRadius: 16)
             .frame(width: 154, height: 64)
-            .foregroundColor(Colors.backgroundWhite)
+            .foregroundColor(.white)
             .overlay(
                 HStack {
                     Image(Images.icnArrowLeft)

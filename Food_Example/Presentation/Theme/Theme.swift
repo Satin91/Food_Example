@@ -92,6 +92,7 @@ enum Images {
     static let icnClock = "icnClock"
     static let icnFilter = "icnFilter"
     static let icnClose = "icnClose"
+    static let icnStar = "icnStar"
     
     // Nutritients icons
     static let icnFats = "icnFats"

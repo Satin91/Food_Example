@@ -44,10 +44,10 @@ struct AccountScreen: View, TabBarActor {
                 .frame(width: 64, height: 64)
                 .clipShape(Circle())
             VStack(alignment: .leading, spacing: Constants.Spacing.xxxs) {
-                Text("Some User")
+                Text("Mark Mironov")
                     .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraMedium))
                     .foregroundColor(Colors.dark)
-                Text("@Username")
+                Text("@markmironov")
                     .font(Fonts.makeFont(.medium, size: Constants.FontSizes.medium))
                     .foregroundColor(Colors.weakGray)
             }

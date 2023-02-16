@@ -60,14 +60,15 @@ struct RecipeScreen: View {
                     }
             }
             .addRightContainer {
-                Image(Images.icnChevronRight)
-                    .padding(Constants.Spacing.xxs)
+                Image(Images.icnStar)
+                    .foregroundColor(Colors.yellow)
+                    .padding(Constants.Spacing.xs)
                     .onTapGesture {
                         container.interactors.recipesInteractor.saveFavorite(recipe: recipeRealm)
                     }
                     .background(
                         Circle()
-                            .foregroundColor(Colors.silver)
+                            .foregroundColor(Colors.backgroundWhite.opacity(0.8))
                     )
             }
     }
