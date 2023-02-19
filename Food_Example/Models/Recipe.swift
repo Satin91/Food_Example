@@ -83,10 +83,26 @@ final class Metric: Object, Decodable {
 
 final class Nutrient: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var calories = String()
-    @Persisted var carbs = String()
-    @Persisted var fat = String()
-    @Persisted var protein = String()
+    @Persisted var caloriesValue = String()
+    @Persisted var carbsValue = String()
+    @Persisted var fatValue = String()
+    @Persisted var proteinValue = String()
+    
+    var calories: String {
+        caloriesValue + " calories"
+    }
+    
+    var carbs: String {
+        carbsValue + " carbs"
+    }
+    
+    var fat: String {
+        fatValue + " fat"
+    }
+    
+    var protein: String {
+        proteinValue + " protein"
+    }
 }
 
 extension ExtendedIngredient: Decodable {
@@ -161,10 +177,10 @@ extension Nutrient: Decodable {
     convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._calories = try container.decode(Persisted<String>.self, forKey: .calories)
-        self._carbs = try container.decode(Persisted<String>.self, forKey: .carbs)
-        self._fat = try container.decode(Persisted<String>.self, forKey: .fat)
-        self._protein = try container.decode(Persisted<String>.self, forKey: .protein)
+        self._caloriesValue = try container.decode(Persisted<String>.self, forKey: .calories)
+        self._carbsValue = try container.decode(Persisted<String>.self, forKey: .carbs)
+        self._fatValue = try container.decode(Persisted<String>.self, forKey: .fat)
+        self._proteinValue = try container.decode(Persisted<String>.self, forKey: .protein)
     }
 }
 
