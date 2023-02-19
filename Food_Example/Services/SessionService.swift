@@ -5,6 +5,7 @@
 //  Created by Артур Кулик on 19.01.2023.
 //
 
+import Combine
 import FirebaseAuth
 import FirebaseCore
 import FirebaseDatabase
@@ -12,18 +13,16 @@ import GoogleSignIn
 import SwiftUI
 
 enum SessionState {
-    case loggedIn
+    case loggedIn(RemoteUserInfo)
     case loggedOut
 }
 
 protocol SessionService {
     var state: SessionState { get }
-    var userInfo: RemoteUserInfo? { get }
 }
 
 final class SessionServiceImpl: ObservableObject, SessionService {
     @Published var state: SessionState = .loggedOut
-    @Published var userInfo: RemoteUserInfo?
     private var handle: AuthStateDidChangeListenerHandle?
     
     init() {
@@ -34,7 +33,13 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     private func setupFirebaseAuthHandler() {
         handle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self else { return }
-            self.state = user == nil ? .loggedOut : .loggedIn
+            self.state = user == nil ? .loggedOut : .loggedIn(
+                RemoteUserInfo(
+                    uid: user?.uid ?? "ID",
+                    username: user?.displayName ?? "No user name",
+                    email: user?.email ?? "No email"
+                )
+            )
         }
     }
     

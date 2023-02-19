@@ -20,6 +20,8 @@ final class RecipesDBRepositoryImpl: RecipesDBRepository {
     @ObservedResults(UserRealm.self) var storage
     
     init() {
+        //        for (index, user) in storage.enumerated() where user.email == "Example@gmail.com" {
+        //        }
         createStorageIfNeed()
     }
     

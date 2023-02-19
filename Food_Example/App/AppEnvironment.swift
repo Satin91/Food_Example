@@ -22,12 +22,12 @@ struct AppEnvironment {
     }
     
     private static func configureAppState(sessionService: SessionService) -> Store<AppState> {
-        Store<AppState>(AppState(sessionService: sessionService))
+        Store<AppState>(AppState())
     }
     
     private static func configureInteractors(appstate: Store<AppState>) -> DIContainer.Interactors {
         .init(
-            authInteractor: AuthInteractorImpl(authRepository: AuthWebRepositoryImpl()),
+            authInteractor: AuthInteractorImpl(authRepository: AuthWebRepositoryImpl(), appState: appstate),
             recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl(), recipesDBRepository: RecipesDBRepositoryImpl(), appState: appstate)
         )
     }

@@ -21,9 +21,11 @@ protocol AuthInteractor {
 class AuthInteractorImpl: AuthInteractor {
     let authRepository: AuthWebRepository
     var cancelBag = Set<AnyCancellable>()
+    var appState: Store<AppState>
     
-    init(authRepository: AuthWebRepository) {
+    init(authRepository: AuthWebRepository, appState: Store<AppState>) {
         self.authRepository = authRepository
+        self.appState = appState
     }
     
     func signUp(registrationInfo: RegistrationInfo, completion: @escaping (Result<Void, AuthErrorCode>) -> Void) {
@@ -52,6 +54,7 @@ class AuthInteractorImpl: AuthInteractor {
                 }
             } receiveValue: { user in
                 completion(.success(user))
+                self.appState.value.user = user
             }
             .store(in: &cancelBag)
     }

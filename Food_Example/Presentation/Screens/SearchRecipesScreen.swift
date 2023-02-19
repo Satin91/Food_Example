@@ -40,6 +40,7 @@ struct SearchRecipesScreen: View, TabBarActor {
             .toolbar(.hidden)
             .onReceive(container.appState.eraseToAnyPublisher()) { self.recipes = $0.searchableRecipes }
             .onAppear {
+                print(Auth.auth().currentUser?.email)
                 addFilterObservers()
             }
     }

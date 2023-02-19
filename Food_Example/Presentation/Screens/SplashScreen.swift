@@ -13,6 +13,7 @@ struct SplashScreen: View {
     @Environment(\.injected) var container: DIContainer
     let onOnboardingScreen: () -> Void
     let onRootScreen: () -> Void
+    let sessionService = SessionServiceImpl()
     @State var cancelBag = Set<AnyCancellable>()
     
     var body: some View {
@@ -24,10 +25,13 @@ struct SplashScreen: View {
                 .foregroundColor(Colors.red)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                        switch container.appState[keyPath: \.value.sessionService].state {
-                        case .loggedIn:
+                        switch sessionService.state {
+                        case .loggedIn(let user):
+                            print("Logged in")
+                            print(user)
                             onRootScreen()
                         case .loggedOut:
+                            print("Logged out")
                             onOnboardingScreen()
                         }
                     })

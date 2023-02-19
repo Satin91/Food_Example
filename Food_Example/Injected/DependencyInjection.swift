@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DIContainer: EnvironmentKey {
     static var defaultValue: Self { Self.default }
-    private static let `default` = Self(appState: Store<AppState>(AppState(sessionService: SessionServiceImpl())), interactors: .stub)
+    private static let `default` = Self(appState: Store<AppState>(AppState()), interactors: .stub)
     
     let appState: Store<AppState>
     let interactors: Interactors

@@ -12,10 +12,12 @@ struct AccountScreen: View, TabBarActor {
     var tabSelectedColor: Color = Colors.blue
     @Environment(\.injected) var container: DIContainer
     var backToSignInScreen: () -> Void
+    @State var user = RemoteUserInfo()
     
     var body: some View {
         content
             .toolbar(.hidden)
+            .onReceive(container.appState.eraseToAnyPublisher()) { user = $0.user }
     }
     
     private var content: some View {
@@ -44,7 +46,7 @@ struct AccountScreen: View, TabBarActor {
                 .frame(width: 64, height: 64)
                 .clipShape(Circle())
             VStack(alignment: .leading, spacing: Constants.Spacing.xxxs) {
-                Text("Mark Mironov")
+                Text(user.username)
                     .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraMedium))
                     .foregroundColor(Colors.dark)
                 Text("@markmironov")

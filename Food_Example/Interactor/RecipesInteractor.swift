@@ -121,6 +121,12 @@ class RecipesInteractorImpl: RecipesInteractor {
         }
     }
     
+    func loadMainImage(urlString: String) {
+        dispatchGroup.enter()
+        imageLoader.downloadImage(urlString: urlString)
+        dispatchGroup.leave()
+    }
+    
     func showRandomRecipes() {
         let urlParams = RecipesRequestParams(urlParams: [:]).URLParams
         getRecipeInfo(

@@ -10,10 +10,9 @@ import RealmSwift
 
 struct AppState {
     static var stub: AppState {
-        AppState(sessionService: SessionServiceImpl())
+        AppState()
     }
     var userRecipes = List<RecipeRealm>()
     var user = RemoteUserInfo()
     var searchableRecipes = [Recipe]()
-    var sessionService: SessionService
 }
