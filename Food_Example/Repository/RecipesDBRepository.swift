@@ -12,8 +12,8 @@ import RealmSwift
 protocol RecipesDBRepository {
     var storage: Results<UserRealm> { get }
     
-    func saveFavoriteRecipeForCurrentUser(recipe: RecipeRealm)
-    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe])
+    func saveFavoriteRecipeForCurrentUser(recipe: Recipe)
+    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: List<Recipe>)
 }
 
 final class RecipesDBRepositoryImpl: RecipesDBRepository {
@@ -25,15 +25,15 @@ final class RecipesDBRepositoryImpl: RecipesDBRepository {
         createStorageIfNeed()
     }
     
-    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe]) {
+    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: List<Recipe>) {
         let userRealm = UserRealm()
         userRealm.name = userInfo.username
         userRealm.email = userInfo.email
-        userRealm.favoriteRecipes = convert(recipes: favoriteRecipes)
+        userRealm.favoriteRecipes = favoriteRecipes
         $storage.append(userRealm)
     }
     
-    func saveFavoriteRecipeForCurrentUser(recipe: RecipeRealm) {
+    func saveFavoriteRecipeForCurrentUser(recipe: Recipe) {
     }
     
     func createNewUser(userInfo: RemoteUserInfo) {
@@ -47,13 +47,5 @@ final class RecipesDBRepositoryImpl: RecipesDBRepository {
         if storage.isEmpty {
             $storage.append(UserRealm())
         }
-    }
-    
-    func convert(recipes: [Recipe]) -> List<RecipeRealm> {
-        let recipesRealm = List<RecipeRealm>()
-        recipes.forEach { recipe in
-            recipesRealm.append(RecipeRealm(recipe: recipe))
-        }
-        return recipesRealm
     }
 }

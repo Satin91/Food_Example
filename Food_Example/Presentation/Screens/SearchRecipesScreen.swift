@@ -7,6 +7,7 @@
 
 import Combine
 import FirebaseAuth
+import RealmSwift
 import SwiftUI
 
 struct SearchRecipesScreen: View, TabBarActor {
@@ -23,7 +24,7 @@ struct SearchRecipesScreen: View, TabBarActor {
     @State private var currentSearchCategory: APIEndpoint = .searchInAll
     @State private var searchParams: [String: String] = [:]
     @State private var cancelBag = Set<AnyCancellable>()
-    @State private var recipes: [Recipe] = []
+    @State private var recipes = RealmSwift.List<Recipe>()
     
     let searchViewHeight: CGFloat = 56
     let imageLoader = ImageLoader()
@@ -38,11 +39,10 @@ struct SearchRecipesScreen: View, TabBarActor {
     var body: some View {
         content
             .toolbar(.hidden)
-            .onReceive(container.appState.eraseToAnyPublisher()) { self.recipes = $0.searchableRecipes }
             .onAppear {
-                print(Auth.auth().currentUser?.email)
                 addFilterObservers()
             }
+            .onReceive(container.appState.eraseToAnyPublisher()) { recipes = $0.searchableRecipes }
     }
     
     private var content: some View {

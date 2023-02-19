@@ -48,7 +48,7 @@ struct FavoriteRecipesScreen: View, TabBarActor {
 }
 
 struct FavoriteRecipeRow: View {
-    let recipeRealm: RecipeRealm
+    let recipeRealm: Recipe
     let contentSize: CGFloat = 64
     
     var body: some View {

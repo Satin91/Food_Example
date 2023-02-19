@@ -88,9 +88,3 @@ struct RecipeGrid: View {
         .padding(Constants.Spacing.m)
     }
 }
-
-struct RecipeGrid_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipeGrid(recipe: Recipe(id: 250, title: "Some new Recipe", image: Images.mockFood), action: { }, settingsAction: { })
-    }
-}

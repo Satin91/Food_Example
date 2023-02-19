@@ -11,7 +11,7 @@ import SwiftUI
 
 struct RecipeScreen: View {
     @State var recipe: Recipe
-    @State var recipeRealm = RecipeRealm()
+    @State var recipeRealm = Recipe()
     @State var isLoaded = false
     @State var heightImageContainer: CGFloat = 180
     @State var selectedPagingIndex = 0
@@ -28,7 +28,7 @@ struct RecipeScreen: View {
         } else {
             LoadingView()
                 .onAppear {
-                    getRecipeBy(id: recipe.id)
+                    getRecipeBy(id: recipe.recipeId)
                 }
         }
     }
@@ -137,7 +137,7 @@ struct RecipeScreen: View {
     private var ingredientView: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                ForEach(recipe.ingridients ?? [], id: \.self) { ingredient in
+                ForEach(recipe.ingredients, id: \.self) { ingredient in
                     IngredientView(ingredient: ingredient)
                         .padding()
                         .frame(height: 90)

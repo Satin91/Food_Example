@@ -12,7 +12,7 @@ struct AppState {
     static var stub: AppState {
         AppState()
     }
-    var userRecipes = List<RecipeRealm>()
+    var userRecipes = List<Recipe>()
     var user = RemoteUserInfo()
-    var searchableRecipes = [Recipe]()
+    var searchableRecipes = List<Recipe>()
 }

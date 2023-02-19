@@ -27,8 +27,6 @@ struct SplashScreen: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                         switch sessionService.state {
                         case .loggedIn(let user):
-                            print("Logged in")
-                            print(user)
                             onRootScreen()
                         case .loggedOut:
                             print("Logged out")

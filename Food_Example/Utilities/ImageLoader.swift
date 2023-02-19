@@ -17,9 +17,7 @@ class ImageLoader: ObservableObject {
     
     func downloadImage(urlString: String) {
         if self.loadImageFromCache(urlString: urlString) {
-            print("Load from cache Image \(urlString)")
         } else {
-            print("Download Image \(urlString)")
             self.loadImageFromURL(urlString: urlString)
         }
     }

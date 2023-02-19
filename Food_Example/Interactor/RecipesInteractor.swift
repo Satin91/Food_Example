@@ -16,7 +16,7 @@ protocol RecipesInteractor {
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint)
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
     func getRecipesInfoBy(ids: [Int])
-    func saveFavorite(recipe: RecipeRealm)
+    func saveFavorite(recipe: Recipe)
     func removeFavorite(index: Int)
 }
 
@@ -34,7 +34,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         self.recipesWebRepository = recipesWebRepository
         self.recipesDBRepository = recipesDBRepository
         self.appState = appState
-        self.storage = recipesDBRepository.storage[2]
+        self.storage = recipesDBRepository.storage[0]
     }
     
     // MARK: WEB
@@ -44,14 +44,14 @@ class RecipesInteractorImpl: RecipesInteractor {
             getRecipeInfo(model: SearchRecipesWrapper.self, params: params.URLParams, path: .searchInAll, id: 0) { result in
                 switch result {
                 case .success(let wrapper):
-                    wrapper.results?.forEach { self.imageLoader.downloadImage(urlString: $0.image) }
-                    self.appState.value.searchableRecipes = wrapper.results ?? []
+                    wrapper.results.forEach { self.imageLoader.downloadImage(urlString: $0.image) }
+                    self.appState.value.searchableRecipes = wrapper.results
                 case .failure(let failure):
                     print(failure)
                 }
             }
         default:
-            getRecipeInfo(model: [Recipe].self, params: params.URLParams, path: path, id: 0) { [weak self] result in
+            getRecipeInfo(model: RealmSwift.List<Recipe>.self, params: params.URLParams, path: path, id: 0) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let recipes):
@@ -66,8 +66,8 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never> {
         var recipe: Recipe?
-        var nutritients: Nutritient?
-        var ingridients: [Ingredient]?
+        var nutritients: Nutrient?
+        var ingridients: RealmSwift.List<Ingredient>?
         return Future { [weak self] promise in
             guard let self else { return }
             self.getRecipeInfo(
@@ -78,13 +78,14 @@ class RecipesInteractorImpl: RecipesInteractor {
             ) { result in
                 switch result {
                 case .success(let receiveValue):
+                    print("recipe received value")
                     recipe = receiveValue
                 case .failure:
                     fatalError("Failed to get info 1")
                 }
             }
             self.getRecipeInfo(
-                model: Nutritient.self,
+                model: Nutrient.self,
                 params: RecipesRequestParams(urlParams: [:]).URLParams,
                 path: .nutritions(id),
                 id: id
@@ -110,12 +111,12 @@ class RecipesInteractorImpl: RecipesInteractor {
                 }
             }
             self.dispatchGroup.notify(queue: .main) {
-                guard var recipe = recipe else {
+                guard var resultRecipe = recipe else {
                     fatalError("Failed to get info 3")
                 }
-                recipe.nutrients = nutritients
-                recipe.ingridients = ingridients
-                promise(.success(recipe))
+                resultRecipe.nutrients = nutritients
+                resultRecipe.ingredients = ingridients!
+                promise(.success(resultRecipe))
             }
         }
     }
@@ -136,8 +137,8 @@ class RecipesInteractorImpl: RecipesInteractor {
         ) { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let success):
-                self.appState.value.searchableRecipes = success.recipes ?? []
+            case .success(let wrapper):
+                self.appState.value.searchableRecipes.append(objectsIn: wrapper.recipes)
             case .failure(let failure):
                 print("Failure getting random recipes \(failure.localizedDescription)")
             }
@@ -145,7 +146,7 @@ class RecipesInteractorImpl: RecipesInteractor {
     }
     
     // MARK: DataBase
-    func saveFavorite(recipe: RecipeRealm) {
+    func saveFavorite(recipe: Recipe) {
         $storage.favoriteRecipes.append(recipe)
     }
     
@@ -167,7 +168,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         }
         searchRecipesDispatchGroup.notify(queue: .main) {
             print("notify")
-            self.appState.value.userRecipes.append(objectsIn: recipes.map { RecipeRealm(recipe: $0) })
+            self.appState.value.userRecipes.append(objectsIn: recipes)
         }
     }
 }
@@ -179,15 +180,14 @@ struct StubRecipesInteractor: RecipesInteractor {
     }
     
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never> {
-        Future { promise in
-            promise(.success(Recipe(id: 0, title: "", image: "")))
+        Future { _ in
         }
     }
     
     func showRandomRecipes() {
     }
     
-    func saveFavorite(recipe: RecipeRealm) {
+    func saveFavorite(recipe: Recipe) {
     }
     
     func removeFavorite(index: Int) {
@@ -212,6 +212,7 @@ extension RecipesInteractorImpl {
                 print(error)
             } receiveValue: { value in
                 self.dispatchGroup.leave()
+                
                 completion(.success(value))
             }
             .store(in: &cancelBag)
