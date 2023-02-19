@@ -16,7 +16,6 @@ protocol RecipesInteractor {
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint)
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
     func getRecipesInfoBy(ids: [Int])
-    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe])
     func saveFavorite(recipe: RecipeRealm)
     func removeFavorite(index: Int)
 }
@@ -171,17 +170,10 @@ class RecipesInteractorImpl: RecipesInteractor {
             self.appState.value.userRecipes.append(objectsIn: recipes.map { RecipeRealm(recipe: $0) })
         }
     }
-    
-    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe]) {
-        recipesDBRepository.saveUserToStorage(userInfo: userInfo, favoriteRecipes: favoriteRecipes)
-    }
 }
 
 struct StubRecipesInteractor: RecipesInteractor {
     var storage = UserRealm()
-    
-    func saveUserToStorage(userInfo: RemoteUserInfo, favoriteRecipes: [Recipe]) {
-    }
     
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint) {
     }
