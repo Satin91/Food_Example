@@ -16,25 +16,27 @@ protocol RecipesInteractor {
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint)
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
     func getRecipesInfoBy(ids: [Int])
+    func save(favoriteRecipes: RealmSwift.List<Recipe>)
     func saveFavorite(recipe: Recipe)
     func removeFavorite(index: Int)
 }
 
 class RecipesInteractorImpl: RecipesInteractor {
-    var recipesWebRepository: RecipesWebRepository
-    var recipesDBRepository: RecipesDBRepository
+    let recipesWebRepository: RecipesWebRepository
+    let dbRepository: DBRepository
+    let searchRecipesDispatchGroup = DispatchGroup()
+    
     var cancelBag = Set<AnyCancellable>()
     let dispatchGroup = DispatchGroup()
-    let searchRecipesDispatchGroup = DispatchGroup()
     var appState: Store<AppState>
     @ObservedRealmObject var storage: UserRealm
     let imageLoader = ImageLoader()
     
-    init(recipesWebRepository: RecipesWebRepository, recipesDBRepository: RecipesDBRepository, appState: Store<AppState>) {
+    init(recipesWebRepository: RecipesWebRepository, dbRepository: DBRepository, appState: Store<AppState>) {
         self.recipesWebRepository = recipesWebRepository
-        self.recipesDBRepository = recipesDBRepository
+        self.dbRepository = dbRepository
         self.appState = appState
-        self.storage = recipesDBRepository.storage[0]
+        self.storage = dbRepository.currentStorage
     }
     
     // MARK: WEB
@@ -146,8 +148,12 @@ class RecipesInteractorImpl: RecipesInteractor {
     }
     
     // MARK: DataBase
+    func save(favoriteRecipes: RealmSwift.List<Recipe>) {
+        $storage.favoriteRecipes.wrappedValue = favoriteRecipes
+    }
+    
     func saveFavorite(recipe: Recipe) {
-        $storage.favoriteRecipes.append(recipe)
+        $storage.favoriteRecipes.wrappedValue.append(recipe)
     }
     
     func removeFavorite(index: Int) {
@@ -158,7 +164,6 @@ class RecipesInteractorImpl: RecipesInteractor {
         var recipes: [Recipe] = []
         ids.forEach { id in
             searchRecipesDispatchGroup.enter()
-            print("enter dispatchgroup")
             getRecipeInfoBy(id: id)
                 .sink { recipe in
                     recipes.append(recipe)
@@ -167,8 +172,9 @@ class RecipesInteractorImpl: RecipesInteractor {
                 .store(in: &cancelBag)
         }
         searchRecipesDispatchGroup.notify(queue: .main) {
-            print("notify")
-            self.appState.value.userRecipes.append(objectsIn: recipes)
+            let recipesRealm = RealmSwift.List<Recipe>()
+            recipesRealm.append(objectsIn: recipes)
+            self.dbRepository.save(favoriteRecipes: recipesRealm, toUser: self.appState.value.user)
         }
     }
 }
@@ -187,13 +193,16 @@ struct StubRecipesInteractor: RecipesInteractor {
     func showRandomRecipes() {
     }
     
-    func saveFavorite(recipe: Recipe) {
+    func save(favoriteRecipes: RealmSwift.List<Recipe>) {
     }
     
     func removeFavorite(index: Int) {
     }
     
     func getRecipesInfoBy(ids: [Int]) {
+    }
+    
+    func saveFavorite(recipe: Recipe) {
     }
 }
 

@@ -35,7 +35,7 @@ struct FavoriteRecipesScreen: View, TabBarActor {
     
     private var favoriteRecipesList: some View {
         List {
-            ForEach(container.interactors.recipesInteractor.storage.favoriteRecipes) { object in
+            ForEach(container.appState.value.userRecipes) { object in
                 FavoriteRecipeRow(recipeRealm: object)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.zero))

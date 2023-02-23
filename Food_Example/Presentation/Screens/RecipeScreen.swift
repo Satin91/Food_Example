@@ -66,7 +66,7 @@ struct RecipeScreen: View {
                     .foregroundColor(Colors.yellow)
                     .padding(Constants.Spacing.xs)
                     .onTapGesture {
-                        container.interactors.recipesInteractor.saveFavorite(recipe: recipeRealm)
+                        container.interactors.recipesInteractor.saveFavorite(recipe: recipe)
                     }
                     .background(
                         Circle()

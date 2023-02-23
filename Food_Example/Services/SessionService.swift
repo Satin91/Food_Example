@@ -17,11 +17,7 @@ enum SessionState {
     case loggedOut
 }
 
-protocol SessionService {
-    var state: SessionState { get }
-}
-
-final class SessionServiceImpl: ObservableObject, SessionService {
+final class SessionService: ObservableObject {
     @Published var state: SessionState = .loggedOut
     private var handle: AuthStateDidChangeListenerHandle?
     
@@ -32,6 +28,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
     
     private func setupFirebaseAuthHandler() {
         handle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            print("User \(user?.email)")
             guard let self else { return }
             self.state = user == nil ? .loggedOut : .loggedIn(
                 RemoteUserInfo(

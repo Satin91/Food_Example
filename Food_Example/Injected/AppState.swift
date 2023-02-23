@@ -14,5 +14,6 @@ struct AppState {
     }
     var userRecipes = List<Recipe>()
     var user = RemoteUserInfo()
+    var isLoggedIn = false
     var searchableRecipes = List<Recipe>()
 }

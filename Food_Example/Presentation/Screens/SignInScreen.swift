@@ -80,7 +80,6 @@ struct SignInScreen: View {
             container.interactors.authInteractor.logIn(registrationInfo: registrationInfo) { result in
                 switch result {
                 case .success(let user):
-                    print("Success login in to user \(user)")
                     container
                         .interactors
                         .recipesInteractor

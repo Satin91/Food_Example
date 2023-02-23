@@ -13,7 +13,7 @@ struct SplashScreen: View {
     @Environment(\.injected) var container: DIContainer
     let onOnboardingScreen: () -> Void
     let onRootScreen: () -> Void
-    let sessionService = SessionServiceImpl()
+    let sessionService = SessionService()
     @State var cancelBag = Set<AnyCancellable>()
     
     var body: some View {
@@ -24,15 +24,17 @@ struct SplashScreen: View {
                 .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraLarge))
                 .foregroundColor(Colors.red)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         switch sessionService.state {
                         case .loggedIn(let user):
+                            container.interactors.userInteractor.loadUserFromDB(userInfo: user)
                             onRootScreen()
+                            print("Logged in")
                         case .loggedOut:
-                            print("Logged out")
                             onOnboardingScreen()
+                            print("Logged out")
                         }
-                    })
+                    }
                 }
         }
     }

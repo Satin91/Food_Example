@@ -49,7 +49,7 @@ struct AccountScreen: View, TabBarActor {
                 Text(user.username)
                     .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraMedium))
                     .foregroundColor(Colors.dark)
-                Text("@markmironov")
+                Text(user.email)
                     .font(Fonts.makeFont(.medium, size: Constants.FontSizes.medium))
                     .foregroundColor(Colors.weakGray)
             }
