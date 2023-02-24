@@ -136,7 +136,6 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
 - private_action
 - private_outlet
 - private_over_fileprivate
-- private_subject
 - private_unit_test
 - prohibited_interface_builder
 - prohibited_super_call
