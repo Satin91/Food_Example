@@ -24,12 +24,12 @@ final class UserInteractorImpl: UserInteractor {
     }
     
     func loadUserFromDB(userInfo: RemoteUserInfo) {
-        dbRepository.loadStorage(userInfo: userInfo)
+        dbRepository.loadUserStorage(userInfo: userInfo)
         let userInfo = RemoteUserInfo(
-            username: dbRepository.currentStorage.name,
-            email: dbRepository.currentStorage.email
+            username: dbRepository.storagePublisher.value.name,
+            email: dbRepository.storagePublisher.value.email
         )
-        dbRepository.loadStorage(userInfo: userInfo)
+        dbRepository.loadUserStorage(userInfo: userInfo)
     }
 }
 

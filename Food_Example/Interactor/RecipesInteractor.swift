@@ -14,8 +14,8 @@ protocol RecipesInteractor {
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint)
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
     func getRecipesInfoBy(ids: [Int])
-    func save(favoriteRecipes: RealmSwift.List<Recipe>)
-    func saveFavorite(recipe: Recipe)
+    func saveSeveralRecipes(_ recipes: RealmSwift.List<Recipe>)
+    func saveSingleRecipe(_ recipe: Recipe)
     func removeFavorite(index: Int)
 }
 
@@ -146,11 +146,11 @@ class RecipesInteractorImpl: RecipesInteractor {
     }
     
     // MARK: DataBase
-    func save(favoriteRecipes: RealmSwift.List<Recipe>) {
-        dbRepository.save(favoriteRecipes: favoriteRecipes)
+    func saveSeveralRecipes(_ recipes: RealmSwift.List<Recipe>) {
+        dbRepository.save(favoriteRecipes: recipes)
     }
     
-    func saveFavorite(recipe: Recipe) {
+    func saveSingleRecipe(_ recipe: Recipe) {
         dbRepository.save(favoriteRecipe: recipe)
     }
     
@@ -191,7 +191,7 @@ struct StubRecipesInteractor: RecipesInteractor {
     func showRandomRecipes() {
     }
     
-    func save(favoriteRecipes: RealmSwift.List<Recipe>) {
+    func saveSeveralRecipes(_ recipe: RealmSwift.List<Recipe>) {
     }
     
     func removeFavorite(index: Int) {
@@ -200,7 +200,7 @@ struct StubRecipesInteractor: RecipesInteractor {
     func getRecipesInfoBy(ids: [Int]) {
     }
     
-    func saveFavorite(recipe: Recipe) {
+    func saveSingleRecipe(_ recipe: Recipe) {
     }
 }
 

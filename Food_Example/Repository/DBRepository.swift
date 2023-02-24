@@ -10,11 +10,10 @@ import Foundation
 import RealmSwift
 
 protocol DBRepository {
-    var storage: Results<UserRealm> { get }
-    var currentStorage: UserRealm { get set }
-    var currentStorageObject: CurrentValueSubject<UserRealm, Never> { get set }
+    var realmObjects: Results<UserRealm> { get }
+    var storagePublisher: CurrentValueSubject<UserRealm, Never> { get set }
     
-    func loadStorage(userInfo: RemoteUserInfo)
+    func loadUserStorage(userInfo: RemoteUserInfo)
     func save(favoriteRecipes: RealmSwift.List<Recipe>)
     func save(favoriteRecipe: Recipe)
     func saveUserIfNeed(userInfo: RemoteUserInfo)
@@ -22,38 +21,38 @@ protocol DBRepository {
 }
 
 final class DBRepositoryImpl: DBRepository {
-    @ObservedResults(UserRealm.self) var storage
-    @ObservedRealmObject var currentStorage = UserRealm()
-    var currentStorageObject = CurrentValueSubject<UserRealm, Never>(UserRealm())
+    // All of realm objects
+    @ObservedResults(UserRealm.self) var realmObjects
+    // Current object
+    var storagePublisher = CurrentValueSubject<UserRealm, Never>(UserRealm())
     
     init() {
         createStorageIfNeed()
     }
     
-    func loadStorage(userInfo: RemoteUserInfo) {
-        let storage = storage.first(where: { $0.email == userInfo.email }) ?? storage.first!
-        self.currentStorage = storage
-        self.currentStorageObject.send(storage)
+    func loadUserStorage(userInfo: RemoteUserInfo) {
+        let storage = realmObjects.first(where: { $0.email == userInfo.email }) ?? realmObjects.first!
+        self.storagePublisher.send(storage)
     }
     
     func saveUserIfNeed(userInfo: RemoteUserInfo) {
-        if !storage.contains(where: { $0.email == userInfo.email }) {
+        if !realmObjects.contains(where: { $0.email == userInfo.email }) {
             print("Save new user \(userInfo)")
             saveUser(userInfo: userInfo)
-            loadStorage(userInfo: userInfo)
+            loadUserStorage(userInfo: userInfo)
         } else {
-            loadStorage(userInfo: userInfo)
+            loadUserStorage(userInfo: userInfo)
         }
     }
     func save(favoriteRecipes: RealmSwift.List<Recipe>) {
-        realmHelper {
-            currentStorageObject.value.favoriteRecipes = favoriteRecipes
+        realmTransaction {
+            storagePublisher.value.favoriteRecipes = favoriteRecipes
         }
     }
     
     func save(favoriteRecipe: Recipe) {
-        realmHelper {
-            currentStorageObject.value.favoriteRecipes.append(favoriteRecipe)
+        realmTransaction {
+            storagePublisher.value.favoriteRecipes.append(favoriteRecipe)
         }
     }
     
@@ -61,38 +60,38 @@ final class DBRepositoryImpl: DBRepository {
         let userRealm = UserRealm()
         userRealm.name = userInfo.username
         userRealm.email = userInfo.email
-        $storage.append(userRealm)
+        $realmObjects.append(userRealm)
     }
     
     func removeFavorite(from index: Int) {
-        realmHelper {
-            currentStorageObject.value.favoriteRecipes.remove(at: index)
-        }
-    }
-    
-    func realmHelper(handler: () -> Void) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                handler()
-            }
-        } catch {
-            print("Error realm i,plement")
+        realmTransaction {
+            storagePublisher.value.favoriteRecipes.remove(at: index)
         }
     }
     
     func createStorageIfNeed() {
-        if storage.isEmpty {
-            $storage.append(UserRealm())
+        if realmObjects.isEmpty {
+            $realmObjects.append(UserRealm())
         }
     }
 }
 
 extension DBRepositoryImpl {
-    func saveUser(userInfo: RemoteUserInfo) {
+    private func saveUser(userInfo: RemoteUserInfo) {
         let userRealm = UserRealm()
         userRealm.name = userInfo.username
         userRealm.email = userInfo.email
-        $storage.append(userRealm)
+        $realmObjects.append(userRealm)
+    }
+    
+    private func realmTransaction(handler: () -> Void) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                handler()
+            }
+        } catch let error {
+            print("Error write transaction \(error.localizedDescription)")
+        }
     }
 }

@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import RealmSwift
 
-final class AppState {
+struct AppState {
     static var stub: AppState {
         AppState()
     }
@@ -22,7 +22,7 @@ final class AppState {
 
 extension Store<AppState> {
     func sinkToStorage(_ repository: DBRepository) {
-        repository.currentStorageObject.sink { user in
+        repository.storagePublisher.sink { user in
             self.value.user.username = user.name
             self.value.user.email = user.email
             self.value.userRecipes = user.favoriteRecipes
