@@ -6,10 +6,19 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct RemoteUserInfo {
-    var uid: String = ""
-    var username: String = ""
-    var email: String = ""
-    var favoriteRecipesIDs: [Int] = []
+final class RemoteUserInfo: Object {
+    @Persisted var uid: String = ""
+    @Persisted var username: String = ""
+    @Persisted var email: String = ""
+    var favoriteRecipesIDs = [Int]()
+    
+    convenience init(uid: String, username: String, email: String, favoriteRecipesIDs: [Int]) {
+        self.init()
+        self.uid = uid
+        self.username = username
+        self.email = email
+        self.favoriteRecipesIDs = favoriteRecipesIDs
+    }
 }

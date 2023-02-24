@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import Foundation
 import GoogleSignIn
+import RealmSwift
 
 protocol AuthWebRepository {
     func signUp(info: RegistrationInfo) -> AnyPublisher<Void, AuthErrorCode>
@@ -110,7 +111,7 @@ class AuthWebRepositoryImpl: AuthWebRepository {
                     promise(.failure(.userError))
                     return
                 }
-                let userInfo = RemoteUserInfo(username: profile.name, email: profile.email)
+                let userInfo = RemoteUserInfo(uid: result?.user.userID ?? "ID", username: profile.name, email: profile.email, favoriteRecipesIDs: [])
                 promise(.success(userInfo))
             }
         }
@@ -139,7 +140,8 @@ extension AuthWebRepositoryImpl {
                 guard error == nil else { return }
                 guard let value = snapshot?.value as? [String: Any] else { return }
                 var user = RemoteUserInfo()
-                user.email = value[self.userInfoConfig.email] as! String
+                user.uid = uid
+                user.email = (value[self.userInfoConfig.email] as! String).lowercased()
                 user.username = value[self.userInfoConfig.username] as! String
                 user.favoriteRecipesIDs = value[self.userInfoConfig.favoriteRecipes] as! [Int]
                 promise(.success(user))

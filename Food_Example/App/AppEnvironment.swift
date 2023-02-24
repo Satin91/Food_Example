@@ -15,7 +15,11 @@ struct AppEnvironment {
     
     static func bootstrap() -> AppEnvironment {
         let appState = configureAppState()
-        let interactors = configureInteractors(dbRepository: DBRepositoryImpl(), appstate: appState)
+        let interactors = configureInteractors(
+            dbRepository: DBRepositoryImpl(),
+            authRepository: AuthWebRepositoryImpl(),
+            appstate: appState
+        )
         let container = DIContainer(appState: appState, interactors: interactors)
         return AppEnvironment(appState: appState, container: container)
     }
@@ -24,11 +28,11 @@ struct AppEnvironment {
         Store<AppState>(AppState())
     }
     
-    private static func configureInteractors(dbRepository: DBRepository, appstate: Store<AppState>) -> DIContainer.Interactors {
+    private static func configureInteractors(dbRepository: DBRepository, authRepository: AuthWebRepository, appstate: Store<AppState>) -> DIContainer.Interactors {
         .init(
-            authInteractor: AuthInteractorImpl(authRepository: AuthWebRepositoryImpl(), dbRepository: dbRepository, appState: appstate),
+            authInteractor: AuthInteractorImpl(authRepository: authRepository, dbRepository: dbRepository, appState: appstate),
             recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl(), dbRepository: dbRepository, appState: appstate),
-            userInteractor: UserInteractorImpl(dbRepository: dbRepository, appState: appstate)
+            userInteractor: UserInteractorImpl(dbRepository: dbRepository, authRepository: authRepository, appState: appstate)
         )
     }
 }

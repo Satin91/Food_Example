@@ -14,21 +14,19 @@ protocol UserInteractor {
 
 final class UserInteractorImpl: UserInteractor {
     var dbRepository: DBRepository
+    var authRepository: AuthWebRepository
     var appState: Store<AppState>
     var cancelBag = Set<AnyCancellable>()
     
-    init(dbRepository: DBRepository, appState: Store<AppState>) {
+    init(dbRepository: DBRepository, authRepository: AuthWebRepository, appState: Store<AppState>) {
         self.dbRepository = dbRepository
+        self.authRepository = authRepository
         self.appState = appState
         self.appState.sinkToStorage(dbRepository)
     }
     
     func loadUserFromDB(userInfo: RemoteUserInfo) {
-        dbRepository.loadUserStorage(userInfo: userInfo)
-        let userInfo = RemoteUserInfo(
-            username: dbRepository.storagePublisher.value.name,
-            email: dbRepository.storagePublisher.value.email
-        )
+        print("Load user from db")
         dbRepository.loadUserStorage(userInfo: userInfo)
     }
 }

@@ -56,14 +56,7 @@ class AuthInteractorImpl: AuthInteractor {
                     break
                 }
             } receiveValue: { user in
-                self.appState.value.user = user
-                self.dbRepository.saveUserIfNeed(
-                    userInfo: RemoteUserInfo(
-                        uid: user.uid,
-                        username: user.username,
-                        email: user.email.lowercased()
-                    )
-                )
+                self.dbRepository.saveUserIfNeed(userInfo: user)
                 completion(.success(user))
             }
             .store(in: &cancelBag)

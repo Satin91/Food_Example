@@ -22,11 +22,12 @@ struct AppState {
 
 extension Store<AppState> {
     func sinkToStorage(_ repository: DBRepository) {
-        repository.storagePublisher.sink { user in
-            self.value.user.username = user.name
-            self.value.user.email = user.email
-            self.value.userRecipes = user.favoriteRecipes
-        }
-        .store(in: &self.value.cancelBag)
+        repository.storagePublisher
+            .sink { user in
+                guard let userInfo = user.userInfo else { return }
+                self.value.user = userInfo
+                self.value.userRecipes = user.favoriteRecipes
+            }
+            .store(in: &self.value.cancelBag)
     }
 }

@@ -31,13 +31,13 @@ final class DBRepositoryImpl: DBRepository {
     }
     
     func loadUserStorage(userInfo: RemoteUserInfo) {
-        let storage = realmObjects.first(where: { $0.email == userInfo.email }) ?? realmObjects.first!
+        let storage = realmObjects.first(where: { $0.userInfo?.email == userInfo.email }) ?? UserRealm()
         self.storagePublisher.send(storage)
+        print("Load user from storage \(storage)")
     }
     
     func saveUserIfNeed(userInfo: RemoteUserInfo) {
-        if !realmObjects.contains(where: { $0.email == userInfo.email }) {
-            print("Save new user \(userInfo)")
+        if !realmObjects.contains(where: { $0.userInfo?.email == userInfo.email }) {
             saveUser(userInfo: userInfo)
             loadUserStorage(userInfo: userInfo)
         } else {
@@ -46,7 +46,9 @@ final class DBRepositoryImpl: DBRepository {
     }
     func save(favoriteRecipes: RealmSwift.List<Recipe>) {
         realmTransaction {
-            storagePublisher.value.favoriteRecipes = favoriteRecipes
+            for recipe in favoriteRecipes where !storagePublisher.value.favoriteRecipes.contains(recipe) {
+                storagePublisher.value.favoriteRecipes.append(objectsIn: favoriteRecipes)
+            }
         }
     }
     
@@ -54,13 +56,6 @@ final class DBRepositoryImpl: DBRepository {
         realmTransaction {
             storagePublisher.value.favoriteRecipes.append(favoriteRecipe)
         }
-    }
-    
-    func createNewUser(userInfo: RemoteUserInfo) {
-        let userRealm = UserRealm()
-        userRealm.name = userInfo.username
-        userRealm.email = userInfo.email
-        $realmObjects.append(userRealm)
     }
     
     func removeFavorite(from index: Int) {
@@ -71,6 +66,8 @@ final class DBRepositoryImpl: DBRepository {
     
     func createStorageIfNeed() {
         if realmObjects.isEmpty {
+            let user = UserRealm()
+            user.userInfo = RemoteUserInfo()
             $realmObjects.append(UserRealm())
         }
     }
@@ -79,8 +76,7 @@ final class DBRepositoryImpl: DBRepository {
 extension DBRepositoryImpl {
     private func saveUser(userInfo: RemoteUserInfo) {
         let userRealm = UserRealm()
-        userRealm.name = userInfo.username
-        userRealm.email = userInfo.email
+        userRealm.userInfo = userInfo
         $realmObjects.append(userRealm)
     }
     

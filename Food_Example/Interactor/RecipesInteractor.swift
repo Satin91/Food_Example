@@ -78,7 +78,6 @@ class RecipesInteractorImpl: RecipesInteractor {
             ) { result in
                 switch result {
                 case .success(let receiveValue):
-                    print("recipe received value")
                     recipe = receiveValue
                 case .failure:
                     fatalError("Failed to get info 1")
@@ -152,6 +151,7 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     func saveSingleRecipe(_ recipe: Recipe) {
         dbRepository.save(favoriteRecipe: recipe)
+        recipesWebRepository.sendRecipeToStorage(recipe: recipe, uid: appState.value.user.uid)
     }
     
     func removeFavorite(index: Int) {

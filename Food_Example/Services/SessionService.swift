@@ -30,13 +30,11 @@ final class SessionService: ObservableObject {
         handle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             print("User \(user?.email)")
             guard let self else { return }
-            self.state = user == nil ? .loggedOut : .loggedIn(
-                RemoteUserInfo(
-                    uid: user?.uid ?? "ID",
-                    username: user?.displayName ?? "No user name",
-                    email: user?.email ?? "No email"
-                )
-            )
+            let userInfo = RemoteUserInfo()
+            userInfo.uid = user?.uid ?? "ID"
+            userInfo.username = user?.displayName ?? "No user name"
+            userInfo.email = user?.email ?? "No email"
+            self.state = user == nil ? .loggedOut : .loggedIn(userInfo)
         }
     }
     

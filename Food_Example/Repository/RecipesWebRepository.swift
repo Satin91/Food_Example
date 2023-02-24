@@ -6,10 +6,12 @@
 //
 
 import Combine
+import FirebaseDatabase
 import Foundation
 
 protocol RecipesWebRepository {
     func searchRequest<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error>
+    func sendRecipeToStorage(recipe: Recipe, uid: String)
 }
 
 class RecipesWebRepositoryImpl: RecipesWebRepository {
@@ -23,5 +25,13 @@ class RecipesWebRepositoryImpl: RecipesWebRepository {
             .map { $0.data }
             .decode(type: model.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
+    }
+    
+    func sendRecipeToStorage(recipe: Recipe, uid: String) {
+        print("Uid \(uid)")
+        Database.userReferenceFrom(uid: uid).getData { _, snapshot in
+            guard let value = snapshot?.value as? [String: Any] else { return }
+            print("Snapshot value \(value)")
+        }
     }
 }

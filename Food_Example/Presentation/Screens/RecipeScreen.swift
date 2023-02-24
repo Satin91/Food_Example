@@ -67,6 +67,7 @@ struct RecipeScreen: View {
                     .padding(Constants.Spacing.xs)
                     .onTapGesture {
                         container.interactors.recipesInteractor.saveSingleRecipe(recipe)
+                        container.interactors.userInteractor
                     }
                     .background(
                         Circle()

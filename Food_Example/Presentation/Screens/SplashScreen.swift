@@ -5,8 +5,6 @@
 //  Created by Артур Кулик on 12.01.2023.
 //
 
-import Combine
-import FirebaseAuth
 import SwiftUI
 
 struct SplashScreen: View {
@@ -14,7 +12,6 @@ struct SplashScreen: View {
     let onOnboardingScreen: () -> Void
     let onRootScreen: () -> Void
     let sessionService = SessionService()
-    @State var cancelBag = Set<AnyCancellable>()
     
     var body: some View {
         VStack {
@@ -27,12 +24,11 @@ struct SplashScreen: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         switch sessionService.state {
                         case .loggedIn(let user):
+                            print("LOAD USER \(user)")
                             container.interactors.userInteractor.loadUserFromDB(userInfo: user)
                             onRootScreen()
-                            print("Logged in")
                         case .loggedOut:
                             onOnboardingScreen()
-                            print("Logged out")
                         }
                     }
                 }

@@ -10,8 +10,7 @@ import RealmSwift
 
 final class UserRealm: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var name = String()
-    @Persisted var email = ""
+    @Persisted var userInfo: RemoteUserInfo?
     @Persisted var favoriteRecipes = RealmSwift.List<Recipe>()
 }
 
