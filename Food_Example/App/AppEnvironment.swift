@@ -16,7 +16,7 @@ struct AppEnvironment {
     static func bootstrap() -> AppEnvironment {
         let appState = configureAppState()
         let interactors = configureInteractors(
-            dbRepository: DBRepositoryImpl(),
+            storageRepository: StorageRepositoryImpl(),
             authRepository: AuthWebRepositoryImpl(),
             appstate: appState
         )
@@ -28,11 +28,11 @@ struct AppEnvironment {
         Store<AppState>(AppState())
     }
     
-    private static func configureInteractors(dbRepository: DBRepository, authRepository: AuthWebRepository, appstate: Store<AppState>) -> DIContainer.Interactors {
+    private static func configureInteractors(storageRepository: StorageRepository, authRepository: AuthWebRepository, appstate: Store<AppState>) -> DIContainer.Interactors {
         .init(
-            authInteractor: AuthInteractorImpl(authRepository: authRepository, dbRepository: dbRepository, appState: appstate),
-            recipesInteractor: RecipesInteractorImpl(recipesWebRepository: RecipesWebRepositoryImpl(), dbRepository: dbRepository, appState: appstate),
-            userInteractor: UserInteractorImpl(dbRepository: dbRepository, authRepository: authRepository, appState: appstate)
+            authInteractor: AuthInteractorImpl(authRepository: authRepository, dbRepository: storageRepository, appState: appstate),
+            recipesInteractor: RecipesInteractorImpl(recipesApiRepository: RecipesApiRepositoryImpl(), storageRepository: storageRepository, appState: appstate),
+            userInteractor: UserInteractorImpl(dbRepository: storageRepository, authRepository: authRepository, appState: appstate)
         )
     }
 }

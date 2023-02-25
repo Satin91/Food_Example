@@ -21,7 +21,7 @@ struct AppState {
 }
 
 extension Store<AppState> {
-    func sinkToStorage(_ repository: DBRepository) {
+    func sinkToStorage(_ repository: StorageRepository) {
         repository.storagePublisher
             .sink { user in
                 guard let userInfo = user.userInfo else { return }

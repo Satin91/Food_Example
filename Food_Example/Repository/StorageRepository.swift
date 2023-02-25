@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import RealmSwift
 
-protocol DBRepository {
+protocol StorageRepository {
     var realmObjects: Results<UserRealm> { get }
     var storagePublisher: CurrentValueSubject<UserRealm, Never> { get set }
     
@@ -20,7 +20,7 @@ protocol DBRepository {
     func removeFavorite(from index: Int)
 }
 
-final class DBRepositoryImpl: DBRepository {
+final class StorageRepositoryImpl: StorageRepository {
     // All of realm objects
     @ObservedResults(UserRealm.self) var realmObjects
     // Current object
@@ -33,7 +33,6 @@ final class DBRepositoryImpl: DBRepository {
     func loadUserStorage(userInfo: RemoteUserInfo) {
         let storage = realmObjects.first(where: { $0.userInfo?.email == userInfo.email }) ?? UserRealm()
         self.storagePublisher.send(storage)
-        print("Load user from storage \(storage)")
     }
     
     func saveUserIfNeed(userInfo: RemoteUserInfo) {
@@ -73,7 +72,7 @@ final class DBRepositoryImpl: DBRepository {
     }
 }
 
-extension DBRepositoryImpl {
+extension StorageRepositoryImpl {
     private func saveUser(userInfo: RemoteUserInfo) {
         let userRealm = UserRealm()
         userRealm.userInfo = userInfo

@@ -9,12 +9,12 @@ import Combine
 import FirebaseDatabase
 import Foundation
 
-protocol RecipesWebRepository {
+protocol RecipesApiRepository {
     func searchRequest<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error>
     func sendRecipeToStorage(recipe: Recipe, uid: String)
 }
 
-class RecipesWebRepositoryImpl: RecipesWebRepository {
+class RecipesApiRepositoryImpl: RecipesApiRepository {
     func searchRequest<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error> {
         guard var url = URL(string: Constants.API.baseURL + path.path) else {
             return Fail(outputType: model, failure: APIRequestError.invalidURL).eraseToAnyPublisher()

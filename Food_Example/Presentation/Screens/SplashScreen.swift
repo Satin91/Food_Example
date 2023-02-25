@@ -24,7 +24,6 @@ struct SplashScreen: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         switch sessionService.state {
                         case .loggedIn(let user):
-                            print("LOAD USER \(user)")
                             container.interactors.userInteractor.loadUserFromDB(userInfo: user)
                             onRootScreen()
                         case .loggedOut:

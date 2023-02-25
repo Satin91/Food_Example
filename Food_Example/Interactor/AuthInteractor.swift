@@ -20,12 +20,12 @@ protocol AuthInteractor {
 
 class AuthInteractorImpl: AuthInteractor {
     let authRepository: AuthWebRepository
-    let dbRepository: DBRepository
+    let dbRepository: StorageRepository
     
     var cancelBag = Set<AnyCancellable>()
     var appState: Store<AppState>
     
-    init(authRepository: AuthWebRepository, dbRepository: DBRepository, appState: Store<AppState>) {
+    init(authRepository: AuthWebRepository, dbRepository: StorageRepository, appState: Store<AppState>) {
         self.authRepository = authRepository
         self.dbRepository = dbRepository
         self.appState = appState

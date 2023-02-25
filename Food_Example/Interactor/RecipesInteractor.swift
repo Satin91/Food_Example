@@ -20,8 +20,8 @@ protocol RecipesInteractor {
 }
 
 class RecipesInteractorImpl: RecipesInteractor {
-    let recipesWebRepository: RecipesWebRepository
-    let dbRepository: DBRepository
+    let recipesApiRepository: RecipesApiRepository
+    let storageRepository: StorageRepository
     let searchRecipesDispatchGroup = DispatchGroup()
     
     var cancelBag = Set<AnyCancellable>()
@@ -29,11 +29,11 @@ class RecipesInteractorImpl: RecipesInteractor {
     var appState: Store<AppState>
     let imageLoader = ImageLoader()
     
-    init(recipesWebRepository: RecipesWebRepository, dbRepository: DBRepository, appState: Store<AppState>) {
-        self.recipesWebRepository = recipesWebRepository
-        self.dbRepository = dbRepository
+    init(recipesApiRepository: RecipesApiRepository, storageRepository: StorageRepository, appState: Store<AppState>) {
+        self.recipesApiRepository = recipesApiRepository
+        self.storageRepository = storageRepository
         self.appState = appState
-        self.appState.sinkToStorage(dbRepository)
+        self.appState.sinkToStorage(storageRepository)
     }
     
     // MARK: WEB
@@ -146,16 +146,16 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     // MARK: DataBase
     func saveSeveralRecipes(_ recipes: RealmSwift.List<Recipe>) {
-        dbRepository.save(favoriteRecipes: recipes)
+        storageRepository.save(favoriteRecipes: recipes)
     }
     
     func saveSingleRecipe(_ recipe: Recipe) {
-        dbRepository.save(favoriteRecipe: recipe)
-        recipesWebRepository.sendRecipeToStorage(recipe: recipe, uid: appState.value.user.uid)
+        storageRepository.save(favoriteRecipe: recipe)
+        recipesApiRepository.sendRecipeToStorage(recipe: recipe, uid: appState.value.user.uid)
     }
     
     func removeFavorite(index: Int) {
-        dbRepository.removeFavorite(from: index)
+        storageRepository.removeFavorite(from: index)
     }
     
     func getRecipesInfoBy(ids: [Int]) {
@@ -172,7 +172,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         searchRecipesDispatchGroup.notify(queue: .main) {
             let recipesRealm = RealmSwift.List<Recipe>()
             recipesRealm.append(objectsIn: recipes)
-            self.dbRepository.save(favoriteRecipes: recipesRealm)
+            self.storageRepository.save(favoriteRecipes: recipesRealm)
         }
     }
 }
@@ -213,7 +213,7 @@ extension RecipesInteractorImpl {
         completion: @escaping (Result<T, Error>) -> Void
     ) {
         dispatchGroup.enter()
-        recipesWebRepository.searchRequest(model: model.self, params: params, path: path)
+        recipesApiRepository.searchRequest(model: model.self, params: params, path: path)
             .eraseToAnyPublisher()
             .sink { error in
                 print(error)
