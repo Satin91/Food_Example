@@ -22,6 +22,7 @@ protocol RecipesInteractor {
 class RecipesInteractorImpl: RecipesInteractor {
     let recipesApiRepository: RecipesApiRepository
     let storageRepository: StorageRepository
+    let remoteRepository: RemoteRepository
     let searchRecipesDispatchGroup = DispatchGroup()
     
     var cancelBag = Set<AnyCancellable>()
@@ -29,9 +30,10 @@ class RecipesInteractorImpl: RecipesInteractor {
     var appState: Store<AppState>
     let imageLoader = ImageLoader()
     
-    init(recipesApiRepository: RecipesApiRepository, storageRepository: StorageRepository, appState: Store<AppState>) {
+    init(recipesApiRepository: RecipesApiRepository, storageRepository: StorageRepository, remoteRepository: RemoteRepository, appState: Store<AppState>) {
         self.recipesApiRepository = recipesApiRepository
         self.storageRepository = storageRepository
+        self.remoteRepository = remoteRepository
         self.appState = appState
         self.appState.sinkToStorage(storageRepository)
     }
@@ -137,7 +139,7 @@ class RecipesInteractorImpl: RecipesInteractor {
             guard let self else { return }
             switch result {
             case .success(let wrapper):
-                self.appState.value.searchableRecipes.append(objectsIn: wrapper.recipes)
+                self.appState.value.searchableRecipes = wrapper.recipes
             case .failure(let failure):
                 print("Failure getting random recipes \(failure.localizedDescription)")
             }
@@ -147,15 +149,17 @@ class RecipesInteractorImpl: RecipesInteractor {
     // MARK: DataBase
     func saveSeveralRecipes(_ recipes: RealmSwift.List<Recipe>) {
         storageRepository.save(favoriteRecipes: recipes)
+        updateRemoteStorage()
     }
     
     func saveSingleRecipe(_ recipe: Recipe) {
         storageRepository.save(favoriteRecipe: recipe)
-        recipesApiRepository.sendRecipeToStorage(recipe: recipe, uid: appState.value.user.uid)
+        updateRemoteStorage()
     }
     
     func removeFavorite(index: Int) {
         storageRepository.removeFavorite(from: index)
+        updateRemoteStorage()
     }
     
     func getRecipesInfoBy(ids: [Int]) {
@@ -223,5 +227,11 @@ extension RecipesInteractorImpl {
                 completion(.success(value))
             }
             .store(in: &cancelBag)
+    }
+    
+    private func updateRemoteStorage() {
+        let uid = appState.value.user.uid
+        let recipes = storageRepository.storagePublisher.value.favoriteRecipes
+        self.remoteRepository.publish(recipe: recipes, uid: uid)
     }
 }

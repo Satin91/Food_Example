@@ -11,7 +11,6 @@ import SwiftUI
 
 struct RecipeScreen: View {
     @State var recipe: Recipe
-    @State var recipeRealm = Recipe()
     @State var isLoaded = false
     @State var heightImageContainer: CGFloat = 180
     @State var selectedPagingIndex = 0
@@ -28,7 +27,11 @@ struct RecipeScreen: View {
         } else {
             LoadingView()
                 .onAppear {
-                    getRecipeBy(id: recipe.recipeId)
+                    if container.appState.value.userRecipes.contains(recipe) {
+                        isLoaded = true
+                    } else {
+                        getRecipeBy(id: recipe.recipeId)
+                    }
                 }
         }
     }
@@ -145,6 +148,7 @@ struct RecipeScreen: View {
                         .ignoresSafeArea(.all)
                 }
             }
+            .offset(y: 8)
         }
     }
     

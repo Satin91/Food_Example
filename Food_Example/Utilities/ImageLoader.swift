@@ -55,8 +55,10 @@ class ImageLoader: ObservableObject {
     func cropImageIfNeed(imageToCrop: UIImage) -> UIImage {
         // ingredient images don't need to crop
         guard imageToCrop.size.width > ingredientImageSize else { return imageToCrop }
-        guard imageToCrop.hasWhiteBorder() else { return imageToCrop }
-        let imageRef = imageToCrop.cgImage!.cropping(to: CGRect(x: 50, y: 50, width: imageToCrop.size.width - 100, height: imageToCrop.size.height - 100))!
+        let rectx272 = CGRect(x: 20, y: 20, width: 272, height: 192)
+        let rectx500 = CGRect(x: 30, y: 30, width: 496, height: 310)
+        let rect = imageToCrop.size.width > 500 ? rectx500 : rectx272
+        let imageRef = imageToCrop.cgImage!.cropping(to: rect)!
         let cropped = UIImage(cgImage: imageRef)
         return cropped
     }

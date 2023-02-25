@@ -22,7 +22,7 @@ struct RootScreen: View {
                 currentScreen: $currentScreen,
                 tabItems: [
                     SearchRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
-                    FavoriteRecipesScreen(),
+                    FavoriteRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
                     AccountScreen(backToSignInScreen: backToSignInScreen)
                 ]
             )

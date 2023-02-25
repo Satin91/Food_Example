@@ -59,7 +59,7 @@ class AuthWebRepositoryImpl: AuthWebRepository {
                     guard error == nil else { return promise(.failure(error as! AuthErrorCode)) }
                     guard let uid = result?.user.uid else { return promise(.failure(AuthErrorCode(.userMismatch))) }
                     let values: [String: Any] = [
-                        "username": info.name,
+                        "username": info.username,
                         "email": info.email,
                         "favoriteRecipes": Array([""])
                     ]
@@ -139,7 +139,7 @@ extension AuthWebRepositoryImpl {
                 guard let self else { return }
                 guard error == nil else { return }
                 guard let value = snapshot?.value as? [String: Any] else { return }
-                var user = RemoteUserInfo()
+                let user = RemoteUserInfo()
                 user.uid = uid
                 user.email = (value[self.userInfoConfig.email] as! String).lowercased()
                 user.username = value[self.userInfoConfig.username] as! String

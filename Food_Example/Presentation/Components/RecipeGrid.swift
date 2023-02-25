@@ -12,9 +12,9 @@ import Vision
 struct RecipeGrid: View {
     @StateObject var imageLoader = ImageLoader()
     let recipe: Recipe
-    let imageHeight: CGFloat = 100
     let gridCornerRadius: CGFloat = 12
     let settingsButtonSize: CGFloat = 24
+    let imageHeight: CGFloat = 110
     let action: () -> Void
     let settingsAction: () -> Void
     
@@ -43,7 +43,7 @@ struct RecipeGrid: View {
         Text(recipe.title)
             .font(Fonts.makeFont(.semiBold, size: Constants.FontSizes.small))
             .foregroundColor(Colors.weakDark)
-            .frame(height: 45)
+            .frame(height: 40)
             .padding(.horizontal, Constants.Spacing.xs)
             .padding(.bottom, Constants.Spacing.xs)
             .lineLimit(2)
@@ -60,8 +60,8 @@ struct RecipeGrid: View {
         Image(uiImage: imageLoader.image)
             .resizable()
             .scaledToFill()
-            .cornerRadius(12)
-            .padding(Constants.Spacing.xs)
+            .frame(height: imageHeight)
+            .padding(.bottom, Constants.Spacing.xs)
     }
     
     var settingsButton: some View {

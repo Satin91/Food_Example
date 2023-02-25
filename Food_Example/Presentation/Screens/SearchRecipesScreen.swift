@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SearchRecipesScreen: View, TabBarActor {
     var tabImage: String = Images.icnSearchFilled
-    var tabSelectedColor: Color = Colors.red
+    var tabSelectedColor: Color = Colors.dark
     
     @Environment(\.injected) var container: DIContainer
     @State private var allCategoriesTextPublisher = CurrentValueSubject<String, Never>("")
@@ -31,8 +31,8 @@ struct SearchRecipesScreen: View, TabBarActor {
     let onShowRecipeScreen: (_ id: Recipe) -> Void
     
     let columns = [
-        GridItem(.flexible(), spacing: Constants.Spacing.xs),
-        GridItem(.flexible(), spacing: Constants.Spacing.xs)
+        GridItem(.flexible(), spacing: Constants.Spacing.m),
+        GridItem(.flexible(), spacing: Constants.Spacing.m)
     ]
     @State var gridWidth: CGFloat = 0
     
@@ -41,6 +41,7 @@ struct SearchRecipesScreen: View, TabBarActor {
             .toolbar(.hidden)
             .onAppear {
                 addFilterObservers()
+                //                showRandomRecipes()
             }
             .onReceive(container.appState.eraseToAnyPublisher()) { recipes = $0.searchableRecipes }
     }
@@ -137,7 +138,7 @@ struct SearchRecipesScreen: View, TabBarActor {
     }
     
     private var recipesList: some View {
-        LazyVGrid(columns: columns, spacing: Constants.Spacing.s) {
+        LazyVGrid(columns: columns, spacing: Constants.Spacing.m) {
             ForEach(recipes) { recipe in
                 RecipeGrid(
                     recipe: recipe,
@@ -149,7 +150,7 @@ struct SearchRecipesScreen: View, TabBarActor {
                 )
             }
         }
-        .padding(Constants.Spacing.s)
+        .padding(Constants.Spacing.m)
     }
     
     private var nutritientsFilterContainer: some View {

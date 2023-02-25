@@ -12,7 +12,7 @@ struct TabBarItem: View {
     let itemImage: String
     let itemIndex: Int
     let selectedColor: Color
-    let placeHolderColor = Colors.placeholder
+    let placeHolderColor = Colors.silver
     var isSelected: Bool
     let iconSize: CGFloat = 30
     var body: some View {

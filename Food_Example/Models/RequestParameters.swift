@@ -18,7 +18,6 @@ class RecipesRequestParams {
         urlParams.forEach { URLParams[$0.key] = $0.value }
     }
     
-    // this is needed to clean up the previous search query
     func clearParams() {
         self.URLParams = [
             "apiKey": Constants.API.apiKey,

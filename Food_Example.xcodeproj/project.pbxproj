@@ -97,7 +97,6 @@
 		8ECB363A297207130015646D /* RoundedFilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB3639297207130015646D /* RoundedFilledButton.swift */; };
 		8ECB363C29720C470015646D /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB363B29720C470015646D /* GoogleButton.swift */; };
 		8EDA41442980BB2B003C76E9 /* RecipeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA41432980BB2B003C76E9 /* RecipeScreen.swift */; };
-		8EF6378E29736D2800AAD62E /* RecipeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF6378D29736D2800AAD62E /* RecipeOld.swift */; };
 		DAC2CE7C0EA88D94EC95DE00 /* libPods-Food_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB13102025C97D49767D5162 /* libPods-Food_Example.a */; };
 /* End PBXBuildFile section */
 
@@ -193,7 +192,6 @@
 		8ECB3639297207130015646D /* RoundedFilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedFilledButton.swift; sourceTree = "<group>"; };
 		8ECB363B29720C470015646D /* GoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
 		8EDA41432980BB2B003C76E9 /* RecipeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeScreen.swift; sourceTree = "<group>"; };
-		8EF6378D29736D2800AAD62E /* RecipeOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeOld.swift; sourceTree = "<group>"; };
 		99A119B01161D5F324E565BF /* Pods-Food_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Food_Example.debug.xcconfig"; path = "Target Support Files/Pods-Food_Example/Pods-Food_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		CB13102025C97D49767D5162 /* libPods-Food_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Food_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15305536270F35792D3CD25 /* Pods-Food_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Food_Example.release.xcconfig"; path = "Target Support Files/Pods-Food_Example/Pods-Food_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -368,7 +366,6 @@
 		8E330985297F279B006B2145 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8EF6378D29736D2800AAD62E /* RecipeOld.swift */,
 				8E623D95299A7BFD006E29A2 /* Recipe.swift */,
 				8E94D337298369050001AB69 /* RecipeMock.swift */,
 				8E1E11A02978E3CA00CD62DF /* RegistrationInfo.swift */,
@@ -719,7 +716,6 @@
 				8E15C3EB297A3EA500BAF333 /* AppEnvironment.swift in Sources */,
 				8E1E11A12978E3CA00CD62DF /* RegistrationInfo.swift in Sources */,
 				8E7DDECC2981DB3B00D60038 /* LoadableImage.swift in Sources */,
-				8EF6378E29736D2800AAD62E /* RecipeOld.swift in Sources */,
 				8E1E3EE629706E0700990D9D /* AppCoordinator.swift in Sources */,
 				8E15C3E2297A2CDD00BAF333 /* InteractorsContainer.swift in Sources */,
 				8E15C3E6297A2DFA00BAF333 /* AuthInteractor.swift in Sources */,

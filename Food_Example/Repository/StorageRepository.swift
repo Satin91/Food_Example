@@ -45,8 +45,10 @@ final class StorageRepositoryImpl: StorageRepository {
     }
     func save(favoriteRecipes: RealmSwift.List<Recipe>) {
         realmTransaction {
-            for recipe in favoriteRecipes where !storagePublisher.value.favoriteRecipes.contains(recipe) {
-                storagePublisher.value.favoriteRecipes.append(objectsIn: favoriteRecipes)
+            favoriteRecipes.forEach { recipe in
+                if !storagePublisher.value.favoriteRecipes.contains(where: { $0.recipeId == recipe.recipeId }) {
+                    storagePublisher.value.favoriteRecipes.append(recipe)
+                }
             }
         }
     }

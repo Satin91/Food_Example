@@ -49,7 +49,7 @@ struct SignUpScreen: View {
     
     private var textFieldContainer: some View {
         VStack(spacing: Constants.Spacing.s) {
-            BorderedTextField(text: $registrationInfo.name, verificationError: $authError, textFieldType: .userName)
+            BorderedTextField(text: $registrationInfo.username, verificationError: $authError, textFieldType: .userName)
             BorderedTextField(text: $registrationInfo.email, verificationError: $authError, textFieldType: .email)
             BorderedTextField(text: $registrationInfo.password, verificationError: $authError, textFieldType: .password)
         }

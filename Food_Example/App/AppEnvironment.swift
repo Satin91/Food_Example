@@ -30,8 +30,8 @@ struct AppEnvironment {
     
     private static func configureInteractors(storageRepository: StorageRepository, authRepository: AuthWebRepository, appstate: Store<AppState>) -> DIContainer.Interactors {
         .init(
-            authInteractor: AuthInteractorImpl(authRepository: authRepository, dbRepository: storageRepository, appState: appstate),
-            recipesInteractor: RecipesInteractorImpl(recipesApiRepository: RecipesApiRepositoryImpl(), storageRepository: storageRepository, appState: appstate),
+            authInteractor: AuthInteractorImpl(authRepository: authRepository, storageRepository: storageRepository, appState: appstate),
+            recipesInteractor: RecipesInteractorImpl(recipesApiRepository: RecipesApiRepositoryImpl(), storageRepository: storageRepository, remoteRepository: RemoteRepositoryImpl(), appState: appstate),
             userInteractor: UserInteractorImpl(dbRepository: storageRepository, authRepository: authRepository, appState: appstate)
         )
     }

@@ -10,8 +10,9 @@ import SwiftUI
 
 struct FavoriteRecipesScreen: View, TabBarActor {
     var tabImage: String = Images.icnHomeFilled
-    var tabSelectedColor: Color = Colors.green
+    var tabSelectedColor: Color = Colors.dark
     @Environment(\.injected) var container: DIContainer
+    var onShowRecipeScreen: (Recipe) -> Void
     
     var body: some View {
         content
@@ -39,7 +40,11 @@ struct FavoriteRecipesScreen: View, TabBarActor {
                 FavoriteRecipeRow(recipeRealm: object)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(.zero))
-            }.onDelete { indexSet in
+                    .onTapGesture {
+                        onShowRecipeScreen(object)
+                    }
+            }
+            .onDelete { indexSet in
                 container.interactors.recipesInteractor.removeFavorite(index: indexSet.first!)
             }
         }

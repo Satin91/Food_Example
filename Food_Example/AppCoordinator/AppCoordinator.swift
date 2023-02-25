@@ -39,7 +39,7 @@ struct AppCoordinator: View {
             case .mainScreen:
                 SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .favoriteRecipeScreen:
-                FavoriteRecipesScreen()
+                FavoriteRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .recipeScreen(let recipe):
                 RecipeScreen(
                     recipe: recipe,
