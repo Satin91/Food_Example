@@ -18,7 +18,7 @@
 		8E15C3EB297A3EA500BAF333 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3EA297A3EA500BAF333 /* AppEnvironment.swift */; };
 		8E1A98922975BF93007555A8 /* URL+QueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1A98912975BF93007555A8 /* URL+QueryParams.swift */; };
 		8E1E11A12978E3CA00CD62DF /* RegistrationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E11A02978E3CA00CD62DF /* RegistrationInfo.swift */; };
-		8E1E11A52978E56C00CD62DF /* AuthWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E11A42978E56C00CD62DF /* AuthWebRepository.swift */; };
+		8E1E11A52978E56C00CD62DF /* AuthRemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E11A42978E56C00CD62DF /* AuthRemoteRepository.swift */; };
 		8E1E3EC72970635F00990D9D /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EC62970635F00990D9D /* SplashScreen.swift */; };
 		8E1E3ED5297065FE00990D9D /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ECC297065FD00990D9D /* Poppins-Bold.ttf */; };
 		8E1E3ED6297065FE00990D9D /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ECD297065FD00990D9D /* Poppins-ExtraLight.ttf */; };
@@ -112,7 +112,7 @@
 		8E15C3EA297A3EA500BAF333 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		8E1A98912975BF93007555A8 /* URL+QueryParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryParams.swift"; sourceTree = "<group>"; };
 		8E1E11A02978E3CA00CD62DF /* RegistrationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInfo.swift; sourceTree = "<group>"; };
-		8E1E11A42978E56C00CD62DF /* AuthWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWebRepository.swift; sourceTree = "<group>"; };
+		8E1E11A42978E56C00CD62DF /* AuthRemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteRepository.swift; sourceTree = "<group>"; };
 		8E1E3EC62970635F00990D9D /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		8E1E3ECC297065FD00990D9D /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		8E1E3ECD297065FD00990D9D /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 			children = (
 				8E623D97299AC6FF006E29A2 /* StorageRepository.swift */,
 				8E98A81C29AA217D007B898A /* RemoteRepository.swift */,
-				8E1E11A42978E56C00CD62DF /* AuthWebRepository.swift */,
+				8E1E11A42978E56C00CD62DF /* AuthRemoteRepository.swift */,
 				8E330988297F3972006B2145 /* RecipesApiRepository.swift */,
 			);
 			path = Repository;
@@ -657,7 +657,7 @@
 				8E94D338298369050001AB69 /* RecipeMock.swift in Sources */,
 				8E448F62297BAA8800F3C7D7 /* CentralPopupView.swift in Sources */,
 				8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */,
-				8E1E11A52978E56C00CD62DF /* AuthWebRepository.swift in Sources */,
+				8E1E11A52978E56C00CD62DF /* AuthRemoteRepository.swift in Sources */,
 				8E1E3EF329707C2C00990D9D /* OnboardingScreen.swift in Sources */,
 				8EABA762298BF6D7003A5514 /* PopupModifier.swift in Sources */,
 				8EB54D1A298A699B00B253C6 /* InstructionsScreen.swift in Sources */,

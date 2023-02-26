@@ -17,7 +17,8 @@ struct AppEnvironment {
         let appState = configureAppState()
         let interactors = configureInteractors(
             storageRepository: StorageRepositoryImpl(),
-            authRepository: AuthWebRepositoryImpl(),
+            remoteRepository: RemoteRepositoryImpl(),
+            authRepository: AuthRemoteRepositoryImpl(),
             appstate: appState
         )
         let container = DIContainer(appState: appState, interactors: interactors)
@@ -28,10 +29,10 @@ struct AppEnvironment {
         Store<AppState>(AppState())
     }
     
-    private static func configureInteractors(storageRepository: StorageRepository, authRepository: AuthWebRepository, appstate: Store<AppState>) -> DIContainer.Interactors {
+    private static func configureInteractors(storageRepository: StorageRepository, remoteRepository: RemoteRepository, authRepository: AuthRemoteRepository, appstate: Store<AppState>) -> DIContainer.Interactors {
         .init(
-            authInteractor: AuthInteractorImpl(authRepository: authRepository, storageRepository: storageRepository, appState: appstate),
-            recipesInteractor: RecipesInteractorImpl(recipesApiRepository: RecipesApiRepositoryImpl(), storageRepository: storageRepository, remoteRepository: RemoteRepositoryImpl(), appState: appstate),
+            authInteractor: AuthInteractorImpl(authRepository: authRepository, storageRepository: storageRepository, remoteRepository: remoteRepository, appState: appstate),
+            recipesInteractor: RecipesInteractorImpl(recipesApiRepository: RecipesApiRepositoryImpl(), storageRepository: storageRepository, remoteRepository: remoteRepository, appState: appstate),
             userInteractor: UserInteractorImpl(dbRepository: storageRepository, authRepository: authRepository, appState: appstate)
         )
     }

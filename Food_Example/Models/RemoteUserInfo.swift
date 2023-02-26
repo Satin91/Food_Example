@@ -12,9 +12,9 @@ final class RemoteUserInfo: Object {
     @Persisted var uid: String = ""
     @Persisted var username: String = ""
     @Persisted var email: String = ""
-    var favoriteRecipesIDs = [Int]()
+    @Persisted var favoriteRecipesIDs = List<Int>()
     
-    convenience init(uid: String, username: String, email: String, favoriteRecipesIDs: [Int]) {
+    convenience init(uid: String, username: String, email: String, favoriteRecipesIDs: List<Int>) {
         self.init()
         self.uid = uid
         self.username = username

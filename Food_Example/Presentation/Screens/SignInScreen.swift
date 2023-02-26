@@ -77,7 +77,7 @@ struct SignInScreen: View {
     
     private var signInButton: some View {
         RoundedFilledButton(text: "Sign In", action: {
-            container.interactors.authInteractor.logIn(registrationInfo: registrationInfo) { result in
+            container.interactors.authInteractor.logIn(info: registrationInfo) { result in
                 switch result {
                 case .success(let user):
                     print("User logged in \(user)")

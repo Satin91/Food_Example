@@ -7,14 +7,13 @@
 
 import Combine
 import RealmSwift
-import SwiftUI
 
 protocol RecipesInteractor {
     func showRandomRecipes()
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint)
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
-    func getRecipesInfoBy(ids: [Int])
-    func saveSeveralRecipes(_ recipes: RealmSwift.List<Recipe>)
+    func getRecipesInfoBy(ids: List<Int>)
+    func saveSeveralRecipes(_ recipes: List<Recipe>)
     func saveSingleRecipe(_ recipe: Recipe)
     func removeFavorite(index: Int)
 }
@@ -162,7 +161,7 @@ class RecipesInteractorImpl: RecipesInteractor {
         updateRemoteStorage()
     }
     
-    func getRecipesInfoBy(ids: [Int]) {
+    func getRecipesInfoBy(ids: RealmSwift.List<Int>) {
         var recipes: [Recipe] = []
         ids.forEach { id in
             searchRecipesDispatchGroup.enter()
@@ -201,7 +200,7 @@ struct StubRecipesInteractor: RecipesInteractor {
     func removeFavorite(index: Int) {
     }
     
-    func getRecipesInfoBy(ids: [Int]) {
+    func getRecipesInfoBy(ids: List<Int>) {
     }
     
     func saveSingleRecipe(_ recipe: Recipe) {

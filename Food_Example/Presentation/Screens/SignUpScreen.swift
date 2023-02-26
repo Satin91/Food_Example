@@ -63,7 +63,7 @@ struct SignUpScreen: View {
     private var signUpButton: some View {
         RoundedFilledButton(
             text: "Sign Up", action: {
-                container.interactors.authInteractor.signUp(registrationInfo: registrationInfo) { result in
+                container.interactors.authInteractor.signUp(info: registrationInfo) { result in
                     switch result {
                     case .success:
                         onMainScreen()

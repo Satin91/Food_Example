@@ -8,15 +8,7 @@
 import Foundation
 
 struct RegistrationInfo {
-    var name: String
-    var email: String
-    var password: String
-}
-
-extension RegistrationInfo {
-    init() {
-        self.name = ""
-        self.email = ""
-        self.password = ""
-    }
+    var username: String = ""
+    var email: String = ""
+    var password: String = ""
 }
