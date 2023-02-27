@@ -22,12 +22,11 @@ class RecipesInteractorImpl: RecipesInteractor {
     let recipesApiRepository: RecipesApiRepository
     let localRepository: LocalRepository
     let remoteRepository: RemoteRepository
-    let searchRecipesDispatchGroup = DispatchGroup()
-    
-    var cancelBag = Set<AnyCancellable>()
     let dispatchGroup = DispatchGroup()
-    var appState: Store<AppState>
     let imageLoader = ImageLoader()
+    
+    var appState: Store<AppState>
+    var cancelBag = Set<AnyCancellable>()
     
     init(recipesApiRepository: RecipesApiRepository, localRepository: LocalRepository, remoteRepository: RemoteRepository, appState: Store<AppState>) {
         self.recipesApiRepository = recipesApiRepository

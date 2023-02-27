@@ -11,7 +11,6 @@ import Foundation
 import RealmSwift
 
 protocol RecipesApiRepository {
-    func searchRequest<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error>
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint) -> Future<List<Recipe>, Never>
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
     func getRecipesInfoBy(ids: [Int]) -> Future<List<Recipe>, Never>
@@ -22,18 +21,6 @@ class RecipesApiRepositoryImpl: RecipesApiRepository {
     let recipeInfoDispatchGroup = DispatchGroup()
     let searchRecipesDispatchGroup = DispatchGroup()
     var cancelBag = Set<AnyCancellable>()
-    
-    func searchRequest<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error> {
-        guard var url = URL(string: Constants.API.baseURL + path.path) else {
-            return Fail(outputType: model, failure: APIRequestError.invalidURL).eraseToAnyPublisher()
-        }
-        url = url.appendingQueryParameters(params)
-        return URLSession.shared
-            .dataTaskPublisher(for: url)
-            .map { $0.data }
-            .decode(type: model.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
     
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never> {
         var recipe: Recipe?
@@ -144,5 +131,19 @@ class RecipesApiRepositoryImpl: RecipesApiRepository {
             }
             .store(in: &self.cancelBag)
         }
+    }
+}
+
+extension RecipesApiRepository {
+    func searchRequest<T: Decodable>(model: T.Type, params: [String: String], path: APIEndpoint) -> AnyPublisher<T, Error> {
+        guard var url = URL(string: Constants.API.baseURL + path.path) else {
+            return Fail(outputType: model, failure: APIRequestError.invalidURL).eraseToAnyPublisher()
+        }
+        url = url.appendingQueryParameters(params)
+        return URLSession.shared
+            .dataTaskPublisher(for: url)
+            .map { $0.data }
+            .decode(type: model.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
 }
