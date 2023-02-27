@@ -191,12 +191,10 @@ struct RecipeScreen: View {
     
     private func getRecipeBy(id: Int) {
         guard isLoaded == false else { return }
-        container.interactors.recipesInteractor.getRecipeInfoBy(id: id)
-            .sink { recipe in
-                self.recipe = recipe
-                self.isLoaded = true
-            }
-            .store(in: &cancelBag)
+        container.interactors.recipesInteractor.getRecipeInfoBy(id: id) { recipe in
+            self.recipe = recipe
+            self.isLoaded = true
+        }
     }
 }
 //

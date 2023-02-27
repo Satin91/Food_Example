@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import RealmSwift
 
-protocol StorageRepository {
+protocol LocalRepository {
     var realmObjects: Results<UserRealm> { get }
     var storagePublisher: CurrentValueSubject<UserRealm, Never> { get set }
     
@@ -20,7 +20,7 @@ protocol StorageRepository {
     func removeFavorite(from index: Int)
 }
 
-final class StorageRepositoryImpl: StorageRepository {
+final class LocalRepositoryImpl: LocalRepository {
     // All of realm objects
     @ObservedResults(UserRealm.self) var realmObjects
     // Current object
@@ -72,7 +72,7 @@ final class StorageRepositoryImpl: StorageRepository {
     }
 }
 
-extension StorageRepositoryImpl {
+extension LocalRepositoryImpl {
     private func saveUser(userInfo: RemoteUserInfo) {
         let userRealm = UserRealm()
         userRealm.uid = userInfo.uid

@@ -80,11 +80,6 @@ struct SignInScreen: View {
             container.interactors.authInteractor.logIn(info: registrationInfo) { result in
                 switch result {
                 case .success(let user):
-                    print("User logged in \(user.favoriteRecipesIDs)")
-                    container
-                        .interactors
-                        .recipesInteractor
-                        .getRecipesInfoBy(ids: user.favoriteRecipesIDs)
                     onRootScreen()
                 case .failure(let error):
                     authError = error.code

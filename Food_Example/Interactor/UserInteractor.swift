@@ -13,12 +13,12 @@ protocol UserInteractor {
 }
 
 final class UserInteractorImpl: UserInteractor {
-    var dbRepository: StorageRepository
+    var dbRepository: LocalRepository
     var authRepository: AuthRemoteRepository
     var appState: Store<AppState>
     var cancelBag = Set<AnyCancellable>()
     
-    init(dbRepository: StorageRepository, authRepository: AuthRemoteRepository, appState: Store<AppState>) {
+    init(dbRepository: LocalRepository, authRepository: AuthRemoteRepository, appState: Store<AppState>) {
         self.dbRepository = dbRepository
         self.authRepository = authRepository
         self.appState = appState

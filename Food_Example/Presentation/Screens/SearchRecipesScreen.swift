@@ -41,7 +41,7 @@ struct SearchRecipesScreen: View, TabBarActor {
             .toolbar(.hidden)
             .onAppear {
                 addFilterObservers()
-                //                showRandomRecipes()
+                showRandomRecipes()
             }
             .onReceive(container.appState.eraseToAnyPublisher()) { recipes = $0.searchableRecipes }
     }
@@ -223,9 +223,7 @@ struct SearchRecipesScreen: View, TabBarActor {
     }
     
     private func showRandomRecipes() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            self.container.interactors.recipesInteractor.showRandomRecipes()
-        }
+        self.container.interactors.recipesInteractor.showRandomRecipes()
     }
     
     private func searchRecipes() {

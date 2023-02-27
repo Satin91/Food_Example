@@ -20,15 +20,15 @@ protocol AuthInteractor {
 
 class AuthInteractorImpl: AuthInteractor {
     let authRepository: AuthRemoteRepository
-    let storageRepository: StorageRepository
+    let localRepository: LocalRepository
     let remoteRepository: RemoteRepository
     
     var cancelBag = Set<AnyCancellable>()
     var appState: Store<AppState>
     
-    init(authRepository: AuthRemoteRepository, storageRepository: StorageRepository, remoteRepository: RemoteRepository, appState: Store<AppState>) {
+    init(authRepository: AuthRemoteRepository, localRepository: LocalRepository, remoteRepository: RemoteRepository, appState: Store<AppState>) {
         self.authRepository = authRepository
-        self.storageRepository = storageRepository
+        self.localRepository = localRepository
         self.remoteRepository = remoteRepository
         self.appState = appState
     }
@@ -44,7 +44,7 @@ class AuthInteractorImpl: AuthInteractor {
                 }
             } receiveValue: { userInfo in
                 self.remoteRepository.create(user: userInfo)
-                self.storageRepository.saveUserIfNeed(userInfo: userInfo)
+                self.localRepository.saveUserIfNeed(userInfo: userInfo)
                 completion(.success(()))
             }
             .store(in: &cancelBag)
@@ -62,7 +62,7 @@ class AuthInteractorImpl: AuthInteractor {
             } receiveValue: { userInfo in
                 self.remoteRepository.fetchUserBy(uid: userInfo.uid)
                     .sink { user in
-                        self.storageRepository.saveUserIfNeed(userInfo: user)
+                        self.localRepository.saveUserIfNeed(userInfo: user)
                         completion(.success(user))
                     }
                     .store(in: &self.cancelBag)

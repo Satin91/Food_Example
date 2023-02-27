@@ -21,7 +21,7 @@ struct AppState {
 }
 
 extension Store<AppState> {
-    func sinkToStorage(_ repository: StorageRepository) {
+    func sinkToStorage(_ repository: LocalRepository) {
         repository.storagePublisher
             .sink { user in
                 self.value.user.uid = user.uid
