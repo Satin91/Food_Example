@@ -24,8 +24,9 @@ extension Store<AppState> {
     func sinkToStorage(_ repository: StorageRepository) {
         repository.storagePublisher
             .sink { user in
-                guard let userInfo = user.userInfo else { return }
-                self.value.user = userInfo
+                self.value.user.uid = user.uid
+                self.value.user.username = user.username
+                self.value.user.email = user.email
                 self.value.userRecipes = user.favoriteRecipes
             }
             .store(in: &self.value.cancelBag)

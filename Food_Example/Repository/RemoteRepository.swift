@@ -6,18 +6,15 @@
 //
 
 import Combine
-import FirebaseAuth
 import FirebaseDatabase
 import Foundation
 import RealmSwift
 
-typealias FirebaseUserInfo = UserInfo
-
 protocol RemoteRepository {
-    func create(user: FirebaseUserInfo)
+    func create(user: RemoteUserInfo)
     func publish(recipe: List<Recipe>, uid: String)
     func fetch(recipes: List<Recipe>)
-    func fetch(user: UserInfo) -> Future<RemoteUserInfo, Never>
+    func fetchUserBy(uid: String) -> Future<RemoteUserInfo, Never>
 }
 
 final class RemoteRepositoryImpl: RemoteRepository {
@@ -29,27 +26,28 @@ final class RemoteRepositoryImpl: RemoteRepository {
     func fetch(recipes: List<Recipe>) {
     }
     
-    func fetch(user: FirebaseUserInfo) -> Future<RemoteUserInfo, Never> {
+    func fetchUserBy(uid: String) -> Future<RemoteUserInfo, Never> {
         Future { promise in
-            Database.userReferenceFrom(uid: user.uid).getData { _, snapshot in
+            Database.userReferenceFrom(uid: uid).getData { _, snapshot in
                 guard let remoteStorageUser = snapshot?.value as? [String: Any] else { return }
                 let userInfo = RemoteUserInfo(
-                    uid: user.uid,
+                    uid: uid,
                     username: remoteStorageUser[UserInfoConfig.username] as! String,
                     email: remoteStorageUser[UserInfoConfig.email] as! String,
-                    favoriteRecipesIDs: List<Int>(remoteStorageUser[UserInfoConfig.favoriteRecipes])
+                    favoriteRecipesIDs: remoteStorageUser[UserInfoConfig.favoriteRecipes] as! [Int]
                 )
+                print("fetch user favorite recipes \(userInfo.favoriteRecipesIDs)")
                 promise(.success(userInfo))
             }
         }
     }
     
-    func create(user: FirebaseUserInfo) {
+    func create(user: RemoteUserInfo) {
         print("Publish user \(user)")
         let values: [String: Any] = [
             UserInfoConfig.email: user.email,
-            UserInfoConfig.username: user.displayName ?? "UserInfo",
-            UserInfoConfig.favoriteRecipes: [0]
+            UserInfoConfig.username: user.username,
+            UserInfoConfig.favoriteRecipes: user.favoriteRecipesIDs
         ]
         Database.userReferenceFrom(uid: user.uid).updateChildValues(values)
     }

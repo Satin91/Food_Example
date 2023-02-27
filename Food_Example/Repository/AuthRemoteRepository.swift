@@ -13,47 +13,42 @@ import GoogleSignIn
 import RealmSwift
 
 protocol AuthRemoteRepository {
-    func signUp(info: RegistrationInfo) -> AnyPublisher<FirebaseUserInfo, AuthErrorCode>
-    func logIn(info: RegistrationInfo) -> AnyPublisher<UserInfo, AuthErrorCode>
+    func signUp(info: RegistrationInfo) -> AnyPublisher<RemoteUserInfo, AuthErrorCode>
+    func logIn(info: RegistrationInfo) -> Future<RemoteUserInfo, AuthErrorCode>
     func resetPassword(to email: String) -> AnyPublisher<Void, AuthErrorCode>
-    func signUpWithGoogle() -> Future<FirebaseUserInfo, GoogleSignUpError>
+    func signUpWithGoogle() -> Future<RemoteUserInfo, GoogleSignUpError>
     func logout() -> Future<Void, Never>
 }
 
 class AuthRemoteRepositoryImpl: AuthRemoteRepository {
     var cancelBag = Set<AnyCancellable>()
     
-    func logIn(info: RegistrationInfo) -> AnyPublisher<FirebaseUserInfo, AuthErrorCode> {
-        Deferred {
-            Future { promise in
-                Auth.auth().signIn(withEmail: info.email, password: info.password) { result, error in
-                    guard error == nil else {
-                        promise(.failure(error as! AuthErrorCode))
-                        return
-                    }
-                    guard let user = result?.user else {
-                        fatalError("User not found")
-                    }
-                    promise(.success(user))
+    func logIn(info: RegistrationInfo) -> Future<RemoteUserInfo, AuthErrorCode> {
+        Future { promise in
+            Auth.auth().signIn(withEmail: info.email, password: info.password) { result, error in
+                guard error == nil else {
+                    promise(.failure(error as! AuthErrorCode))
+                    return
                 }
+                guard let user = result?.user else {
+                    fatalError("User not found")
+                }
+                let userInfo = RemoteUserInfo(uid: user.uid, username: info.username, email: info.email)
+                promise(.success(userInfo))
             }
         }
-        .receive(on: RunLoop.main)
-        .eraseToAnyPublisher()
     }
     
-    func signUp(info: RegistrationInfo) -> AnyPublisher<FirebaseUserInfo, AuthErrorCode> {
-        Deferred {
-            Future { promise in
-                // Create user
-                Auth.auth().createUser(withEmail: info.email, password: info.password) { result, error in
-                    guard error == nil else { return promise(.failure(error as! AuthErrorCode)) }
-                    guard var user = result?.user else {
-                        promise(.failure(AuthErrorCode(.userMismatch)))
-                        return }
-                    user.setValue(info.username, forKey: "displayName")
-                    promise(.success(user))
-                }
+    func signUp(info: RegistrationInfo) -> AnyPublisher<RemoteUserInfo, AuthErrorCode> {
+        Future { promise in
+            // Create user
+            Auth.auth().createUser(withEmail: info.email, password: info.password) { result, error in
+                guard error == nil else { return promise(.failure(error as! AuthErrorCode)) }
+                guard var user = result?.user else {
+                    promise(.failure(AuthErrorCode(.userMismatch)))
+                    return }
+                let userInfo = RemoteUserInfo(uid: user.uid, username: info.username, email: info.email)
+                promise(.success(userInfo))
             }
         }
         .receive(on: RunLoop.main)
@@ -77,8 +72,8 @@ class AuthRemoteRepositoryImpl: AuthRemoteRepository {
         .eraseToAnyPublisher()
     }
     
-    func signUpWithGoogle() -> Future<FirebaseUserInfo, GoogleSignUpError> {
-        Future<FirebaseUserInfo, GoogleSignUpError> { promise in
+    func signUpWithGoogle() -> Future<RemoteUserInfo, GoogleSignUpError> {
+        Future<RemoteUserInfo, GoogleSignUpError> { promise in
             GIDSignIn.sharedInstance.signIn(withPresenting: ApplicationUtility.rootViewController) { result, error in
                 guard error == nil else {
                     promise(.failure(.userCancel))
@@ -89,7 +84,8 @@ class AuthRemoteRepositoryImpl: AuthRemoteRepository {
                     return
                 }
                 guard let user = result?.user else { return }
-                let userInfo = RemoteUserInfo(uid: result?.user.userID ?? "ID", username: profile.name, email: profile.email, favoriteRecipesIDs: List<Int>())
+                let userInfo = RemoteUserInfo(uid: result?.user.userID ?? "ID", username: profile.name, email: profile.email, favoriteRecipesIDs: [0])
+                promise(.success(userInfo))
             }
         }
     }

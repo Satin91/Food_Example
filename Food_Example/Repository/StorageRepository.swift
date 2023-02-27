@@ -31,12 +31,12 @@ final class StorageRepositoryImpl: StorageRepository {
     }
     
     func loadUserStorage(userInfo: RemoteUserInfo) {
-        let storage = realmObjects.first(where: { $0.userInfo?.email == userInfo.email }) ?? UserRealm()
+        let storage = realmObjects.first(where: { $0.email == userInfo.email }) ?? UserRealm()
         self.storagePublisher.send(storage)
     }
     
     func saveUserIfNeed(userInfo: RemoteUserInfo) {
-        if !realmObjects.contains(where: { $0.userInfo?.email == userInfo.email }) {
+        if !realmObjects.contains(where: { $0.email == userInfo.email }) {
             saveUser(userInfo: userInfo)
             loadUserStorage(userInfo: userInfo)
         } else {
@@ -67,8 +67,6 @@ final class StorageRepositoryImpl: StorageRepository {
     
     func createStorageIfNeed() {
         if realmObjects.isEmpty {
-            let user = UserRealm()
-            user.userInfo = RemoteUserInfo()
             $realmObjects.append(UserRealm())
         }
     }
@@ -77,7 +75,9 @@ final class StorageRepositoryImpl: StorageRepository {
 extension StorageRepositoryImpl {
     private func saveUser(userInfo: RemoteUserInfo) {
         let userRealm = UserRealm()
-        userRealm.userInfo = userInfo
+        userRealm.uid = userInfo.uid
+        userRealm.username = userInfo.username
+        userRealm.email = userInfo.email
         $realmObjects.append(userRealm)
     }
     

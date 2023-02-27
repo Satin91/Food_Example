@@ -44,8 +44,7 @@ class AuthInteractorImpl: AuthInteractor {
                 }
             } receiveValue: { userInfo in
                 self.remoteRepository.create(user: userInfo)
-                // publish(user: userInfo)
-                //                self.storageRepository.saveUserIfNeed(userInfo: userInfo)
+                self.storageRepository.saveUserIfNeed(userInfo: userInfo)
                 completion(.success(()))
             }
             .store(in: &cancelBag)
@@ -60,13 +59,13 @@ class AuthInteractorImpl: AuthInteractor {
                 case .finished:
                     break
                 }
-            } receiveValue: { user in
-                self.remoteRepository.fetch(user: user)
+            } receiveValue: { userInfo in
+                self.remoteRepository.fetchUserBy(uid: userInfo.uid)
                     .sink { user in
-                        print(user)
+                        self.storageRepository.saveUserIfNeed(userInfo: user)
+                        completion(.success(user))
                     }
                     .store(in: &self.cancelBag)
-                completion(.success(RemoteUserInfo()))
             }
             .store(in: &cancelBag)
     }
