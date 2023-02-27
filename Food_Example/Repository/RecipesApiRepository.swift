@@ -12,15 +12,15 @@ import RealmSwift
 
 protocol RecipesApiRepository {
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint) -> Future<List<Recipe>, Never>
-    func getRecipeInfoBy(id: Int) -> Future<Recipe, Never>
-    func getRecipesInfoBy(ids: [Int]) -> Future<List<Recipe>, Never>
+    func getRecipeBy(id: Int) -> Future<Recipe, Never>
+    func getRecipesBy(ids: [Int]) -> Future<List<Recipe>, Never>
     func showRandomRecipes() -> Future<List<Recipe>, Never>
 }
 
 class RecipesApiRepositoryImpl: RecipesApiRepository {
     var cancelBag = Set<AnyCancellable>()
     
-    func getRecipeInfoBy(id: Int) -> Future<Recipe, Never> {
+    func getRecipeBy(id: Int) -> Future<Recipe, Never> {
         let recipeInfoDispatchGroup = DispatchGroup()
         var recipe: Recipe?
         var nutritients: Nutrient?
@@ -78,13 +78,13 @@ class RecipesApiRepositoryImpl: RecipesApiRepository {
         }
     }
     
-    func getRecipesInfoBy(ids: [Int]) -> Future<List<Recipe>, Never> {
+    func getRecipesBy(ids: [Int]) -> Future<List<Recipe>, Never> {
         Future { promise in
             let dispatchGroup = DispatchGroup()
             let recipes = List<Recipe>()
             for id in ids {
                 dispatchGroup.enter()
-                self.getRecipeInfoBy(id: id)
+                self.getRecipeBy(id: id)
                     .sink { recipe in
                         print("Debug: receive recipe \(id)")
                         recipes.append(recipe)

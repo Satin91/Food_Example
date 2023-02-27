@@ -33,16 +33,13 @@ final class LocalRepositoryImpl: LocalRepository {
     func loadUserStorage(userInfo: RemoteUserInfo) {
         let storage = realmObjects.first(where: { $0.email.lowercased() == userInfo.email.lowercased() }) ?? UserRealm()
         self.storagePublisher.send(storage)
-        print("Load storage from db")
     }
     
     func saveUserIfNeed(userInfo: RemoteUserInfo) {
         if !realmObjects.contains(where: { $0.email.lowercased() == userInfo.email.lowercased() }) {
             saveUser(userInfo: userInfo)
             loadUserStorage(userInfo: userInfo)
-            print("Load storage from create")
         } else {
-            print("Load storage from save")
             loadUserStorage(userInfo: userInfo)
         }
     }
@@ -58,7 +55,9 @@ final class LocalRepositoryImpl: LocalRepository {
     
     func save(favoriteRecipe: Recipe) {
         realmTransaction {
-            storagePublisher.value.favoriteRecipes.append(favoriteRecipe)
+            if !storagePublisher.value.favoriteRecipes.contains(where: { $0.recipeId == favoriteRecipe.recipeId }) {
+                storagePublisher.value.favoriteRecipes.append(favoriteRecipe)
+            }
         }
     }
     

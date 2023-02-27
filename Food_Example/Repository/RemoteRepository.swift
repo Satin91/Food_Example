@@ -19,7 +19,8 @@ protocol RemoteRepository {
 
 final class RemoteRepositoryImpl: RemoteRepository {
     func publish(recipe: List<Recipe>, uid: String) {
-        let publishedValues = ["favoriteRecipes": Array(recipe.map({ $0.recipeId }))]
+        var value = Array(recipe.map({ $0.recipeId }))
+        let publishedValues = ["favoriteRecipes": value]
         Database.userReferenceFrom(uid: uid).updateChildValues(publishedValues)
     }
     
@@ -37,7 +38,6 @@ final class RemoteRepositoryImpl: RemoteRepository {
                     email: remoteStorageUser[UserInfoConfig.email] as! String,
                     favoriteRecipesIDs: (remoteStorageUser[UserInfoConfig.favoriteRecipes] as? [Int]) ?? []
                 )
-                print("fetch user favorite recipes \(userInfo.favoriteRecipesIDs)")
                 promise(.success(userInfo))
             }
         }

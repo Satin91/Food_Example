@@ -47,7 +47,7 @@ class RecipesInteractorImpl: RecipesInteractor {
     }
     
     func getRecipeInfoBy(id: Int, completion: @escaping (Recipe) -> Void) {
-        recipesApiRepository.getRecipeInfoBy(id: id)
+        recipesApiRepository.getRecipeBy(id: id)
             .sink { recipe in
                 print("Recipe \(recipe.title)")
                 completion(recipe)
@@ -86,7 +86,7 @@ class RecipesInteractorImpl: RecipesInteractor {
     }
     
     func getRecipesInfoBy(ids: [Int]) {
-        self.recipesApiRepository.getRecipesInfoBy(ids: ids)
+        self.recipesApiRepository.getRecipesBy(ids: ids)
             .sink { recipes in
                 self.localRepository.save(favoriteRecipes: recipes)
             }
@@ -95,16 +95,13 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     func compareRemoteAndLocalRecipes() {
         let uid = self.appState.value.user.uid
-        guard !uid.isEmpty else { return }
-        print("Start compare with uid \(uid)")
         self.remoteRepository.fetchUserBy(uid: uid)
             .sink { userinfo in
                 let remoteIds = userinfo.favoriteRecipesIDs
                 let localIds = self.localRepository.storagePublisher.value.favoriteRecipes.map { $0.recipeId } as [Int]
                 guard remoteIds.sorted() != localIds.sorted() else { return }
                 let uniqSet = Array(Set(remoteIds + localIds))
-                print("Uniq set \(uniqSet)")
-                self.recipesApiRepository.getRecipesInfoBy(ids: uniqSet)
+                self.recipesApiRepository.getRecipesBy(ids: uniqSet)
                     .sink { recipes in
                         self.remoteRepository.publish(recipe: recipes, uid: uid)
                         self.localRepository.save(favoriteRecipes: recipes)
