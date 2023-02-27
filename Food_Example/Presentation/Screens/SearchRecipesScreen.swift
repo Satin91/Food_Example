@@ -41,7 +41,7 @@ struct SearchRecipesScreen: View, TabBarActor {
             .toolbar(.hidden)
             .onAppear {
                 addFilterObservers()
-                showRandomRecipes()
+                //                showRandomRecipes()
             }
             .onReceive(container.appState.eraseToAnyPublisher()) { recipes = $0.searchableRecipes }
     }

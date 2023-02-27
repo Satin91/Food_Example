@@ -43,8 +43,8 @@ class AuthInteractorImpl: AuthInteractor {
                     break
                 }
             } receiveValue: { userInfo in
-                self.remoteRepository.create(user: userInfo)
                 self.localRepository.saveUserIfNeed(userInfo: userInfo)
+                self.remoteRepository.create(user: userInfo)
                 completion(.success(()))
             }
             .store(in: &cancelBag)

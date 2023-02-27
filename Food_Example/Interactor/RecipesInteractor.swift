@@ -16,6 +16,7 @@ protocol RecipesInteractor {
     func saveSeveralRecipes(_ recipes: List<Recipe>)
     func saveSingleRecipe(_ recipe: Recipe)
     func removeFavorite(index: Int)
+    func compareRemoteAndLocalRecipes()
 }
 
 class RecipesInteractorImpl: RecipesInteractor {
@@ -40,7 +41,6 @@ class RecipesInteractorImpl: RecipesInteractor {
     func searchRecipesBy(params: RecipesRequestParams, path: APIEndpoint) {
         self.recipesApiRepository.searchRecipesBy(params: params, path: path)
             .sink { recipes in
-                print("searh recipes by params \(recipes.map { $0.title })")
                 self.appState.value.searchableRecipes = recipes
             }
             .store(in: &cancelBag)
@@ -49,6 +49,7 @@ class RecipesInteractorImpl: RecipesInteractor {
     func getRecipeInfoBy(id: Int, completion: @escaping (Recipe) -> Void) {
         recipesApiRepository.getRecipeInfoBy(id: id)
             .sink { recipe in
+                print("Recipe \(recipe.title)")
                 completion(recipe)
             }
             .store(in: &cancelBag)
@@ -91,6 +92,27 @@ class RecipesInteractorImpl: RecipesInteractor {
             }
             .store(in: &cancelBag)
     }
+    
+    func compareRemoteAndLocalRecipes() {
+        let uid = self.appState.value.user.uid
+        guard !uid.isEmpty else { return }
+        print("Start compare with uid \(uid)")
+        self.remoteRepository.fetchUserBy(uid: uid)
+            .sink { userinfo in
+                let remoteIds = userinfo.favoriteRecipesIDs
+                let localIds = self.localRepository.storagePublisher.value.favoriteRecipes.map { $0.recipeId } as [Int]
+                guard remoteIds.sorted() != localIds.sorted() else { return }
+                let uniqSet = Array(Set(remoteIds + localIds))
+                print("Uniq set \(uniqSet)")
+                self.recipesApiRepository.getRecipesInfoBy(ids: uniqSet)
+                    .sink { recipes in
+                        self.remoteRepository.publish(recipe: recipes, uid: uid)
+                        self.localRepository.save(favoriteRecipes: recipes)
+                    }
+                    .store(in: &self.cancelBag)
+            }
+            .store(in: &self.cancelBag)
+    }
 }
 
 struct StubRecipesInteractor: RecipesInteractor {
@@ -115,6 +137,9 @@ struct StubRecipesInteractor: RecipesInteractor {
     }
     
     func saveSingleRecipe(_ recipe: Recipe) {
+    }
+    
+    func compareRemoteAndLocalRecipes() {
     }
 }
 

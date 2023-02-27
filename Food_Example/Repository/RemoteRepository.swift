@@ -27,14 +27,15 @@ final class RemoteRepositoryImpl: RemoteRepository {
     }
     
     func fetchUserBy(uid: String) -> Future<RemoteUserInfo, Never> {
-        Future { promise in
+        print("User uid \(uid)")
+        return Future { promise in
             Database.userReferenceFrom(uid: uid).getData { _, snapshot in
-                guard let remoteStorageUser = snapshot?.value as? [String: Any] else { return }
+                guard let remoteStorageUser = snapshot?.value as? NSDictionary else { return }
                 let userInfo = RemoteUserInfo(
                     uid: uid,
                     username: remoteStorageUser[UserInfoConfig.username] as! String,
                     email: remoteStorageUser[UserInfoConfig.email] as! String,
-                    favoriteRecipesIDs: remoteStorageUser[UserInfoConfig.favoriteRecipes] as! [Int]
+                    favoriteRecipesIDs: (remoteStorageUser[UserInfoConfig.favoriteRecipes] as? [Int]) ?? []
                 )
                 print("fetch user favorite recipes \(userInfo.favoriteRecipesIDs)")
                 promise(.success(userInfo))
@@ -43,11 +44,11 @@ final class RemoteRepositoryImpl: RemoteRepository {
     }
     
     func create(user: RemoteUserInfo) {
-        print("Publish user \(user)")
+        print("Create user by uid \(user.uid)")
         let values: [String: Any] = [
             UserInfoConfig.email: user.email,
             UserInfoConfig.username: user.username,
-            UserInfoConfig.favoriteRecipes: user.favoriteRecipesIDs
+            UserInfoConfig.favoriteRecipes: ""
         ]
         Database.userReferenceFrom(uid: user.uid).updateChildValues(values)
     }

@@ -18,17 +18,16 @@ protocol RecipesApiRepository {
 }
 
 class RecipesApiRepositoryImpl: RecipesApiRepository {
-    let recipeInfoDispatchGroup = DispatchGroup()
-    let searchRecipesDispatchGroup = DispatchGroup()
     var cancelBag = Set<AnyCancellable>()
     
     func getRecipeInfoBy(id: Int) -> Future<Recipe, Never> {
+        let recipeInfoDispatchGroup = DispatchGroup()
         var recipe: Recipe?
         var nutritients: Nutrient?
         var ingridients: RealmSwift.List<Ingredient>?
         return Future { [weak self] promise in
             guard let self else { return }
-            self.recipeInfoDispatchGroup.enter()
+            recipeInfoDispatchGroup.enter()
             self.searchRequest(
                 model: Recipe.self,
                 params: RecipesRequestParams(urlParams: [:]).URLParams,
@@ -36,12 +35,13 @@ class RecipesApiRepositoryImpl: RecipesApiRepository {
             )
             .sink(receiveCompletion: { error in
                 print(error)
+                return
             }, receiveValue: { receiveValue in
-                self.recipeInfoDispatchGroup.leave()
                 recipe = receiveValue
+                recipeInfoDispatchGroup.leave()
             })
             .store(in: &self.cancelBag)
-            self.recipeInfoDispatchGroup.enter()
+            recipeInfoDispatchGroup.enter()
             self.searchRequest(
                 model: Nutrient.self,
                 params: RecipesRequestParams(urlParams: [:]).URLParams,
@@ -49,12 +49,13 @@ class RecipesApiRepositoryImpl: RecipesApiRepository {
             )
             .sink(receiveCompletion: { error in
                 print(error)
+                return
             }, receiveValue: { receiveValue in
-                self.recipeInfoDispatchGroup.leave()
                 nutritients = receiveValue
+                recipeInfoDispatchGroup.leave()
             })
             .store(in: &self.cancelBag)
-            self.recipeInfoDispatchGroup.enter()
+            recipeInfoDispatchGroup.enter()
             self.searchRequest(
                 model: IngredientWrapper.self,
                 params: RecipesRequestParams(urlParams: [:]).URLParams,
@@ -62,12 +63,13 @@ class RecipesApiRepositoryImpl: RecipesApiRepository {
             )
             .sink(receiveCompletion: { error in
                 print(error)
+                return
             }, receiveValue: { receiveValue in
-                self.recipeInfoDispatchGroup.leave()
                 ingridients = receiveValue.ingredients
+                recipeInfoDispatchGroup.leave()
             })
             .store(in: &self.cancelBag)
-            self.recipeInfoDispatchGroup.notify(queue: .main) {
+            recipeInfoDispatchGroup.notify(queue: .main) {
                 guard let recipe, let nutritients, let ingridients else { return }
                 recipe.nutrients = nutritients
                 recipe.ingredients = ingridients
@@ -78,17 +80,19 @@ class RecipesApiRepositoryImpl: RecipesApiRepository {
     
     func getRecipesInfoBy(ids: [Int]) -> Future<List<Recipe>, Never> {
         Future { promise in
+            let dispatchGroup = DispatchGroup()
             let recipes = List<Recipe>()
-            ids.forEach { id in
-                self.searchRecipesDispatchGroup.enter()
+            for id in ids {
+                dispatchGroup.enter()
                 self.getRecipeInfoBy(id: id)
                     .sink { recipe in
+                        print("Debug: receive recipe \(id)")
                         recipes.append(recipe)
-                        self.searchRecipesDispatchGroup.leave()
+                        dispatchGroup.leave()
                     }
                     .store(in: &self.cancelBag)
             }
-            self.searchRecipesDispatchGroup.notify(queue: .main) {
+            dispatchGroup.notify(queue: .main) {
                 promise(.success(recipes))
             }
         }

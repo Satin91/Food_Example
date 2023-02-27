@@ -14,6 +14,7 @@ struct RootScreen: View {
     // Screens actions
     @State var onShowRecipeScreen: (Recipe) -> Void
     @State var backToSignInScreen: () -> Void
+    @Environment(\.injected) var container: DIContainer
     
     var body: some View {
         ZStack {
@@ -26,6 +27,9 @@ struct RootScreen: View {
                     AccountScreen(backToSignInScreen: backToSignInScreen)
                 ]
             )
+        }
+        .onAppear {
+            container.interactors.recipesInteractor.compareRemoteAndLocalRecipes()
         }
     }
 }
