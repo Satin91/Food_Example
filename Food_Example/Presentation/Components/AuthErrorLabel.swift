@@ -38,6 +38,8 @@ struct AuthErrorLabel: View {
             Text("Password must contain at least 6 characters")
         case .wrongPassword:
             Text("Wrong Password")
+        case .networkError:
+            Text("Network Error")
         default:
             Text(" ")
         }

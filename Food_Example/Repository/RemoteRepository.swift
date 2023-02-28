@@ -19,7 +19,7 @@ protocol RemoteRepository {
 
 final class RemoteRepositoryImpl: RemoteRepository {
     func publish(recipe: List<Recipe>, uid: String) {
-        var value = Array(recipe.map({ $0.recipeId }))
+        let value = Array(recipe.map({ $0.recipeId }))
         let publishedValues = ["favoriteRecipes": value]
         Database.userReferenceFrom(uid: uid).updateChildValues(publishedValues)
     }
@@ -28,8 +28,7 @@ final class RemoteRepositoryImpl: RemoteRepository {
     }
     
     func fetchUserBy(uid: String) -> Future<RemoteUserInfo, Never> {
-        print("User uid \(uid)")
-        return Future { promise in
+        Future { promise in
             Database.userReferenceFrom(uid: uid).getData { _, snapshot in
                 guard let remoteStorageUser = snapshot?.value as? NSDictionary else { return }
                 let userInfo = RemoteUserInfo(

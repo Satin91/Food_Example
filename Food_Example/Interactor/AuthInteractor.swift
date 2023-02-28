@@ -89,7 +89,9 @@ class AuthInteractorImpl: AuthInteractor {
         authRepository.signUpWithGoogle()
             .sink { _ in
                 completion(.failure(GoogleSignUpError.userCancel))
-            } receiveValue: { _ in
+            } receiveValue: { userInfo in
+                self.localRepository.saveUserIfNeed(userInfo: userInfo)
+                self.remoteRepository.create(user: userInfo)
                 completion(.success(Void()))
             }
             .store(in: &cancelBag)

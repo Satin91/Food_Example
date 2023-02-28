@@ -44,7 +44,7 @@ class AuthRemoteRepositoryImpl: AuthRemoteRepository {
             // Create user
             Auth.auth().createUser(withEmail: info.email, password: info.password) { result, error in
                 guard error == nil else { return promise(.failure(error as! AuthErrorCode)) }
-                guard var user = result?.user else {
+                guard let user = result?.user else {
                     promise(.failure(AuthErrorCode(.userMismatch)))
                     return }
                 let userInfo = RemoteUserInfo(uid: user.uid, username: info.username, email: info.email)
@@ -83,7 +83,6 @@ class AuthRemoteRepositoryImpl: AuthRemoteRepository {
                     promise(.failure(.userError))
                     return
                 }
-                guard let user = result?.user else { return }
                 let userInfo = RemoteUserInfo(uid: result?.user.userID ?? "ID", username: profile.name, email: profile.email, favoriteRecipesIDs: [0])
                 promise(.success(userInfo))
             }
@@ -93,7 +92,9 @@ class AuthRemoteRepositoryImpl: AuthRemoteRepository {
     func logout() -> Future<Void, Never> {
         Future<Void, Never> { promise in
             do {
-                try Auth.auth().signOut()
+                try
+                Auth.auth().signOut()
+                GIDSignIn.sharedInstance.signOut()
                 promise(.success(()))
             } catch {
                 fatalError("Sudden error when User logging out")

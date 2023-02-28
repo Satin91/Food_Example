@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */; };
-		8E129DDA29778F7B00D9C442 /* AnimateButtonTapeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DD929778F7B00D9C442 /* AnimateButtonTapeModifier.swift */; };
+		8E129DDA29778F7B00D9C442 /* AnimateButtonTapModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E129DD929778F7B00D9C442 /* AnimateButtonTapModifier.swift */; };
 		8E140EF42984B62500757DE6 /* NutrientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E140EF32984B62500757DE6 /* NutrientView.swift */; };
 		8E15C3DE297A1FFD00BAF333 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3DD297A1FFD00BAF333 /* AppState.swift */; };
 		8E15C3E0297A245700BAF333 /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15C3DF297A245700BAF333 /* DependencyInjection.swift */; };
@@ -29,7 +29,6 @@
 		8E1E3EDB297065FE00990D9D /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ED2297065FE00990D9D /* Poppins-SemiBold.ttf */; };
 		8E1E3EDC297065FE00990D9D /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ED3297065FE00990D9D /* Poppins-Light.ttf */; };
 		8E1E3EDD297065FE00990D9D /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3ED4297065FE00990D9D /* Poppins-ExtraBold.ttf */; };
-		8E1E3EE12970697000990D9D /* Food-Example-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE02970697000990D9D /* Food-Example-Info.plist */; };
 		8E1E3EE629706E0700990D9D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE529706E0700990D9D /* AppCoordinator.swift */; };
 		8E1E3EEA297072C600990D9D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E3EE9297072C600990D9D /* Fonts.swift */; };
 		8E1E3EEC297075F100990D9D /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E1E3EEB297075F100990D9D /* DMSans-Bold.ttf */; };
@@ -86,6 +85,8 @@
 		8EBD2BCB299EA07F00411C0E /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBD2BCA299EA07F00411C0E /* Store.swift */; };
 		8EBD2BCD299EDC9F00411C0E /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBD2BCC299EDC9F00411C0E /* Loadable.swift */; };
 		8EBFCA4F2972C5890056C8BF /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */; };
+		8EC0976829AE8FC300A2799F /* AccountSettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0976729AE8FC300A2799F /* AccountSettingsScreen.swift */; };
+		8EC0976A29AE9D8700A2799F /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0976929AE9D8700A2799F /* NavBarButton.swift */; };
 		8EC926E7297466490012B0D5 /* RecipeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC926E6297466490012B0D5 /* RecipeGrid.swift */; };
 		8ECB36282971A5B30015646D /* OnboardingNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB36272971A5B30015646D /* OnboardingNavigationButton.swift */; };
 		8ECB362C2971AA5F0015646D /* ShadowModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */; };
@@ -102,7 +103,7 @@
 
 /* Begin PBXFileReference section */
 		8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarTextModifiers.swift; sourceTree = "<group>"; };
-		8E129DD929778F7B00D9C442 /* AnimateButtonTapeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateButtonTapeModifier.swift; sourceTree = "<group>"; };
+		8E129DD929778F7B00D9C442 /* AnimateButtonTapModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateButtonTapModifier.swift; sourceTree = "<group>"; };
 		8E140EF32984B62500757DE6 /* NutrientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutrientView.swift; sourceTree = "<group>"; };
 		8E15C3DD297A1FFD00BAF333 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		8E15C3DF297A245700BAF333 /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
@@ -181,6 +182,8 @@
 		8EBD2BCA299EA07F00411C0E /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		8EBD2BCC299EDC9F00411C0E /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
 		8EBFCA4E2972C5890056C8BF /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
+		8EC0976729AE8FC300A2799F /* AccountSettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsScreen.swift; sourceTree = "<group>"; };
+		8EC0976929AE9D8700A2799F /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		8EC926E6297466490012B0D5 /* RecipeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeGrid.swift; sourceTree = "<group>"; };
 		8ECB36272971A5B30015646D /* OnboardingNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationButton.swift; sourceTree = "<group>"; };
 		8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowModifiers.swift; sourceTree = "<group>"; };
@@ -408,6 +411,7 @@
 				8E8755A22992D9BE00DFF1B5 /* RootScreen.swift */,
 				8E287836296EE1FB00AD8D25 /* SearchRecipesScreen.swift */,
 				8E375A60299534A700481727 /* AccountScreen.swift */,
+				8EC0976729AE8FC300A2799F /* AccountSettingsScreen.swift */,
 				8E8755A42992E51300DFF1B5 /* FavoriteRecipesScreen.swift */,
 				8E1E3EF229707C2C00990D9D /* OnboardingScreen.swift */,
 				8E39E151297B7C8C0042A551 /* ResetPasswordScreen.swift */,
@@ -457,6 +461,7 @@
 				8E88ECCB297B920A00ACF1C7 /* LottieView.swift */,
 				8E7DDECB2981DB3B00D60038 /* LoadableImage.swift */,
 				8E140EF32984B62500757DE6 /* NutrientView.swift */,
+				8EC0976929AE9D8700A2799F /* NavBarButton.swift */,
 				8E1E3EF62970823D00990D9D /* OnboardingPageView.swift */,
 				8ECB36272971A5B30015646D /* OnboardingNavigationButton.swift */,
 				8EC926E6297466490012B0D5 /* RecipeGrid.swift */,
@@ -472,7 +477,7 @@
 			children = (
 				8ECB362B2971AA5F0015646D /* ShadowModifiers.swift */,
 				8E129DCD29775A0600D9C442 /* NavBarTextModifiers.swift */,
-				8E129DD929778F7B00D9C442 /* AnimateButtonTapeModifier.swift */,
+				8E129DD929778F7B00D9C442 /* AnimateButtonTapModifier.swift */,
 				8E8515BE29852E9600BFCF11 /* ScrollViewOffsetModifier.swift */,
 				8EABA761298BF6D7003A5514 /* PopupModifier.swift */,
 			);
@@ -532,7 +537,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					8E287830296EE1FB00AD8D25 = {
 						CreatedOnToolsVersion = 14.0.1;
@@ -579,7 +584,6 @@
 				8E88ECDA297BA03700ACF1C7 /* Loader.json in Resources */,
 				8E1E3EF92970878700990D9D /* Colors.xcassets in Resources */,
 				8E1E3EDA297065FE00990D9D /* Poppins-Regular.ttf in Resources */,
-				8E1E3EE12970697000990D9D /* Food-Example-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,7 +704,8 @@
 				8E330989297F3972006B2145 /* RecipesApiRepository.swift in Sources */,
 				8EB243232976E2BF00C1076C /* SignInScreen.swift in Sources */,
 				8E129DCE29775A0600D9C442 /* NavBarTextModifiers.swift in Sources */,
-				8E129DDA29778F7B00D9C442 /* AnimateButtonTapeModifier.swift in Sources */,
+				8E129DDA29778F7B00D9C442 /* AnimateButtonTapModifier.swift in Sources */,
+				8EC0976A29AE9D8700A2799F /* NavBarButton.swift in Sources */,
 				8E2C291D2987976400793BF3 /* IngredientView.swift in Sources */,
 				8E623D98299AC6FF006E29A2 /* LocalRepository.swift in Sources */,
 				8E87559F2992D88200DFF1B5 /* TabBarActor.swift in Sources */,
@@ -715,6 +720,7 @@
 				8E8755962992607400DFF1B5 /* String.swift in Sources */,
 				8E15C3EB297A3EA500BAF333 /* AppEnvironment.swift in Sources */,
 				8E1E11A12978E3CA00CD62DF /* RegistrationInfo.swift in Sources */,
+				8EC0976829AE8FC300A2799F /* AccountSettingsScreen.swift in Sources */,
 				8E7DDECC2981DB3B00D60038 /* LoadableImage.swift in Sources */,
 				8E1E3EE629706E0700990D9D /* AppCoordinator.swift in Sources */,
 				8E15C3E2297A2CDD00BAF333 /* InteractorsContainer.swift in Sources */,

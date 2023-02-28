@@ -22,44 +22,40 @@ final class SessionService: ObservableObject {
     private var handle: AuthStateDidChangeListenerHandle?
     
     init() {
-        setupFirebaseAuthHandler()
-        signUpWithGoogle()
+        googleConfiguration()
+        authHandler()
     }
     
-    private func setupFirebaseAuthHandler() {
-        handle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
-            print("User \(user?.email)")
-            guard let self else { return }
+    private func authHandler() {
+        restoreFirebaseSignIn()
+        restoreGoogleSignIn()
+    }
+    
+    private func restoreFirebaseSignIn() {
+        handle = Auth.auth().addStateDidChangeListener { _, user in
+            guard let user else { return }
+            print("Firebase auth sing in \(String(describing: user.email))")
             let userInfo = RemoteUserInfo()
-            userInfo.uid = user?.uid ?? "ID"
-            userInfo.username = user?.displayName ?? "No user name"
-            userInfo.email = user?.email ?? "No email"
-            self.state = user == nil ? .loggedOut : .loggedIn(userInfo)
+            userInfo.uid = user.uid
+            userInfo.username = user.displayName ?? "No user name"
+            userInfo.email = user.email ?? "No email"
+            self.state = .loggedIn(userInfo)
         }
     }
     
-    //    private func handleRefresh(email: String) {
-    //        Database.userReferenceFrom(uid: email)
-    //            .observe(.value) { [weak self] snapshot in
-    //                guard
-    //                    let self = self,
-    //                    let value = snapshot.value as? NSDictionary,
-    //                    let username = value["username"] as? String,
-    //                    let email = value["email"] as? String else {
-    //                    return
-    //                }
-    //
-    //                DispatchQueue.main.async {
-    //                    self.userInfo = UserInfo(
-    //                        username: username,
-    //                        email: email,
-    //                        recipes: []
-    //                    )
-    //                }
-    //            }
-    //    }
+    private func restoreGoogleSignIn() {
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, _ in
+            guard let user else { return }
+            print("Goolge auth sing in \(String(describing: user.profile?.email))")
+            let userInfo = RemoteUserInfo()
+            userInfo.uid = user.userID ?? "ID"
+            userInfo.username = user.profile?.name ?? "No user name"
+            userInfo.email = user.profile?.email ?? "No email"
+            self.state = .loggedIn(userInfo)
+        }
+    }
     
-    private func signUpWithGoogle() {
+    private func googleConfiguration() {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config

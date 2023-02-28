@@ -21,7 +21,8 @@ struct SplashScreen: View {
                 .font(Fonts.makeFont(.bold, size: Constants.FontSizes.extraLarge))
                 .foregroundColor(Colors.red)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        print("SessionService state \(sessionService.state)")
                         switch sessionService.state {
                         case .loggedIn(let user):
                             container.interactors.userInteractor.loadUserFromDB(userInfo: user)

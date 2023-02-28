@@ -13,6 +13,7 @@ struct RootScreen: View {
     @State var currentScreen: any TabBarActor
     // Screens actions
     @State var onShowRecipeScreen: (Recipe) -> Void
+    @State var onAccountSettingsScreen: () -> Void
     @State var backToSignInScreen: () -> Void
     @Environment(\.injected) var container: DIContainer
     
@@ -24,7 +25,10 @@ struct RootScreen: View {
                 tabItems: [
                     SearchRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
                     FavoriteRecipesScreen(onShowRecipeScreen: onShowRecipeScreen),
-                    AccountScreen(backToSignInScreen: backToSignInScreen)
+                    AccountScreen(
+                        onAccoundSettingsScreen: onAccountSettingsScreen,
+                        backToSignInScreen: backToSignInScreen
+                    )
                 ]
             )
         }
@@ -36,6 +40,6 @@ struct RootScreen: View {
 
 struct RootScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RootScreen(currentScreen: SearchRecipesScreen(onShowRecipeScreen: { _ in }), onShowRecipeScreen: { _ in }, backToSignInScreen: {})
+        RootScreen(currentScreen: SearchRecipesScreen(onShowRecipeScreen: { _ in }), onShowRecipeScreen: { _ in }, onAccountSettingsScreen: {}, backToSignInScreen: {})
     }
 }

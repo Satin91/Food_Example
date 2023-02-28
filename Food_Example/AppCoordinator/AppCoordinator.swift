@@ -14,6 +14,7 @@ enum Screen {
     case splashScreen
     case onboardingScreen
     case mainScreen
+    case accountSettingsScreen
     case favoriteRecipeScreen
     case recipeScreen(Recipe)
     case instructionsScreen(URL)
@@ -32,12 +33,15 @@ struct AppCoordinator: View {
                 RootScreen(
                     currentScreen: SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:)),
                     onShowRecipeScreen: pushToRecipeScreen(recipe:),
+                    onAccountSettingsScreen: pushToAccountSettingScreen,
                     backToSignInScreen: {
                         backToSignInScreen()
                     }
                 )
             case .mainScreen:
                 SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
+            case .accountSettingsScreen:
+                AccountSettingsScreen()
             case .favoriteRecipeScreen:
                 FavoriteRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .recipeScreen(let recipe):
@@ -74,6 +78,10 @@ struct AppCoordinator: View {
     }
     
     // MARK: Push
+    private func pushToAccountSettingScreen() {
+        routes.push(.accountSettingsScreen)
+    }
+    
     private func pushToSignInScreen() {
         routes.push(.signInScreen)
     }

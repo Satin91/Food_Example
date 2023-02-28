@@ -11,6 +11,7 @@ struct AccountScreen: View, TabBarActor {
     var tabImage: String = Images.icnUserFilled
     var tabSelectedColor: Color = Colors.dark
     @Environment(\.injected) var container: DIContainer
+    var onAccoundSettingsScreen: () -> Void
     var backToSignInScreen: () -> Void
     @State var user = RemoteUserInfo()
     
@@ -61,13 +62,14 @@ struct AccountScreen: View, TabBarActor {
     private var accountSettingsSection: some View {
         VStack(spacing: .zero) {
             sectionDivider(text: "ACCOUNT SETTINGS")
-            settingRow(image: Images.icnUserSettings, text: "Edit Profile", action: {})
+            settingRow(image: Images.icnUserSettings, text: "Edit Profile", action: {
+                onAccoundSettingsScreen()
+            })
             settingRow(image: Images.icnShield, text: "Change Password", action: {})
             sectionDivider(text: "PREFERENCES")
             settingRow(image: Images.icnMoon, text: "Night Mode", action: {})
-            settingRow(image: Images.icnLogout, text: "Log Out", action: {
+            settingRow(image: Images.icnLogout, text: "Log Out", color: Colors.red, action: {
                 container.interactors.authInteractor.logout {
-                    print("Back to sign in screen")
                     backToSignInScreen()
                 }
             })
@@ -90,21 +92,18 @@ struct AccountScreen: View, TabBarActor {
             }
     }
     
-    private func settingRow(image: String, text: String, action: @escaping () -> Void) -> some View {
+    private func settingRow(image: String, text: String, color: Color = Colors.weakGray, action: @escaping () -> Void) -> some View {
         HStack(spacing: Constants.Spacing.s) {
             Image(image)
                 .renderingMode(.template)
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(Colors.weakGray)
-                .frame(width: 12)
+                .foregroundColor(color)
                 .padding(10)
                 .background {
                     Circle()
                         .foregroundColor(Colors.backgroundWhite)
                 }
             Text(text)
-                .font(Fonts.makeFont(.medium, size: Constants.FontSizes.minimum))
+                .font(Fonts.makeFont(.medium, size: Constants.FontSizes.small))
                 .foregroundColor(Colors.weakDark)
             Spacer()
             Image(Images.icnChevronRight)
@@ -112,7 +111,7 @@ struct AccountScreen: View, TabBarActor {
                 .foregroundColor(Colors.silver)
         }
         .padding(Constants.Spacing.s)
-        .onTapGesture {
+        .onTapGestureAnimated {
             action()
         }
     }
@@ -120,6 +119,6 @@ struct AccountScreen: View, TabBarActor {
 
 struct AccountScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AccountScreen(backToSignInScreen: {})
+        AccountScreen(onAccoundSettingsScreen: {}, backToSignInScreen: {})
     }
 }
