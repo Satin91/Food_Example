@@ -79,7 +79,7 @@ struct SignInScreen: View {
         RoundedFilledButton(text: "Sign In", action: {
             container.interactors.authInteractor.logIn(info: registrationInfo) { result in
                 switch result {
-                case .success(let user):
+                case .success:
                     onRootScreen()
                 case .failure(let error):
                     authError = error.code

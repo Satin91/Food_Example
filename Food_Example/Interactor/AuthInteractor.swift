@@ -44,7 +44,7 @@ class AuthInteractorImpl: AuthInteractor {
                 }
             } receiveValue: { userInfo in
                 self.localRepository.saveUserIfNeed(userInfo: userInfo)
-                self.remoteRepository.create(user: userInfo)
+                self.remoteRepository.publish(user: userInfo)
                 completion(.success(()))
             }
             .store(in: &cancelBag)
@@ -91,7 +91,7 @@ class AuthInteractorImpl: AuthInteractor {
                 completion(.failure(GoogleSignUpError.userCancel))
             } receiveValue: { userInfo in
                 self.localRepository.saveUserIfNeed(userInfo: userInfo)
-                self.remoteRepository.create(user: userInfo)
+                self.remoteRepository.publish(user: userInfo)
                 completion(.success(Void()))
             }
             .store(in: &cancelBag)

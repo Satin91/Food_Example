@@ -8,17 +8,16 @@
 import Foundation
 import RealmSwift
 
-final class RemoteUserInfo {
+struct RemoteUserInfo {
     var uid: String = ""
     var username: String = ""
     var email: String = ""
     var favoriteRecipesIDs = [Int]()
-    
-    convenience init(uid: String, username: String, email: String, favoriteRecipesIDs: [Int] = [0]) {
-        self.init()
-        self.uid = uid
-        self.username = username
-        self.email = email
-        self.favoriteRecipesIDs = favoriteRecipesIDs
-    }
+    //    convenience init(uid: String, username: String, email: String, favoriteRecipesIDs: [Int] = [0]) {
+    //        self.init()
+    //        self.uid = uid
+    //        self.username = username
+    //        self.email = email
+    //        self.favoriteRecipesIDs = favoriteRecipesIDs
+    //    }
 }

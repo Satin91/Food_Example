@@ -82,6 +82,7 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     func removeFavorite(index: Int) {
         localRepository.removeFavorite(from: index)
+        appState.value.userRecipes = localRepository.storagePublisher.value.favoriteRecipes
         updateRemoteStorage()
     }
     
@@ -95,6 +96,7 @@ class RecipesInteractorImpl: RecipesInteractor {
     
     func compareRemoteAndLocalRecipes() {
         let uid = self.appState.value.user.uid
+        guard !uid.isEmpty else { return }
         self.remoteRepository.fetchUserBy(uid: uid)
             .sink { userinfo in
                 let remoteIds = userinfo.favoriteRecipesIDs

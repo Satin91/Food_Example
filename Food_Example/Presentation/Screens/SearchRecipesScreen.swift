@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SearchRecipesScreen: View, TabBarActor {
     var tabImage: String = Images.icnSearchFilled
-    var tabSelectedColor: Color = Colors.dark
+    var tabSelectedColor: Color = Colors.weakBlue
     
     @Environment(\.injected) var container: DIContainer
     @State private var allCategoriesTextPublisher = CurrentValueSubject<String, Never>("")
@@ -120,7 +120,7 @@ struct SearchRecipesScreen: View, TabBarActor {
             Image(Images.icnFilter)
                 .renderingMode(.template)
                 .resizable()
-                .foregroundColor(Colors.gray)
+                .foregroundColor(Colors.weakDark)
                 .frame(width: 30, height: 30)
         }
     }
@@ -182,11 +182,10 @@ struct SearchRecipesScreen: View, TabBarActor {
     
     private func roundedBackground(content: some View) -> some View {
         RoundedRectangle(cornerRadius: Constants.cornerRadius)
+            .stroke(Colors.neutralGray, lineWidth: 2)
             .foregroundColor(.white)
-            .background(Colors.backgroundWhite)
             .cornerRadius(Constants.cornerRadius)
             .frame(width: .infinity, height: searchViewHeight)
-            .modifier(LightShadowModifier())
             .overlay {
                 content
             }

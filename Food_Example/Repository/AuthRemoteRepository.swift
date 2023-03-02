@@ -18,6 +18,7 @@ protocol AuthRemoteRepository {
     func resetPassword(to email: String) -> AnyPublisher<Void, AuthErrorCode>
     func signUpWithGoogle() -> Future<RemoteUserInfo, GoogleSignUpError>
     func logout() -> Future<Void, Never>
+    func updateEmail(email: String) -> Future<Void, AuthErrorCode>
 }
 
 class AuthRemoteRepositoryImpl: AuthRemoteRepository {
@@ -85,6 +86,18 @@ class AuthRemoteRepositoryImpl: AuthRemoteRepository {
                 }
                 let userInfo = RemoteUserInfo(uid: result?.user.userID ?? "ID", username: profile.name, email: profile.email, favoriteRecipesIDs: [0])
                 promise(.success(userInfo))
+            }
+        }
+    }
+    
+    func updateEmail(email: String) -> Future<Void, AuthErrorCode> {
+        Future { promise in
+            Auth.auth().currentUser?.updateEmail(to: email) { error in
+                if error == nil {
+                    promise(.success(()))
+                } else {
+                    promise(.failure(error as! AuthErrorCode))
+                }
             }
         }
     }

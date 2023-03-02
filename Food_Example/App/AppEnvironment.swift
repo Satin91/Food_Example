@@ -33,7 +33,7 @@ struct AppEnvironment {
         .init(
             authInteractor: AuthInteractorImpl(authRepository: authRepository, localRepository: localRepository, remoteRepository: remoteRepository, appState: appstate),
             recipesInteractor: RecipesInteractorImpl(recipesApiRepository: RecipesApiRepositoryImpl(), localRepository: localRepository, remoteRepository: remoteRepository, appState: appstate),
-            userInteractor: UserInteractorImpl(dbRepository: localRepository, authRepository: authRepository, appState: appstate)
+            userInteractor: UserInteractorImpl(localRepository: localRepository, remoteRepository: remoteRepository, authRepository: authRepository, appState: appstate)
         )
     }
 }

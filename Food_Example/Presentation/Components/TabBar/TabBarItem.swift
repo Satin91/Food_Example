@@ -13,16 +13,25 @@ struct TabBarItem: View {
     let itemIndex: Int
     let selectedColor: Color
     let placeHolderColor = Colors.silver
-    var isSelected: Bool
     let iconSize: CGFloat = 30
+    
+    var isSelected: Bool
+    
     var body: some View {
-        Image(itemImage)
-            .resizable()
-            .renderingMode(.template)
-            .foregroundColor(
-                isSelected ? selectedColor : placeHolderColor
-            )
-            .frame(width: iconSize, height: iconSize, alignment: .top)
+        HStack(spacing: .zero) {
+            Image(itemImage)
+                .resizable()
+                .renderingMode(.template)
+                .foregroundColor(
+                    isSelected ? selectedColor : placeHolderColor
+                )
+                .modifier(LightShadowModifier(color: isSelected ? selectedColor : .clear))
+                .frame(width: iconSize, height: iconSize, alignment: .top)
+        }
+        .padding(Constants.Spacing.xxs)
+        .padding(.horizontal, Constants.Spacing.s)
+        .background(isSelected ? Colors.neutralGray.opacity(0.1) : .clear)
+        .cornerRadius(12)
     }
 }
 

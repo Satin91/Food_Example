@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountScreen: View, TabBarActor {
     var tabImage: String = Images.icnUserFilled
-    var tabSelectedColor: Color = Colors.dark
+    var tabSelectedColor: Color = Colors.green
     @Environment(\.injected) var container: DIContainer
     var onAccoundSettingsScreen: () -> Void
     var backToSignInScreen: () -> Void

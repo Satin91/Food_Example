@@ -25,7 +25,7 @@ struct TabBar: View {
     
     private var tabItemsContainer: some View {
         VStack {
-            HStack(alignment: .top, spacing: 0) {
+            HStack(alignment: .top, spacing: 8) {
                 ForEach(tabItems.indices, id: \.self) { index in
                     TabBarItem(
                         itemImage: tabItems[index].tabImage,
@@ -43,10 +43,11 @@ struct TabBar: View {
                     }
                 }
             }
-            .padding(.bottom, Constants.Spacing.l)
-            .padding(.top, Constants.Spacing.s)
+            .padding(Constants.Spacing.s)
         }
-        .background(Color.white)
-        .modifier(LargeShadowModifier())
+        .background(Colors.neutralGray)
+        .cornerRadius(Constants.cornerRadius)
+        .padding(Constants.Spacing.s)
+        .padding(.bottom, Constants.Spacing.xs)
     }
 }

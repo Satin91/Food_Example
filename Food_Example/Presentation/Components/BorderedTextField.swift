@@ -18,6 +18,8 @@ struct BorderedTextField: View {
     @Binding var text: String
     @Binding var verificationError: AuthErrorCode.Code?
     @State var isPasswordHidden = true
+    let viewHeight: CGFloat = 56
+    
     var borderColor: Color {
         switch verificationError {
         case .userNotFound, .missingEmail, .invalidEmail, .emailAlreadyInUse:
@@ -73,6 +75,7 @@ struct BorderedTextField: View {
         VStack(alignment: .leading, spacing: Constants.Spacing.xxs) {
             titleView
             borderedTextFieldView
+                .frame(height: viewHeight)
         }
         .padding(.horizontal, Constants.Spacing.s)
     }
@@ -101,13 +104,15 @@ struct BorderedTextField: View {
     }
     
     @ViewBuilder var textField: some View {
-        if textFieldType == .password, isPasswordHidden {
-            SecureField(placeholderText, text: $text)
-                .modifier(TextFieldModifier())
-        } else {
-            TextField(placeholderText, text: $text)
-                .modifier(TextFieldModifier())
+        Group {
+            if textFieldType == .password, isPasswordHidden {
+                SecureField(placeholderText, text: $text)
+            } else {
+                TextField(placeholderText, text: $text)
+            }
         }
+        .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
+        .foregroundColor(Colors.dark)
     }
     
     var secureField: some View {
@@ -137,13 +142,5 @@ struct BorderedTextField: View {
 struct BorderedTextField_Previews: PreviewProvider {
     static var previews: some View {
         BorderedTextField(text: .constant("Keks"), verificationError: .constant(.none), textFieldType: .userName)
-    }
-}
-
-struct TextFieldModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(Fonts.makeFont(.regular, size: Constants.FontSizes.small))
-            .foregroundColor(Colors.dark)
     }
 }

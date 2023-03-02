@@ -10,12 +10,16 @@ import SwiftUI
 
 struct FavoriteRecipesScreen: View, TabBarActor {
     var tabImage: String = Images.icnHomeFilled
-    var tabSelectedColor: Color = Colors.dark
+    var tabSelectedColor: Color = Colors.red
+    
     @Environment(\.injected) var container: DIContainer
+    @State private var recipes = RealmSwift.List<Recipe>()
+    @State var isShowEmptyView = false
     var onShowRecipeScreen: (Recipe) -> Void
     
     var body: some View {
         content
+            .onReceive(container.appState.eraseToAnyPublisher(), perform: { isShowEmptyView = $0.userRecipes.isEmpty })
             .toolbar(.hidden)
     }
     
@@ -23,6 +27,12 @@ struct FavoriteRecipesScreen: View, TabBarActor {
         VStack {
             navigationBar
             favoriteRecipesList
+                .overlay {
+                    emptyFavoriteRecipesView
+                        .opacity(isShowEmptyView ? 1 : 0)
+                        .animation(.easeIn(duration: 0.3), value: isShowEmptyView)
+                }
+            Spacer()
         }
     }
     
@@ -49,6 +59,18 @@ struct FavoriteRecipesScreen: View, TabBarActor {
             }
         }
         .listStyle(.plain)
+    }
+    
+    private var emptyFavoriteRecipesView: some View {
+        VStack(spacing: Constants.Spacing.s) {
+            Text("No favorite recipes yet")
+                .font(Fonts.makeFont(.light, size: Constants.FontSizes.extraLarge))
+                .foregroundColor(Colors.silver)
+                .multilineTextAlignment(.center)
+            Text("Find a recipe, mark it as a favorite.")
+                .font(Fonts.makeFont(.light, size: Constants.FontSizes.extraMedium))
+                .foregroundColor(Colors.weakBlue)
+        }
     }
 }
 

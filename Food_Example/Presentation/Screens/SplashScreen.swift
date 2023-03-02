@@ -22,9 +22,9 @@ struct SplashScreen: View {
                 .foregroundColor(Colors.red)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        print("SessionService state \(sessionService.state)")
                         switch sessionService.state {
                         case .loggedIn(let user):
+                            print("Logged user \(user)")
                             container.interactors.userInteractor.loadUserFromDB(userInfo: user)
                             onRootScreen()
                         case .loggedOut:

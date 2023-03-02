@@ -16,6 +16,7 @@ protocol LocalRepository {
     func loadUserStorage(userInfo: RemoteUserInfo)
     func save(favoriteRecipes: RealmSwift.List<Recipe>)
     func save(favoriteRecipe: Recipe)
+    func update(user: RemoteUserInfo)
     func saveUserIfNeed(userInfo: RemoteUserInfo)
     func removeFavorite(from index: Int)
 }
@@ -43,6 +44,7 @@ final class LocalRepositoryImpl: LocalRepository {
             loadUserStorage(userInfo: userInfo)
         }
     }
+    
     func save(favoriteRecipes: RealmSwift.List<Recipe>) {
         realmTransaction {
             favoriteRecipes.forEach { recipe in
@@ -64,12 +66,21 @@ final class LocalRepositoryImpl: LocalRepository {
     func removeFavorite(from index: Int) {
         realmTransaction {
             storagePublisher.value.favoriteRecipes.remove(at: index)
+            storagePublisher.send(storagePublisher.value)
         }
     }
     
     func createStorageIfNeed() {
         if realmObjects.isEmpty {
             $realmObjects.append(UserRealm())
+        }
+    }
+    
+    func update(user: RemoteUserInfo) {
+        realmTransaction {
+            storagePublisher.value.username = user.username
+            storagePublisher.value.email = user.email
+            storagePublisher.value.uid = user.uid
         }
     }
 }

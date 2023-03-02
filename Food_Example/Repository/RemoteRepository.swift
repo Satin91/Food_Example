@@ -11,7 +11,7 @@ import Foundation
 import RealmSwift
 
 protocol RemoteRepository {
-    func create(user: RemoteUserInfo)
+    func publish(user: RemoteUserInfo)
     func publish(recipe: List<Recipe>, uid: String)
     func fetch(recipes: List<Recipe>)
     func fetchUserBy(uid: String) -> Future<RemoteUserInfo, Never>
@@ -42,12 +42,12 @@ final class RemoteRepositoryImpl: RemoteRepository {
         }
     }
     
-    func create(user: RemoteUserInfo) {
+    func publish(user: RemoteUserInfo) {
         print("Create user by uid \(user.uid)")
         let values: [String: Any] = [
             UserInfoConfig.email: user.email,
             UserInfoConfig.username: user.username,
-            UserInfoConfig.favoriteRecipes: ""
+            UserInfoConfig.favoriteRecipes: user.favoriteRecipesIDs.isEmpty ? "" : user.favoriteRecipesIDs
         ]
         Database.userReferenceFrom(uid: user.uid).updateChildValues(values)
     }

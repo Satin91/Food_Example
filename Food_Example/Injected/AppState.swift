@@ -8,16 +8,16 @@
 import Combine
 import Foundation
 import RealmSwift
+import SwiftUI
 
 struct AppState {
     static var stub: AppState {
         AppState()
     }
     var cancelBag = Set<AnyCancellable>()
-    var userRecipes = List<Recipe>()
+    var userRecipes = RealmSwift.List<Recipe>()
     var user = RemoteUserInfo()
-    var isLoggedIn = false
-    var searchableRecipes = List<Recipe>()
+    var searchableRecipes = RealmSwift.List<Recipe>()
 }
 
 extension Store<AppState> {

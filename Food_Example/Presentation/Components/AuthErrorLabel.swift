@@ -45,3 +45,34 @@ struct AuthErrorLabel: View {
         }
     }
 }
+
+extension AuthErrorCode.Code {
+    var description: String {
+        switch self {
+        case .invalidEmail:
+            return "Invalid Email"
+        case .missingEmail:
+            return "Email must be provided"
+        case .emailAlreadyInUse:
+            return "Email already in use"
+        case .userNotFound:
+            return "User not found"
+        case .weakPassword:
+            return "Password must contain at least 6 characters"
+        case .wrongPassword:
+            return "Wrong Password"
+        case .networkError:
+            return "Network Error"
+        case .emailChangeNeedsVerification:
+            return "Need to reauthorize"
+        case .requiresRecentLogin:
+            return "Need reautorize to change email"
+        case .invalidRecipientEmail:
+            return "Recipient email"
+        case .unverifiedEmail:
+            return "Unverified email"
+        default:
+            return "None"
+        }
+    }
+}

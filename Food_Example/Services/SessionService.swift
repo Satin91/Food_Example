@@ -35,7 +35,7 @@ final class SessionService: ObservableObject {
         handle = Auth.auth().addStateDidChangeListener { _, user in
             guard let user else { return }
             print("Firebase auth sing in \(String(describing: user.email))")
-            let userInfo = RemoteUserInfo()
+            var userInfo = RemoteUserInfo()
             userInfo.uid = user.uid
             userInfo.username = user.displayName ?? "No user name"
             userInfo.email = user.email ?? "No email"
@@ -47,7 +47,7 @@ final class SessionService: ObservableObject {
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, _ in
             guard let user else { return }
             print("Goolge auth sing in \(String(describing: user.profile?.email))")
-            let userInfo = RemoteUserInfo()
+            var userInfo = RemoteUserInfo()
             userInfo.uid = user.userID ?? "ID"
             userInfo.username = user.profile?.name ?? "No user name"
             userInfo.email = user.profile?.email ?? "No email"

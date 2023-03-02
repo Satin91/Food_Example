@@ -41,7 +41,7 @@ struct AppCoordinator: View {
             case .mainScreen:
                 SearchRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .accountSettingsScreen:
-                AccountSettingsScreen()
+                AccountSettingsScreen(back: back)
             case .favoriteRecipeScreen:
                 FavoriteRecipesScreen(onShowRecipeScreen: pushToRecipeScreen(recipe:))
             case .recipeScreen(let recipe):
